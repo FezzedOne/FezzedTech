@@ -1,0 +1,38 @@
+{
+  "fezzedTechs": {
+    "name": "FezzedTech",
+    "bannerName": "FezzedTech bindings",
+    "binds": {
+      "sitBind": {
+        "default": [
+          {
+            "type": "key",
+            "value": "G",
+            "mods": []
+          }
+        ],
+        "name": "Toggle sitting"
+      },
+      "roleplayModeBind": {
+        "default": [
+          {
+            "type": "key",
+            "value": "Z",
+            "mods": []
+          }
+        ],
+        "name": "Toggle roleplay mode"
+      },
+      "roleplayRulerBind": {
+        "default": [
+          {
+            "type": "key",
+            "value": "X",
+            "mods": []
+          }
+        ],
+        "name": "Toggle roleplay ruler"
+      }
+    }
+  }
+}

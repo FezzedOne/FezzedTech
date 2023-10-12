@@ -1,0 +1,12 @@
+[
+  {
+    "op": "add",
+    "path": "/statusControllerSettings/primaryScriptSources/-",
+    "value": "/stats/fezzedtech_primary.lua"
+  },
+  {
+    "op": "add",
+    "path": "/genericScriptContexts/tech",
+    "value": "/scripts/player/techsetup.lua"
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "name" : "parkourtech",
+  "type" : "legs",
+
+  "scripts" : ["parkourtech.lua"],
+  "animator" : "walljump.animation",
+
+  "description" : "Required to use many of the FezzedTech items.",
+  "shortDescription" : "FezzedTech",
+  "rarity" : "Legendary",
+  "icon" : "/interface/statuses/bounce.png?saturation=-100",
+
+  "chipCost" : 8,
+
+  "multiJumpCount" : 1,
+
+  "wallSensors" : [1.0, 1.75, 2.5],
+  "zeroGWallSensors": [-0.5, 0.25, 1.0, 1.75, 2.5, 3.25, 4],
+  "wallDetectThreshold" : 1,
+
+  "wallReleaseTime" : 0.15,
+
+  "wallGrabFreezeTime" : 0.15,
+  "wallJumpXVelocity" : 15,
+  "wallSlideParameters" : {
+    "airJumpProfile" : {
+      "jumpInitialPercentage" : 1.0
+    },
+    "airForce" : 0,
+    "airFriction" : 10.0
+  }
+}

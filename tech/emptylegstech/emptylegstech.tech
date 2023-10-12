@@ -1,0 +1,19 @@
+{
+  "name" : "emptylegstech",
+  "type" : "legs",
+
+  "scripts" : ["/tech/emptylegstech.lua"],
+  "animator" : "/tech/distortionsphere/distortionsphere.animation",
+
+  "description" : "No legs tech",
+  "shortDescription" : "<no tech>",
+  "rarity" : "Legendary",
+  "icon" : "/assetmissing.png",
+
+  "chipCost" : 1,
+
+  "animationParts" : {
+    "ballGlow" : "distortionsphereglow.png",
+    "ball" : "distortionsphere.png"
+  }
+}

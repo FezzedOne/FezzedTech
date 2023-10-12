@@ -1,0 +1,19 @@
+{
+  "name" : "emptyheadtech",
+  "type" : "head",
+
+  "scripts" : ["/tech/emptytech.lua"],
+  "animator" : "/tech/distortionsphere/distortionsphere.animation",
+
+  "description" : "No head tech",
+  "shortDescription" : "<no tech>",
+  "rarity" : "Legendary",
+  "icon" : "/assetmissing.png",
+
+  "chipCost" : 1,
+
+  "animationParts" : {
+    "ballGlow" : "distortionsphereglow.png",
+    "ball" : "distortionsphere.png"
+  }
+}
