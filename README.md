@@ -50,3 +50,5 @@ This mod is under the MIT licence. I.e., you may freely redistribute or modify t
 ## Helpful links
 
 - **Discord server:** [https://discord.gg/S46Gk2t](https://discord.gg/S46Gk2t)
+- **Steam Workshop:** [https://steamcommunity.com/sharedfiles/filedetails/?id=2962923060](https://steamcommunity.com/sharedfiles/filedetails/?id=2962923060) [[open in Steam](steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id=2962923060)]
+- **Chucklefish Forums:** [https://community.playstarbound.com/resources/fezzedtech.6247/](https://community.playstarbound.com/resources/fezzedtech.6247/)
