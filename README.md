@@ -1,6 +1,6 @@
 # FezzedTech
 
-This mod includes scripts and tech that allow the use of my custom items as intended. For non-Steam downloads and `/spawnitem` commands, see the releases.
+This mod includes scripts and tech that allow the use of my custom items as intended. For non-Steam downloads, see the release, and for `/spawnitem` commands, see the Discord server.
 
 ## Requirements
 
@@ -50,5 +50,5 @@ This mod is under the MIT licence. I.e., you may freely redistribute or modify t
 ## Helpful links
 
 - **Discord server:** [https://discord.gg/S46Gk2t](https://discord.gg/S46Gk2t)
-- **Steam Workshop:** [https://steamcommunity.com/sharedfiles/filedetails/?id=2962923060](https://steamcommunity.com/sharedfiles/filedetails/?id=2962923060)
+- **GitHub:** [https://github.com/FezzedOne/FezzedTech](https://github.com/FezzedOne/FezzedTech)
 - **Chucklefish Forums:** [https://community.playstarbound.com/resources/fezzedtech.6247/](https://community.playstarbound.com/resources/fezzedtech.6247/)
