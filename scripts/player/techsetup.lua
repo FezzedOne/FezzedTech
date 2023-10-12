@@ -78,7 +78,7 @@ function init()
                   end
 
                   local die = args[1] and tostring(args[1])
-                  local public = args[2] == "local" or args[2] == "global" or args[2] == "party"
+                  local public = args[2] == "local" or args[2] == "global" or args[2] == "party" or args[2] == "no"
                   local comment
                   if public then
                       comment = args[3] and tostring(args[3])
@@ -88,6 +88,7 @@ function init()
                       if (not starExtensions) and args[3] then for i = 3, #args do comment = comment .. " " .. args[i] end end
                   end
                   if public then public = args[2] end
+                  if public == "no" then public = false end
 
                   if die then
                       local noErr, total = pcall(rollDice, die)
@@ -152,7 +153,7 @@ function init()
                   local rolls = args[1] and tonumber(args[1])
                   if rolls then rolls = math.floor(rolls + 0.5) end
                   local die = args[2] and tostring(args[2])
-                  local public = args[3] == "local" or args[3] == "global" or args[3] == "party"
+                  local public = args[3] == "local" or args[3] == "global" or args[3] == "party" or args[3] == "no"
                   local comment
                   if public then
                       comment = args[4] and tostring(args[4])
@@ -162,6 +163,7 @@ function init()
                       if (not starExtensions) and args[4] then for i = 4, #args do comment = comment .. " " .. args[i] end end
                   end
                   if public then public = args[3] end
+                  if public == "no" then public = false end
 
                   if die and rolls >= 1 then
                       local sumTotal = 0
@@ -246,7 +248,7 @@ function init()
 
                   local targetValue = args[1] and tonumber(args[1])
                   if targetValue then targetValue = math.floor(targetValue + 0.5) end
-                  local public = args[2] == "local" or args[2] == "global" or args[2] == "party"
+                  local public = args[2] == "local" or args[2] == "global" or args[2] == "party" or args[2] == "no"
                   local comment
                   if public then
                       comment = args[3] and tostring(args[3])
@@ -256,6 +258,7 @@ function init()
                       if (not starExtensions) and args[3] then for i = 3, #args do comment = comment .. " " .. args[i] end end
                   end
                   if public then public = args[2] end
+                  if public == "no" then public = false end
 
                   if targetValue then
                       local noErr, dieRoll = pcall(rollDice, "3d6")
@@ -347,7 +350,7 @@ function init()
                   if rolls then rolls = math.floor(rolls + 0.5) end
                   local targetValue = args[2] and tonumber(args[2])
                   if targetValue then targetValue = math.floor(targetValue + 0.5) end
-                  local public = args[3] == "local" or args[3] == "global" or args[3] == "party"
+                  local public = args[3] == "local" or args[3] == "global" or args[3] == "party" or args[3] == "no"
                   local comment
                   if public then
                       comment = args[4] and tostring(args[4])
@@ -357,6 +360,7 @@ function init()
                       if (not starExtensions) and args[4] then for i = 4, #args do comment = comment .. " " .. args[i] end end
                   end
                   if public then public = args[3] end
+                  if public == "no" then public = false end
 
                   if targetValue and (rolls >= 1) then
                       local critFailureThreshold = 18

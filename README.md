@@ -34,7 +34,7 @@ This mod adds four built-in commands for in-game dice rolling:
 
 The last two *optional* arguments to all the above commands are explained below:
 
-- `<is public>:` Takes any of the following values: `local`, `global`, `party`, `none`. If any other value is specified, this argument is skipped (defaulting to `no`) and the value is parsed as a `<comment>` instead (see below). If `no`, only you see the results of the dice roll. If `local`, the roll is automatically posted in local chat. If `global`, it's posted in global chat. If `party`, it's posted in party chat.
+- `<is public>:` Takes any of the following values: `local`, `global`, `party`, `no`. If any other value is specified, this argument is skipped (defaulting to `no`) and the value is parsed as a `<comment>` instead (see below). If `no`, only you see the results of the dice roll. If `local`, the roll is automatically posted in local chat. If `global`, it's posted in global chat. If `party`, it's posted in party chat.
 - `<comment>:` An optional comment for the roll which shows up in the roll message. If you're using StarExtensions, surround the argument with quotes if the comment has spaces in it. If using xSB, no quotes are required (and in fact they'll show up in the message).
 
 The commands require xSB v2.0.0+ or StarExtensions to work.
