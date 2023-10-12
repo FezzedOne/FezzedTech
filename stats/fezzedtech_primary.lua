@@ -376,9 +376,7 @@ function renoUpdate(dt)
             end
         end
 
-        if not starExtensions then
-            status.setStatusProperty("roleplayRuler", nil)
-        end
+        if not (starExtensions or xsb) then status.setStatusProperty("roleplayRuler", nil) end
 
         if input then -- Check if xSB-2, OpenStarbound or StarExtensions is loaded.
             if input.bindUp("fezzedTechs", "sitBind") then self.isSitting = not self.isSitting end
@@ -393,7 +391,7 @@ function renoUpdate(dt)
                 end
                 interface.queueMessage(statusMessage, 5, 1)
             end
-            if input.bindUp("fezzedTechs", "roleplayRulerBind") and starExtensions then
+            if input.bindUp("fezzedTechs", "roleplayRulerBind") and (starExtensions or xsb) then
                 -- The ruler tooltip requires StarExtensions.
                 local roleplayModeStatus = status.statusProperty("roleplayRuler")
                 status.setStatusProperty("roleplayRuler", not roleplayModeStatus)
@@ -417,7 +415,7 @@ function renoUpdate(dt)
             status.clearPersistentEffects("rpTech")
         end
 
-        if interface and tech and rulerEnabled and starExtensions then
+        if interface and tech and rulerEnabled and (starExtensions or xsb) then
             -- StarExtensions is currently needed for `interface.setCursorText`. This may change though.
             local pP = mcontroller.position()
             local aP = tech.aimPosition()
@@ -434,9 +432,12 @@ function renoUpdate(dt)
             local distPenaltyStr = tostring(distPenalty)
             -- interface.setCursorText(tostring(roundedDist) .. " m")
             -- interface.setCursorText(tostring(roundedDist) .. " m / " .. roundedFootDistStr .. " ft")
-            interface.setCursorText(
-              "^yellow;" .. roundedDistStr .. "m^reset;/^orange;" .. roundedFootDistStr .. "'^reset; (^cyan;" .. distPenaltyStr .. "^reset;)"
-            )
+            local rulerText = "^font=iosevka-semibold;" .. roundedDistStr .. "^font=iosevka-extralight;m/^font=iosevka-semibold;" .. roundedFootDistStr ..
+                                "^font=iosevka-extralight;ft ^gray;(^font=iosevka-semibold;" .. distPenaltyStr .. "^font=iosevka-extralight;)"
+            if starExtensions then
+                rulerText = "^yellow;" .. roundedDistStr .. "m^reset;/^orange;" .. roundedFootDistStr .. "'^reset; (^cyan;" .. distPenaltyStr .. "^reset;)"
+            end
+            interface.setCursorText(rulerText)
         end
 
         if not tech then self.isSitting = false end
