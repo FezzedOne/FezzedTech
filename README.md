@@ -1,6 +1,6 @@
 # FezzedTech
 
-This mod includes scripts and tech that allow the use of my custom items as intended. For non-Steam downloads, see the release, and for `/spawnitem` commands, see the Discord server.
+This mod includes scripts and tech that allow the use of my custom items as intended. For downloads, see the [releases](https://github.com/FezzedOne/FezzedTech/releases), and for `/spawnitem` commands, see the [Discord server](https://discord.gg/S46Gk2t).
 
 ## Requirements
 
