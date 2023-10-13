@@ -20,6 +20,12 @@ function angleLerp(a0, a1, t, m)
     end
 end
 
+function polyEqual(poly1, poly2)
+    if #poly1 ~= #poly2 then return false end
+    for n = 1, #poly1 do if not vec2.eq(poly1[n], poly2[n]) then return false end end
+    return true
+end
+
 function log10(x) return math.log(x) / math.log(10) end
 
 function distToPenalty(distance)
@@ -219,8 +225,6 @@ function renoInit()
 end
 
 function renoUpdate(dt)
-    if xsb and player.setOverrideState then player.setOverrideState() end
-
     if status.statusProperty("ignoreFezzedTech") then
         math.__fezzedTechLoaded = false
 
@@ -246,6 +250,8 @@ function renoUpdate(dt)
             status.setStatusProperty("legless", (noLegs or scarecrowPole) and not grandfatheredLeglessChar)
         end
     else
+        if xsb and player.setOverrideState then player.setOverrideState() end
+
         math.__fezzedTechLoaded = true
 
         local tech = nil
@@ -939,8 +945,7 @@ function renoUpdate(dt)
                 standingPoly = self.baseColBox.standingPoly
                 crouchingPoly = self.baseColBox.crouchingPoly
             end
-            largeColBoxMismatch = not (sb.printJson(mcontroller.collisionPoly()) == sb.printJson(standingPoly) or sb.printJson(mcontroller.collisionPoly()) ==
-                                    sb.printJson(crouchingPoly))
+            largeColBoxMismatch = polyEqual(mcontroller.collisionPoly(), standingPoly) or polyEqual(mcontroller.collisionPoly(), crouchingPoly)
         end
 
         if noLegs then
@@ -959,8 +964,7 @@ function renoUpdate(dt)
                 crouchingPoly = poly.scale(crouchingPoly, charScale)
             end
 
-            smallColBox = (sb.printJson(mcontroller.collisionPoly()) == sb.printJson(standingPoly) or sb.printJson(mcontroller.collisionPoly()) ==
-                            sb.printJson(crouchingPoly))
+            smallColBox = polyEqual(mcontroller.collisionPoly(), standingPoly) or polyEqual(mcontroller.collisionPoly(), crouchingPoly)
 
             if mcontroller.groundMovement() and ((self.moves[2] or self.moves[3]) and not self.moves[1]) and (scarecrowPole or soarHop or smallColBox) and
               (not mertail) then
@@ -1279,8 +1283,8 @@ function renoUpdate(dt)
                     potParameters.crouchingPoly = poly.scale(potParameters.crouchingPoly, charScale)
                 end
                 -- local jump, left, right = table.unpack(checkMovement())
-                local colBoxMismatch = not (sb.printJson(mcontroller.collisionPoly()) == sb.printJson(potParameters.standingPoly) or
-                                         sb.printJson(mcontroller.collisionPoly()) == sb.printJson(potParameters.crouchingPoly))
+                local colBoxMismatch = polyEqual(mcontroller.collisionPoly(), potParameters.standingPoly) or
+                                         polyEqual(mcontroller.collisionPoly(), potParameters.crouchingPoly)
                 if flightEnabled or checkDistRaw == -2 then
                     local isSoaring = checkDistRaw == -2
                     potParameters.airForce = 250;
@@ -2052,8 +2056,7 @@ function renoUpdate(dt)
                 standingPoly = poly.scale(standingPoly, charScale)
                 crouchingPoly = poly.scale(crouchingPoly, charScale)
             end
-            smallColBox = (sb.printJson(mcontroller.collisionPoly()) == sb.printJson(standingPoly) or sb.printJson(mcontroller.collisionPoly()) ==
-                            sb.printJson(crouchingPoly))
+            smallColBox = polyEqual(mcontroller.collisionPoly(), standingPoly) or polyEqual(mcontroller.collisionPoly(), crouchingPoly)
             if (self.moves[1]) and (not (mcontroller.liquidMovement() or self.collision)) and notUsingThrusters and smallColBox then
                 mcontroller.controlModifiers({movementSuppressed = true})
             end
@@ -2141,7 +2144,7 @@ function renoUpdate(dt)
             self.isSkating = false
         end
 
-        local isSitting = self.isSitting or (mcontroller.groundMovement() and (smallColBox or largePotted) and
+        local isSitting = self.isSitting or (mcontroller.groundMovement() and (mertail or largePotted) and
                             (mertail or ((potted or largePotted) and (self.moves[2] or self.moves[3]) and (not gettingOverIt))))
         local isOffset = (isSitting and ((self.crouching and self.isSitting) or largePotted)) or math.__upsideDown
         if xsb and player.setOverrideState then
