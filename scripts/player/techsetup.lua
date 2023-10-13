@@ -451,7 +451,7 @@ function init()
         )
     end
 
-    if xsb then -- xSB xClient detected.
+    if xsb then                    -- xSB xClient detected.
         -- Use xClient's `player.getIdentity` and `player.setIdentity` for everything.
         function player.imagePath() return player.getIdentity().imagePath end
 
@@ -486,9 +486,9 @@ function init()
             if newGender ~= "male" and newGender ~= "female" then checkedGender = "male" end
             player.setIdentity({gender = checkedGender})
         end
-    elseif starExtensions then -- StarExtensions detected.
+    elseif starExtensions then     -- StarExtensions detected.
         -- The above callbacks all exist and work as referenced in SE.
-    elseif light then -- `starlight` detected.
+    elseif light then              -- `starlight` detected.
         -- Use `starlight`'s callbacks for all appropriate stuff.
         function player.imagePath() return light.playerImagePath() end
 
@@ -521,6 +521,8 @@ function init()
             if newGender ~= "male" and newGender ~= "female" then checkedGender = "male" end
             light.playerSetGender(checkedGender)
         end
+    elseif player.setHairType then -- OpenStarbound detected.
+        -- The above callbacks all exist and work as referenced in OpenSB.
     end
 
     if player.species() ~= "FutaraDragon" then

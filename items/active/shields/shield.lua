@@ -123,7 +123,13 @@ function updateAim()
         self.aimDirection = aimDirection
       end
     end
-    altIsInvisible = activeItem.callOtherHandScript("dwIsInvisible") or (not player.altHandItem())
+    local altHandItem = nil
+    if player then
+      altHandItem = player.altHandItem()
+    elseif npc then
+      altHandItem = npc.getItemSlot("alt")
+    end
+    altIsInvisible = activeItem.callOtherHandScript("dwIsInvisible") or (not altHandItem)
   elseif self.stance.allowFlip then
     -- Slave the shield to the primary hand item.
     local primaryAimDirection = activeItem.callOtherHandScript("dwAimDirection")

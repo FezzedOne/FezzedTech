@@ -182,7 +182,13 @@ function Weapon:updateAim()
         self.aimDirection = aimDirection
       end
     end
-    altIsInvisible = activeItem.callOtherHandScript("dwIsInvisible") or (not player.altHandItem())
+    local altHandItem = nil
+    if player then
+      altHandItem = player.altHandItem()
+    elseif npc then
+      altHandItem = npc.getItemSlot("alt")
+    end
+    altIsInvisible = activeItem.callOtherHandScript("dwIsInvisible") or (not altHandItem)
   elseif self.stance.allowFlip then
     -- alt hand weapons should be slaved to the primary whenever they can be flipped
     local primaryAimDirection = activeItem.callOtherHandScript("dwAimDirection")
