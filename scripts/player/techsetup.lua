@@ -72,7 +72,6 @@ function init()
                       args = table.pack(chat.parseArguments(rawArgs))
                   else
                       for arg in rawArgs:gmatch("%S+") do
-                          sb.logInfo("arg = \"%s\"", arg)
                           table.insert(args, arg)
                       end
                   end
@@ -145,7 +144,6 @@ function init()
                       args = table.pack(chat.parseArguments(rawArgs))
                   else
                       for arg in rawArgs:gmatch("%S+") do
-                          sb.logInfo("arg = \"%s\"", arg)
                           table.insert(args, arg)
                       end
                   end
@@ -241,7 +239,6 @@ function init()
                       args = table.pack(chat.parseArguments(rawArgs))
                   else
                       for arg in rawArgs:gmatch("%S+") do
-                          sb.logInfo("arg = \"%s\"", arg)
                           table.insert(args, arg)
                       end
                   end
@@ -341,7 +338,6 @@ function init()
                       args = table.pack(chat.parseArguments(rawArgs))
                   else
                       for arg in rawArgs:gmatch("%S+") do
-                          sb.logInfo("arg = \"%s\"", arg)
                           table.insert(args, arg)
                       end
                   end
