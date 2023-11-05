@@ -221,10 +221,20 @@ function renoInit()
         status.clearPersistentEffects("rpTech")
     end
 
+    self.firstTick = true
+
     status.clearPersistentEffects("movementAbility")
 end
 
 function renoUpdate(dt)
+    if self.firstTick then
+        if xsb then
+            world.setLightMultiplier()
+            world.resetShaderParameters()
+        end
+        self.firstTick = false
+    end
+
     if status.statusProperty("ignoreFezzedTech") then
         math.__fezzedTechLoaded = false
 
@@ -325,8 +335,9 @@ function renoUpdate(dt)
                                        math.__isParkourTech
         self.parkourThrusters = parkourThrustersStat
         local parkourThrusters = parkourThrustersStat and self.thrustersActive and self.moves[7]
-        local nightVision = (status.statPositive("nightVision") or status.statusProperty("nightVision")) and math.__isParkourTech
-        local shadowVision = (status.statPositive("shadowVision") or status.statusProperty("shadowVision")) and math.__isParkourTech
+        local nightVision = (status.statPositive("nightVision") or status.statusProperty("nightVision"))
+        local darkNightVision = (status.statPositive("darkNightVision") or status.statusProperty("darkNightVision"))
+        local shadowVision = (status.statPositive("shadowVision") or status.statusProperty("shadowVision"))
         local skates = (status.statPositive("skates") or status.statusProperty("skates")) and math.__isParkourTech
         local fezTech = (status.statPositive("fezTech") or status.statusProperty("fezTech")) and math.__isParkourTech
         local garyTech = (status.statPositive("garyTech") or status.statusProperty("garyTech")) and math.__isParkourTech and (noLegs or leglessSmallColBox)
@@ -1741,14 +1752,27 @@ function renoUpdate(dt)
 
         if flyboard then self.flyboardTap:update(dt, self.moves) end
 
-        if nightVision or shadowVision then
+        if nightVision or darkNightVision or shadowVision then
             world.sendEntityMessage(entity.id(), "clearLightSources")
             local mPos = mcontroller.position()
             if not world.pointTileCollision(mPos, {"Block", "Dynamic", "Slippery"}) then
-                world.sendEntityMessage(
-                  entity.id(), "addLightSource", {position = mPos, color = shadowVision and {200, 200, 200} or {120, 225, 180}, pointLight = true}
-                )
-                if tech then
+                local lightColour
+                if xsb then
+                    lightColour = shadowVision and {150, 150, 170} or {50, 120, 80} -- {65, 65, 65} for shadowVision.
+                    if status.statPositive("shadowVision") then
+                        world.setLightMultiplier({1.5, 1.5, 1.5})
+                        world.setShaderParameters({0.0, 0.0, 0.75}, {0.7, 0.8, 1.0}, {1.0, 0.0, 0.0})
+                    elseif status.statPositive("nightVision") or status.statPositive("darkNightVision") then
+                        world.setLightMultiplier({5, 5, 5})
+                        world.setShaderParameters({0.4, 0.2, 1.0}, {0.4, 1.0, 0.3}, {1.0, 0.0, 0.0})
+                    end
+                else
+                    lightColour = shadowVision and {200, 200, 200} or {120, 225, 180}
+                end
+                if nightVision or shadowVision then
+                    world.sendEntityMessage(entity.id(), "addLightSource", {position = mPos, color = lightColour, pointLight = true})
+                end
+                if tech and (not (xsb and not shadowVision)) and (not darkNightVision) then
                     local aimP = tech.aimPosition()
                     aimP = world.lineCollision(mPos, aimP, {"Block", "Dynamic", "Slippery"}) or aimP
                     world.sendEntityMessage(
@@ -1757,6 +1781,10 @@ function renoUpdate(dt)
                 end
             end
         else
+            if xsb then
+                world.setLightMultiplier()
+                world.resetShaderParameters()
+            end
             world.sendEntityMessage(entity.id(), "clearLightSources")
         end
         -- world.sendEntityMessage(entity.id(), "clearDrawables")
@@ -2222,6 +2250,10 @@ function renoUpdate(dt)
 end
 
 function renoUninit()
+    if xsb then
+        world.setLightMultiplier()
+        world.resetShaderParameters()
+    end
     if status.statusProperty("ignoreFezzedTech") then
         math.__fezzedTechLoaded = true
     else
