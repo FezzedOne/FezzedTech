@@ -5,13 +5,11 @@ local FutaraTechList = {"DragonAutomateTechHead", "DragonAutomateTechBody", "Dra
 -----------------------------------------------------------------------
 
 function rollDice(die) -- From https://github.com/brianherbert/dice/, with modifications.
-    if die then
-        local rolls
-        local sides
-        local modOperation = '+'
-        local modifier = 0
+    if type(die) == "string" then
+        local rolls, sides, modOperation, modifier
 
         local i, j = string.find(die, "d")
+        if not i then return nil end
         if i == 1 then
             rolls = 1
         else
@@ -19,12 +17,12 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
         end
 
         local afterD = string.sub(die, (j + 1), string.len(die))
-        local i_1, j_1 = string.find(afterD, "%d+")
+        local _, j_1 = string.find(afterD, "%d+")
         local i_2, _ = string.find(afterD, "^[%+%-]%d+")
         local afterSides
-        if i_1 and j_1 and (not i_2) then
+        if j_1 and (not i_2) then
             sides = tonumber(string.sub(afterD, i_1, j_1))
-            i, j = i_1, j_1
+            j = j_1
             afterSides = string.sub(afterD, (j + 1), string.len(afterD))
         else
             sides = 6
@@ -39,11 +37,12 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
             modifier = tonumber(string.sub(afterSides, 2, string.len(afterSides)))
         end
 
+        if not modifier then return nil end
+
         -- Make sure dice are properly random.
         math.randomseed(os.clock() * 100000000000)
 
-        local roll = 0
-        local total = 0
+        local roll, total = 0, 0
         while roll < rolls do
             total = total + math.random(1, sides)
             roll = roll + 1
@@ -54,6 +53,12 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
             total = total + modifier
         elseif modOperation == "-" then
             total = total - modifier
+        elseif modOperation == "*" then
+            total = math.floor((total * modifier) + 0.5)
+        elseif modOperation == "/" then
+            total = math.floor((total / modifier) + 0.5)
+        else
+            return nil
         end
 
         return total
