@@ -17,7 +17,7 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
         end
 
         local afterD = string.sub(die, (j + 1), string.len(die))
-        local _, j_1 = string.find(afterD, "%d+")
+        local i_1, j_1 = string.find(afterD, "%d+")
         local i_2, _ = string.find(afterD, "^[%+%-%*/]%d+")
         local afterSides
         if j_1 and (not i_2) then
