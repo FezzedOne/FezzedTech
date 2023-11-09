@@ -20,14 +20,15 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
 
         local afterD = string.sub(die, (j + 1), string.len(die))
         local i_1, j_1 = string.find(afterD, "%d+")
-        if i_1 and j_1 then
+        local afterSides
+        if i_1 and j_1 and i_1 ~= j_1 then
             sides = tonumber(string.sub(afterD, i_1, j_1))
             i, j = i_1, j_1
+            afterSides = string.sub(afterD, (j + 1), string.len(afterD))
         else
             sides = 6
+            afterSides = afterD
         end
-
-        local afterSides = string.sub(afterD, (j + 1), string.len(afterD))
 
         if string.len(afterSides) == 0 then
             modOperation = '+'
