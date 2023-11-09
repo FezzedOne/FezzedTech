@@ -50,9 +50,9 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
 
         -- Finished with our rolls, now add/subtract our modifier
         if modOperation == "+" then
-            total = total + modifier
+            total = math.floor((total + modifier) + 0.5)
         elseif modOperation == "-" then
-            total = total - modifier
+            total = math.floor((total - modifier) + 0.5)
         elseif modOperation == "*" then
             total = math.floor((total * modifier) + 0.5)
         elseif modOperation == "/" then
