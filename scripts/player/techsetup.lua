@@ -20,8 +20,9 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
 
         local afterD = string.sub(die, (j + 1), string.len(die))
         local i_1, j_1 = string.find(afterD, "%d+")
+        local i_2, _ = string.find(afterD, "^[%+%-]%d+")
         local afterSides
-        if i_1 and j_1 and i_1 ~= j_1 then
+        if i_1 and j_1 and (not i_2) then
             sides = tonumber(string.sub(afterD, i_1, j_1))
             i, j = i_1, j_1
             afterSides = string.sub(afterD, (j + 1), string.len(afterD))
