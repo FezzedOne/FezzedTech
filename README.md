@@ -27,7 +27,7 @@ These keybinds require xSB-2, OpenStarbound or StarExtensions. If using xSB-2 or
 
 This mod adds four built-in commands for in-game dice rolling:
 
-- `/roll:` Rolls dice. Takes the following arguments: `[dice] <is public> <comment>`. Dice are in "dice + adds" format; both addition and subtraction are currently supported, but not multiple "adds" or other arithmetical operations. If you specify the die size as only "d" (with no size number), it defaults to d6 (this is standard GURPS notation).
+- `/roll:` Rolls dice. Takes the following arguments: `[dice] <is public> <comment>`. Dice are in "dice + adds" format; addition, subtraction, multiplication and division are currently supported (decimal dust is shaved off after the operation), but not multiple "adds" or other arithmetical operations. If you specify the die size as only "d" (with no size number), it defaults to d6 (this is standard GURPS notation).
 - `/rab:` Rolls dice multiple times and tallies them up. Takes the following arguments: `[number of rolls] [dice] <is public> <comment>`. Dice are in "dice + adds" format (see above).
 - `/ra:` Makes a GURPS skill or stat roll. Takes the following arguments: `[skill or stat value] <is public> <comment>`. The skill or stat value is a simple integer; no arithmetic is currently supported. Critical failures and successes are handled as per standard GURPS rules.
 - `/raba:` Makes multiple GURPS skill or stat rolls. Takes the following arguments: `[number of rolls] [skill or stat value] <is public> <comment>`. See above.
