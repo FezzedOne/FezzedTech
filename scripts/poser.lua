@@ -72,7 +72,7 @@ function animating(dt)
         if state[math.ceil(intTick / frameLength)] then self.animFrame = state[math.ceil(intTick / frameLength)] end
     end
 
-    if not type(self.animFrame) == "string" then self.animFrame = self.idlePose end
+    if type(self.animFrame) ~= "string" then self.animFrame = self.idlePose end
 
     self.tick = self.tick + (dt * 60)
 end
