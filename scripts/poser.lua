@@ -1,8 +1,39 @@
 function poserInit()
     self.poses = {
-        false, true, "idle.1", "idle.2", "idle.3", "idle.4", "idle.5", "walk.1", "walk.2", "walk.3", "walk.4", "walk.5", "run.1", "run.2", "run.3", "run.4",
-        "run.5", "jump.1", "jump.2", "jump.3", "jump.4", "fall.1", "fall.2", "fall.3", "fall.4", "swimIdle.1", "swimIdle.2", "swim.1", "swim.2", "swim.3",
-        "swim.4", "swim.5", "rotation", "rotation?multiply=00000000"
+        false,
+        true,
+        "idle.1",
+        "idle.2",
+        "idle.3",
+        "idle.4",
+        "idle.5",
+        "walk.1",
+        "walk.2",
+        "walk.3",
+        "walk.4",
+        "walk.5",
+        "run.1",
+        "run.2",
+        "run.3",
+        "run.4",
+        "run.5",
+        "jump.1",
+        "jump.2",
+        "jump.3",
+        "jump.4",
+        "fall.1",
+        "fall.2",
+        "fall.3",
+        "fall.4",
+        "swimIdle.1",
+        "swimIdle.2",
+        "swim.1",
+        "swim.2",
+        "swim.3",
+        "swim.4",
+        "swim.5",
+        "rotation",
+        "rotation?multiply=00000000",
     }
     self.currentPose = config.getParameter("currentPose") or 1
     self.lockAngle = config.getParameter("lockAngle") or false
@@ -12,19 +43,20 @@ function poserInit()
     self.aimAngle = 0
     self.cursorSetsDirection = config.getParameter("cursorSetsDirection") or false
     self.facingDirection2 = config.getParameter("lastFacingDirection") or 1
-    self.extraDirectives = config.getParameter("extraDirectives") or "?replace;ffc181=ffc181;d39c6c=d39c6c;c7815b=c7815b"
+    self.extraDirectives = config.getParameter("extraDirectives")
+        or "?replace;ffc181=ffc181;d39c6c=d39c6c;c7815b=c7815b"
     self.idlePose = config.getParameter("idlePose") or "idle.1"
     self.alwaysAnimMovement = config.getParameter("alwaysAnimMovement")
     if self.alwaysAnimMovement == nil then self.alwaysAnimMovement = true end
     self.animPoses = {
-        idle = {self.idlePose},
-        walk = {"walk.1", "walk.2", "walk.3", "walk.4", "walk.5", "walk.4", "walk.3", "walk.2", repeating = true},
-        run = {"run.1", "run.2", "run.3", "run.4", "run.5", "run.4", "run.3", "run.2", repeating = true},
-        air = {"jump.1"},
-        jump = {"jump.1", "jump.2", "jump.3", "jump.4"},
-        fall = {"fall.1", "fall.2", "fall.3", "fall.4"},
-        swim = {"swim.1", "swim.2", "swim.3", "swim.4", "swim.5", "swimIdle.1"},
-        crouch = {"run.3"}
+        idle = { self.idlePose },
+        walk = { "walk.1", "walk.2", "walk.3", "walk.4", "walk.5", "walk.4", "walk.3", "walk.2", repeating = true },
+        run = { "run.1", "run.2", "run.3", "run.4", "run.5", "run.4", "run.3", "run.2", repeating = true },
+        air = { "jump.1" },
+        jump = { "jump.1", "jump.2", "jump.3", "jump.4" },
+        fall = { "fall.1", "fall.2", "fall.3", "fall.4" },
+        swim = { "swim.1", "swim.2", "swim.3", "swim.4", "swim.5", "swimIdle.1" },
+        crouch = { "run.3" },
     }
     self.state = "idle"
     self.tick = 0
@@ -89,12 +121,14 @@ function poserUpdate(dt, fireMode, shiftHeld, moves)
         self.prevShift = false
     end
 
-    self.state = getState();
+    self.state = getState()
     animating(dt)
 
     self.aimingAngle, self.facingDirection = activeItem.aimAngleAndDirection(0, activeItem.ownerAimPosition())
     if not self.oldPosition then self.oldPosition = mcontroller.position() end
-    if mcontroller.position()[1] - self.oldPosition[1] ~= 0 then self.facingDirection2 = mcontroller.position()[1] - self.oldPosition[1] end
+    if mcontroller.position()[1] - self.oldPosition[1] ~= 0 then
+        self.facingDirection2 = mcontroller.position()[1] - self.oldPosition[1]
+    end
     -- if ( self.facingDirection == -1 and self.facingDirection2 >= 0 ) or ( self.facingDirection == 1 and self.facingDirection2 <= 0 ) then
     -- self.aimingAngle = ( self.aimingAngle * -1 ) + 180 - 45
     -- end
@@ -114,9 +148,15 @@ function poserUpdate(dt, fireMode, shiftHeld, moves)
         self.aimAngle = 0
         self.iconDirectives = ""
     end
-    local inventoryIcon = "/humanoid/novakid/" ..
-                            (((self.facingDirection2 >= 0 and activeItem.hand() == "alt") or (self.facingDirection2 <= 0 and activeItem.hand() == "primary")) and
-                              "frontarm.png:" or "backarm.png:")
+    local inventoryIcon = "/humanoid/novakid/"
+        .. (
+            (
+                    (self.facingDirection2 >= 0 and activeItem.hand() == "alt")
+                    or (self.facingDirection2 <= 0 and activeItem.hand() == "primary")
+                )
+                and "frontarm.png:"
+            or "backarm.png:"
+        )
     if self.poses[self.currentPose] == true then
         activeItem.setHoldingItem(true)
         activeItem.setFrontArmFrame(self.animFrame .. self.extraDirectives)
@@ -149,15 +189,17 @@ end
 function toRadians(degrees) return (degrees / 180) * math.pi end
 
 function handleKeys(shiftHeld, moves)
-    local rightCursor = (activeItem.ownerAimPosition()[1] - mcontroller.position()[1] >= 0 and activeItem.hand() == "alt") or
-                          (activeItem.ownerAimPosition()[1] - mcontroller.position()[1] <= 0 and activeItem.hand() == "primary")
+    local rightCursor = (
+        activeItem.ownerAimPosition()[1] - mcontroller.position()[1] >= 0 and activeItem.hand() == "alt"
+    )
+        or (activeItem.ownerAimPosition()[1] - mcontroller.position()[1] <= 0 and activeItem.hand() == "primary")
     if not self.keyPressed then
-        if (moves.up or moves.down) then self.keyPressed = true end
+        if moves.up or moves.down then self.keyPressed = true end
     else
         if not (moves.up or moves.down) then
             self.keyPressed = false
         else
-            moves.up = false;
+            moves.up = false
             moves.down = false
         end
     end

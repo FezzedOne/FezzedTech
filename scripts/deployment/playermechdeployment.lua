@@ -1,24 +1,24 @@
-require "/vehicles/modularmech/mechpartmanager.lua"
-require "/scripts/vec2.lua"
+require("/vehicles/modularmech/mechpartmanager.lua")
+require("/scripts/vec2.lua")
 
 function init()
-    message.setHandler(
-      "unlockMech", function()
-          if not self.unlocked then
-              self.unlocked = true
-              player.setProperty("mechUnlocked", true)
+    message.setHandler("unlockMech", function()
+        if not self.unlocked then
+            self.unlocked = true
+            player.setProperty("mechUnlocked", true)
 
-              local starterSet = config.getParameter("starterMechSet")
-              local speciesBodies = config.getParameter("speciesStarterMechBody")
-              local playerSpecies = player.species()
-              if speciesBodies[playerSpecies] then starterSet.body = speciesBodies[playerSpecies] end
+            local starterSet = config.getParameter("starterMechSet")
+            local speciesBodies = config.getParameter("speciesStarterMechBody")
+            local playerSpecies = player.species()
+            if speciesBodies[playerSpecies] then starterSet.body = speciesBodies[playerSpecies] end
 
-              for _, item in pairs(starterSet) do player.giveBlueprint(item) end
+            for _, item in pairs(starterSet) do
+                player.giveBlueprint(item)
+            end
 
-              setMechItemSet(starterSet)
-          end
-      end
-    )
+            setMechItemSet(starterSet)
+        end
+    end)
 
     message.setHandler("mechUnlocked", function() return self.unlocked end)
 
@@ -26,60 +26,62 @@ function init()
 
     message.setHandler("setMechItemSet", function(_, _, newItemSet) setMechItemSet(newItemSet) end)
 
-    message.setHandler("getMechColorIndexes", function() return {primary = self.primaryColorIndex, secondary = self.secondaryColorIndex} end)
-
-    message.setHandler("setMechColorIndexes", function(_, _, primaryIndex, secondaryIndex) setMechColorIndexes(primaryIndex, secondaryIndex) end)
+    message.setHandler(
+        "getMechColorIndexes",
+        function() return { primary = self.primaryColorIndex, secondary = self.secondaryColorIndex } end
+    )
 
     message.setHandler(
-      "deployMech", function(_, _, tempItemSet)
-          if tempItemSet then
-              tempItemSet = self.partManager:validateItemSet(tempItemSet)
-              if self.partManager:itemSetComplete(tempItemSet) then
-                  deploy(tempItemSet)
-                  return true
-              end
-          elseif canDeploy() then
-              deploy()
-              return true
-          end
-
-          return false
-      end
+        "setMechColorIndexes",
+        function(_, _, primaryIndex, secondaryIndex) setMechColorIndexes(primaryIndex, secondaryIndex) end
     )
+
+    message.setHandler("deployMech", function(_, _, tempItemSet)
+        if tempItemSet then
+            tempItemSet = self.partManager:validateItemSet(tempItemSet)
+            if self.partManager:itemSetComplete(tempItemSet) then
+                deploy(tempItemSet)
+                return true
+            end
+        elseif canDeploy() then
+            deploy()
+            return true
+        end
+
+        return false
+    end)
 
     message.setHandler("despawnMech", despawnMech)
 
-    message.setHandler(
-      "toggleMech", function()
-          if storage.vehicleId then
-              despawnMech()
-          elseif canDeploy() then
-              deploy()
-          end
-      end
-    )
+    message.setHandler("toggleMech", function()
+        if storage.vehicleId then
+            despawnMech()
+        elseif canDeploy() then
+            deploy()
+        end
+    end)
 
     -- Local animator handlers.
 
-    message.setHandler(
-      "addDrawable", function(_, sameClient, drawableConfig, layer) if sameClient then pcall(localAnimator.addDrawable, drawableConfig, layer) end end
-    )
+    message.setHandler("addDrawable", function(_, sameClient, drawableConfig, layer)
+        if sameClient then pcall(localAnimator.addDrawable, drawableConfig, layer) end
+    end)
 
-    message.setHandler(
-      "clearDrawables", function(_, sameClient)
-          if sameClient then
-             localAnimator.clearDrawables()
-          end
-      end
-    )
+    message.setHandler("clearDrawables", function(_, sameClient)
+        if sameClient then localAnimator.clearDrawables() end
+    end)
 
-    message.setHandler("addLightSource", function(_, sameClient, lightConfig) if sameClient then pcall(localAnimator.addLightSource, lightConfig) end end)
+    message.setHandler("addLightSource", function(_, sameClient, lightConfig)
+        if sameClient then pcall(localAnimator.addLightSource, lightConfig) end
+    end)
 
-    message.setHandler("clearLightSources", function(_, sameClient) if sameClient then localAnimator.clearLightSources() end end)
+    message.setHandler("clearLightSources", function(_, sameClient)
+        if sameClient then localAnimator.clearLightSources() end
+    end)
 
-    message.setHandler(
-      "playAudio", function(_, sameClient, sound, loops, volume) if sameClient then pcall(localAnimator.playAudio, sound, loops, volume) end end
-    )
+    message.setHandler("playAudio", function(_, sameClient, sound, loops, volume)
+        if sameClient then pcall(localAnimator.playAudio, sound, loops, volume) end
+    end)
 
     ------------
 
@@ -104,8 +106,11 @@ function init()
     self.mechEnergyRatio = 1.0
 
     self.energyBarSize = root.imageSize("/scripts/deployment/energybar.png")
-    self.energyBarFrameOffset = {0, 3.5}
-    self.energyBarOffset = {self.energyBarFrameOffset[1] - self.energyBarSize[1] / 16, self.energyBarFrameOffset[2] - self.energyBarSize[2] / 16}
+    self.energyBarFrameOffset = { 0, 3.5 }
+    self.energyBarOffset = {
+        self.energyBarFrameOffset[1] - self.energyBarSize[1] / 16,
+        self.energyBarFrameOffset[2] - self.energyBarSize[2] / 16,
+    }
 
     self.lowEnergyTimer = 0
     self.lowEnergyTime = config.getParameter("lowEnergyFlashTime")
@@ -113,10 +118,12 @@ function init()
     self.lowEnergySound = config.getParameter("lowEnergySound")
 
     self.enemyDetectRadius = config.getParameter("enemyDetectRadius")
-    self.enemyDetectQueryParameters = {boundMode = "position", includedTypes = {"monster", "npc"}}
+    self.enemyDetectQueryParameters = { boundMode = "position", includedTypes = { "monster", "npc" } }
 
     self.enemyDetectTypeNames = {}
-    for _, name in ipairs(config.getParameter("enemyDetectTypeNames")) do self.enemyDetectTypeNames[name] = true end
+    for _, name in ipairs(config.getParameter("enemyDetectTypeNames")) do
+        self.enemyDetectTypeNames[name] = true
+    end
 
     self.playerId = entity.id()
 
@@ -128,7 +135,7 @@ function init()
     self.deployTicks = 2
 
     -- block movement abilities during these ticks to avoid weirdness with techs, etc.
-    status.setPersistentEffects("mechDeployment", {{stat = "activeMovementAbilities", amount = 1}})
+    status.setPersistentEffects("mechDeployment", { { stat = "activeMovementAbilities", amount = 1 } })
 end
 
 function setMechItemSet(newItemSet)
@@ -255,7 +262,7 @@ function despawnMech()
     end
 end
 
-function spawnPosition() return vec2.add(entity.position(), {0, 0}) end
+function spawnPosition() return vec2.add(entity.position(), { 0, 0 }) end
 
 function inMech() return storage.vehicleId and player.loungingIn() == storage.vehicleId end
 
@@ -265,22 +272,27 @@ function drawBeacon()
     if vec2.mag(beaconVec) > 15 then
         local arrowAngle = vec2.angle(beaconVec)
         local arrowOffset = vec2.withAngle(arrowAngle, 5)
-        localAnimator.addDrawable(
-          {
-              image = beaconVec[1] > 0 and "/scripts/deployment/beaconarrowright.png" or "/scripts/deployment/beaconarrowleft.png",
-              rotation = arrowAngle,
-              position = arrowOffset,
-              fullbright = true,
-              centered = true,
-              color = {255, 255, 255, beaconFlash and 150 or 50}
-          }, "overlay"
-        )
+        localAnimator.addDrawable({
+            image = beaconVec[1] > 0 and "/scripts/deployment/beaconarrowright.png"
+                or "/scripts/deployment/beaconarrowleft.png",
+            rotation = arrowAngle,
+            position = arrowOffset,
+            fullbright = true,
+            centered = true,
+            color = { 255, 255, 255, beaconFlash and 150 or 50 },
+        }, "overlay")
     end
 end
 
 function drawEnergyBar()
     localAnimator.addDrawable(
-      {image = "/scripts/deployment/energybarframe.png", position = self.energyBarFrameOffset, fullbright = true, centered = true}, "overlay+1"
+        {
+            image = "/scripts/deployment/energybarframe.png",
+            position = self.energyBarFrameOffset,
+            fullbright = true,
+            centered = true,
+        },
+        "overlay+1"
     )
 
     local imageBase = "/scripts/deployment/energybar.png"
@@ -290,30 +302,35 @@ function drawEnergyBar()
 
     local cropWidth = math.floor(self.energyBarSize[1] * self.mechEnergyRatio)
     local imagePath = string.format(imageBase .. "?crop=0;0;%d;%d;", cropWidth, self.energyBarSize[2])
-    localAnimator.addDrawable({image = imagePath, position = self.energyBarOffset, fullbright = true, centered = false}, "overlay+2")
+    localAnimator.addDrawable(
+        { image = imagePath, position = self.energyBarOffset, fullbright = true, centered = false },
+        "overlay+2"
+    )
 end
 
 function drawEnemyIndicators()
     if self.enemyDetectRadius then
         local pos = entity.position()
-        local enemiesNearby = world.entityQuery(entity.position(), self.enemyDetectRadius, self.enemyDetectQueryParameters)
+        local enemiesNearby =
+            world.entityQuery(entity.position(), self.enemyDetectRadius, self.enemyDetectQueryParameters)
         for _, eId in ipairs(enemiesNearby) do
-            if world.entityCanDamage(eId, self.playerId) and self.enemyDetectTypeNames[string.lower(world.entityTypeName(eId))] then
+            if
+                world.entityCanDamage(eId, self.playerId)
+                and self.enemyDetectTypeNames[string.lower(world.entityTypeName(eId))]
+            then
                 local enemyVec = world.distance(world.entityPosition(eId), pos)
                 local dist = vec2.mag(enemyVec)
                 if dist > 7 then
                     local arrowAngle = vec2.angle(enemyVec)
                     local arrowOffset = vec2.withAngle(arrowAngle, 6.5)
-                    localAnimator.addDrawable(
-                      {
-                          image = "/scripts/deployment/enemyarrow.png",
-                          rotation = arrowAngle,
-                          position = arrowOffset,
-                          fullbright = true,
-                          centered = true,
-                          color = {255, 255, 255, 255 * (1 - dist / self.enemyDetectRadius)}
-                      }, "overlay"
-                    )
+                    localAnimator.addDrawable({
+                        image = "/scripts/deployment/enemyarrow.png",
+                        rotation = arrowAngle,
+                        position = arrowOffset,
+                        fullbright = true,
+                        centered = true,
+                        color = { 255, 255, 255, 255 * (1 - dist / self.enemyDetectRadius) },
+                    }, "overlay")
                 end
             end
         end
