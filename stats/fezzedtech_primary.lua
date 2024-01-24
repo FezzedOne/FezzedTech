@@ -2816,7 +2816,7 @@ function renoUpdate(dt)
                 local wind = (windTileOcc or world.underground(mcontroller.position())) and 0 or world.windLevel(mPos)
                 local windDiv = 15
                 -- local bobDir = (self.bobTimer >= (bobTime / 2)) and -1 or 1
-                local velMod = 1 + velocity / 5
+                local velMod = 1 + absVel / 5
                 if (self.moves[2] or self.moves[3]) and ((not self.moves[7]) or not self.running) then
                     local dir = self.moves[2] and -1 or 1
                     local running
