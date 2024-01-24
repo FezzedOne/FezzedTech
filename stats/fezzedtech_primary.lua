@@ -1186,7 +1186,9 @@ function renoUpdate(dt)
                             if fezzedTechVars.paramotor and self.fallDanger then math.__doThrusterAnims = true end
                         end
                         if self.hovering then
-                            if (not self.moves[5]) and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech) then math.__doThrusterAnims = true end
+                            if (not self.moves[5]) and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech) then
+                                math.__doThrusterAnims = true
+                            end
                         end
                     end
 
@@ -1200,12 +1202,19 @@ function renoUpdate(dt)
                     if
                         (fezzedTechVars.noLegs or fezzedTechVars.leglessSmallColBox)
                         and (fezzedTechVars.parkourThrusters or (fezzedTechVars.paragliderPack and fezzedTechVars.paramotor))
-                        and not (math.__onWall or math.__firingGrapple or fezzedTechVars.fezTech or fezzedTechVars.garyTech)
+                        and not (
+                            math.__onWall
+                            or math.__firingGrapple
+                            or fezzedTechVars.fezTech
+                            or fezzedTechVars.garyTech
+                        )
                     then
                         math.__doThrusterAnims = true
                     end
 
-                    if (fezzedTechVars.fezTech or fezzedTechVars.garyTech) and math.__isGlider then math.__doThrusterAnims = true end
+                    if (fezzedTechVars.fezTech or fezzedTechVars.garyTech) and math.__isGlider then
+                        math.__doThrusterAnims = true
+                    end
                 else
                     if not math.__isGlider then
                         self.fallDanger = false
@@ -1672,7 +1681,8 @@ function renoUpdate(dt)
                         if vars.xVel == 0 then
                             self.targetAngle = 0
                         else
-                            self.targetAngle = math.min(math.max(-vars.xVel * math.pi * 0.05, -0.1 * math.pi), 0.1 * math.pi)
+                            self.targetAngle =
+                                math.min(math.max(-vars.xVel * math.pi * 0.05, -0.1 * math.pi), 0.1 * math.pi)
                         end
                     else
                         self.targetAngle = 0
@@ -2113,7 +2123,9 @@ function renoUpdate(dt)
 
         local thermalSoaring = false
 
-        if math.__gliderActive and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech or fezzedTechVars.shadowRun) then
+        if
+            math.__gliderActive and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech or fezzedTechVars.shadowRun)
+        then
             local vars = {}
             vars.x, vars.y = table.unpack(mcontroller.position())
             vars.side, vars.down, vars.up = 5, -3, 7
@@ -2659,10 +2671,7 @@ function renoUpdate(dt)
                 and not (mcontroller.liquidMovement() or math.__sphereActive or lounging)
             local jumpParameters = {
                 airJumpProfile = {
-                    jumpSpeed = (
-                        (self.moves[7] and self.moves[1]) and fezzedTechVars.groundJumpSpeed
-                        or fezzedTechVars.airJumpSpeed
-                    )
+                    jumpSpeed = ((self.moves[7] and self.moves[1]) and vars.groundJumpSpeed or vars.airJumpSpeed)
                             * vars.adjJumpSpeedMult
                         + vars.runningMod,
                     multiJump = vars.isColliding
