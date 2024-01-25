@@ -1021,7 +1021,7 @@ function renoUpdate(dt)
                     if self.moves[7] then
                         if self.moves[1] then
                             local gravMod = mcontroller.baseParameters().gravityMultiplier
-                            mcontroller.controlModifiers({ gravityMultiplier = (gravMod / 1.75) * gravityModifier }) -- airJumpModifier = 1.75
+                            mcontroller.controlModifiers({ gravityMultiplier = (gravMod / 1.75) * fezzedTechVars.gravityModifier }) -- airJumpModifier = 1.75
                         end
                         if not (mcontroller.groundMovement() or mcontroller.liquidMovement()) then
                             math.__doThrusterAnims = true
@@ -1140,7 +1140,7 @@ function renoUpdate(dt)
                     then
                         mcontroller.controlParameters({
                             airForce = 250,
-                            gravityMultiplier = 0.45 * gravityModifier,
+                            gravityMultiplier = 0.45 * fezzedTechVars.gravityModifier,
                             airFriction = 3.5,
                         })
                         if mcontroller.yVelocity() <= 0 and not (fezTech or garyTech) then
@@ -2671,9 +2671,10 @@ function renoUpdate(dt)
                 and not (mcontroller.liquidMovement() or math.__sphereActive or lounging)
             local jumpParameters = {
                 airJumpProfile = {
-                    jumpSpeed = ((self.moves[7] and self.moves[1]) and vars.groundJumpSpeed or vars.airJumpSpeed)
-                            * vars.adjJumpSpeedMult
-                        + vars.runningMod,
+                    jumpSpeed = (
+                        ((self.moves[7] and self.moves[1]) and vars.groundJumpSpeed or vars.airJumpSpeed)
+                        * vars.adjJumpSpeedMult
+                    ) + vars.runningMod,
                     multiJump = vars.isColliding
                         or (fezzedTechVars.avosiFlight and tileOcc)
                         or vars.jetpackGliding
