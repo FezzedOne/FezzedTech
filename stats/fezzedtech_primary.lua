@@ -91,6 +91,7 @@ function renoInit()
     self.lastSkating = false
 
     self.phantomGlider = root.assetJson("/items/phantomGlider.config")
+    self.invisibleFlyer = root.assetJson("/items/invisibleFlyer.config")
     self.phantomSoarGlider = root.assetJson("/items/phantomSoarGlider.config")
     self.phantomThruster = root.assetJson("/items/phantomThrusters.config")
     self.phantomGravShield = root.assetJson("/items/phantomGravShield.config")
@@ -388,12 +389,18 @@ function renoUpdate(dt)
         fezzedTechVars.paragliderPack = (
             status.statPositive("paragliderPack") or status.statusProperty("paragliderPack")
         )
+        fezzedTechVars.invisibleFlyer = (
+            status.statPositive("invisibleFlyer") or status.statusProperty("invisibleFlyer")
+        )
         fezzedTechVars.parkourThrustersStat = (
             (status.statPositive("parkourThrusters") or status.statusProperty("parkourThrusters"))
             and fezzedTechVars.highGrav
         ) and math.__isParkourTech
         self.parkourThrusters = fezzedTechVars.parkourThrustersStat
-        fezzedTechVars.parkourThrusters = fezzedTechVars.parkourThrustersStat and self.thrustersActive and self.moves[7]
+        fezzedTechVars.parkourThrusters = fezzedTechVars.parkourThrustersStat
+            and self.thrustersActive
+            and self.moves[7]
+            and not (self.moves[5] and self.moves[6])
         fezzedTechVars.nightVision = (status.statPositive("nightVision") or status.statusProperty("nightVision"))
         fezzedTechVars.darkNightVision = (
             status.statPositive("darkNightVision") or status.statusProperty("darkNightVision")
@@ -920,7 +927,7 @@ function renoUpdate(dt)
 
         if
             math.__player
-            and (fezzedTechVars.paragliderPack or fezzedTechVars.parkourThrusters)
+            and (fezzedTechVars.paragliderPack or fezzedTechVars.parkourThrusters or fezzedTechVars.invisibleFlyer)
             and not (math.__sphereActive or math.__flyboardActive)
         then
             if not mcontroller.zeroG() then
@@ -1021,7 +1028,9 @@ function renoUpdate(dt)
                     if self.moves[7] then
                         if self.moves[1] then
                             local gravMod = mcontroller.baseParameters().gravityMultiplier
-                            mcontroller.controlModifiers({ gravityMultiplier = (gravMod / 1.75) * fezzedTechVars.gravityModifier }) -- airJumpModifier = 1.75
+                            mcontroller.controlModifiers({
+                                gravityMultiplier = (gravMod / 1.75) * fezzedTechVars.gravityModifier,
+                            }) -- airJumpModifier = 1.75
                         end
                         if not (mcontroller.groundMovement() or mcontroller.liquidMovement()) then
                             math.__doThrusterAnims = true
@@ -1057,7 +1066,11 @@ function renoUpdate(dt)
                     self.usingItemTimer = 0.35
                 end
 
-                if self.useParawing and (self.usingItemTimer == 0) and fezzedTechVars.paragliderPack then
+                if
+                    self.useParawing
+                    and (self.usingItemTimer == 0)
+                    and (fezzedTechVars.paragliderPack or fezzedTechVars.invisibleFlyer)
+                then
                     local swapItem = player.swapSlotItem()
                     if not swapItem then
                         math.__gliderActive = true
@@ -1065,7 +1078,10 @@ function renoUpdate(dt)
                             (math.__fezTech and not math.__shadowRun) and self.phantomGravShield
                                 or (
                                     (math.__shadowRun or math.__garyTech) and self.phantomGravShield
-                                    or (fezzedTechVars.avosiGlider and self.phantomSoarGlider or self.phantomGlider)
+                                    or (
+                                        fezzedTechVars.invisibleFlyer and self.invisibleFlyer
+                                        or (fezzedTechVars.avosiGlider and self.phantomSoarGlider or self.phantomGlider)
+                                    )
                                 )
                         )
                     end
@@ -1097,7 +1113,10 @@ function renoUpdate(dt)
                         if not (fezzedTechVars.fezTech or fezzedTechVars.garyTech or fezzedTechVars.shadowRun) then
                             player.setSwapSlotItem(
                                 fezzedTechVars.parkourThrustersStat and self.phantomThruster
-                                    or (fezzedTechVars.avosiGlider and self.phantomSoarGlider or self.phantomGlider)
+                                    or (
+                                        fezzedTechVars.invisibleFlyer and self.invisibleFlyer
+                                        or (fezzedTechVars.avosiGlider and self.phantomSoarGlider or self.phantomGlider)
+                                    )
                             )
                             self.fallDanger = true
                         end
@@ -1153,7 +1172,13 @@ function renoUpdate(dt)
                     end
 
                     if
-                        (math.__onWall and not (fezzedTechVars.paragliderPack and not fezzedTechVars.parkourThrusters))
+                        (
+                            math.__onWall
+                            and not (
+                                (fezzedTechVars.paragliderPack or fezzedTechVars.invisibleFlyer)
+                                and not fezzedTechVars.parkourThrusters
+                            )
+                        )
                         or math.__firingGrapple
                         or math.__gliderFiring
                         or (self.moves[5] and (self.moves[6] or not self.moves[7]))
@@ -1186,7 +1211,10 @@ function renoUpdate(dt)
                             if fezzedTechVars.paramotor and self.fallDanger then math.__doThrusterAnims = true end
                         end
                         if self.hovering then
-                            if (not self.moves[5]) and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech) then
+                            if
+                                not (self.moves[5] and not self.thrustersActive)
+                                and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech)
+                            then
                                 math.__doThrusterAnims = true
                             end
                         end
@@ -1224,7 +1252,9 @@ function renoUpdate(dt)
                     if math.__firingGrapple or math.__gliderFiring or math.__weaponFiring then
                         math.__gliderActive = false
                     end
-                    if math.__isGlider and not fezzedTechVars.paragliderPack then math.__gliderActive = false end
+                    if math.__isGlider and not (fezzedTechVars.paragliderPack or fezzedTechVars.invisibleFlyer) then
+                        math.__gliderActive = false
+                    end
                     -- if self.moves[5] then math.__gliderActive = false end
                     if (not math.__isGlider) and not self.useParawing then math.__gliderActive = false end
                     if fezzedTechVars.shadowRun or fezzedTechVars.garyTech then
@@ -1236,7 +1266,9 @@ function renoUpdate(dt)
                     self.hovering = false
                 end
 
-                if fezzedTechVars.paragliderPack then self.parawingTap:update(dt, self.moves) end
+                if fezzedTechVars.paragliderPack or fezzedTechVars.invisibleFlyer then
+                    self.parawingTap:update(dt, self.moves)
+                end
 
                 -- if math.abs(mcontroller.xVelocity()) <= 2 or (not self.moves[7]) then self.isRunBoosting = false end
                 self.oldJump = self.moves[1]
@@ -1250,6 +1282,7 @@ function renoUpdate(dt)
         if
             not (
                 fezzedTechVars.paragliderPack
+                or fezzedTechVars.invisibleFlyer
                 or fezzedTechVars.parkourThrusters
                 or fezzedTechVars.fezTech
                 or fezzedTechVars.garyTech
