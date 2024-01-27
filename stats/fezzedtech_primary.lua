@@ -1519,7 +1519,7 @@ function renoUpdate(dt)
                         )
                     ) or (fezzedTechVars.avosiWingedArms and (itemL or itemR))
                     local yVel = vars.yVel
-                    if (math.__gliderActive and not colliding) or onJetpack then
+                    if (math.__gliderActive and not (colliding or fezzedTechVars.invisibleFlyer)) or onJetpack then
                         yVel = math.__gliderActive and 75 or 10
                     end
                     if mcontroller.liquidMovement() then yVel = yVel + 2.5 end
@@ -1728,10 +1728,18 @@ function renoUpdate(dt)
             end
 
             local angle = angleLerp(self.currentAngle, self.targetAngle, 0.08, math.pi * 0.002)
+            local flyerOverride = math.__garyTech or math.__shadowRun or math.__fezTech
+            local holdingNonFlyerItem = (itemL or itemR)
+                and not (
+                    math.__gliderActive
+                    and math.__holdingGlider
+                    and fezzedTechVars.invisibleFlyer
+                    and not flyerOverride
+                )
             if
                 (fezzedTechVars.avosiFlight or fezzedTechVars.windSailing)
                 and wingAngling
-                and not (itemL or itemR or lounging or math.__sphereActive)
+                and not (holdingNonFlyerItem or lounging or math.__sphereActive)
             then
                 if angle > 0 and angle < math.pi then
                     mcontroller.controlFace(-1)
