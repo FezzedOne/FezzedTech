@@ -1257,7 +1257,7 @@ function renoUpdate(dt)
                     end
                     -- if self.moves[5] then math.__gliderActive = false end
                     if (not math.__isGlider) and not self.useParawing then math.__gliderActive = false end
-                    if fezzedTechVars.shadowRun or fezzedTechVars.garyTech then
+                    if fezzedTechVars.shadowRun or fezzedTechVars.garyTech or fezzedTechVars.invisibleFlyer then
                         math.__gliderActive = false
                         self.useParawing = false
                         self.fallDanger = false
