@@ -2320,7 +2320,12 @@ function renoUpdate(dt)
                 then
                     mcontroller.controlAcceleration({
                         wind / windDiv,
-                        (windV / 25) + (xVel / 25) + (fezzedTechVars.shadowRun and 45 or 25),
+                        (windV / 25)
+                            + (xVel / 25)
+                            + (
+                                fezzedTechVars.invisibleFlyer and math.max(0, 5 - xVel / 25)
+                                or (fezzedTechVars.shadowRun and 45 or 25)
+                            ),
                     })
                 elseif
                     self.moves[4]
