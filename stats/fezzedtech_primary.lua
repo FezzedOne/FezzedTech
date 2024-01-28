@@ -2507,7 +2507,7 @@ function renoUpdate(dt)
                         { position = mPos, color = lightColour, pointLight = true }
                     )
                 end
-                if tech and not (xsb and not fezzedTechVars.shadowVision) and not fezzedTechVars.darkNightVision then
+                if tech and not xsb and not fezzedTechVars.darkNightVision then
                     local aimP = tech.aimPosition()
                     aimP = world.lineCollision(mPos, aimP, { "Block", "Dynamic", "Slippery" }) or aimP
                     world.sendEntityMessage(entity.id(), "addLightSource", {
