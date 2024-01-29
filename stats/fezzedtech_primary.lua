@@ -535,8 +535,7 @@ function renoUpdate(dt)
             status.clearPersistentEffects("rpTech")
         end
 
-        if interface and tech and rulerEnabled and (starExtensions or xsb) then
-            -- StarExtensions is currently needed for `interface.setCursorText`. This may change though.
+        if interface and tech and fezzedTechVars.rulerEnabled and (starExtensions or xsb) then
             local vars = {}
             vars.pP = mcontroller.position()
             vars.aP = tech.aimPosition()
@@ -546,6 +545,7 @@ function renoUpdate(dt)
             if vars.distMag < 10 then vars.roundedDist = math.floor(vars.distMag * 2 + 0.5) / 2 end
             vars.roundedDistStr = tostring(vars.roundedDist)
             if vars.roundedDistStr == "0.0" then vars.roundedDistStr = "0" end
+            if vars.roundedDistStr == "10.0" then vars.roundedDistStr = "10" end
             vars.footDist = vars.distMag / 0.3
             vars.roundedFootDist = math.floor(vars.footDist + 0.5)
             vars.roundedFootDistStr = tostring(vars.roundedFootDist)
