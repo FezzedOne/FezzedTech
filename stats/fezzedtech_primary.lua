@@ -1096,7 +1096,9 @@ function renoUpdate(dt)
                             (
                                 self.isFalling
                                 and not (
-                                    (self.moves[5] and (self.moves[6] or not self.moves[7])) or math.__firingGrapple
+                                    (self.moves[5] and (self.moves[6] or not self.moves[7]))
+                                    or math.__firingGrapple
+                                    or (fezzedTechVars.invisibleFlyer and math.__grappled)
                                 )
                             )
                             or (
