@@ -88,6 +88,12 @@ function init()
                 { context = { mode = "CommandResult" }, nick = "", message = entityName .. " " .. message },
                 true
             )
+            world.sendEntityMessage(player.id(), "newChatMessage", {
+                mode = "Whisper",
+                nickname = player.name(),
+                connection = math.max(math.floor(((player.id() or 0) - 65535) / -65536), 0),
+                text = entityName .. " " .. message,
+            })
         end)
     end
 
