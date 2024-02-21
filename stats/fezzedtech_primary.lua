@@ -1499,7 +1499,6 @@ function renoUpdate(dt)
                     and (mcontroller.groundMovement() or vars.nearGround)
                     and (not mcontroller.liquidMovement())
                 isFlopping = vars.flopping
-                sb.setLogMap("FezzedTech^000;", "isFlopping = %s", isFlopping and "true" or "false")
 
                 if
                     (fezzedTechVars.fireworks and vars.rocketAngling)
