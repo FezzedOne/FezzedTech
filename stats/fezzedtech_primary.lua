@@ -1499,6 +1499,7 @@ function renoUpdate(dt)
                     and (mcontroller.groundMovement() or vars.nearGround)
                     and (not mcontroller.liquidMovement())
                 isFlopping = vars.flopping
+                sb.setLogMap("FezzedTech^000;", "isFlopping = %s", isFlopping and "true" or "false")
 
                 if
                     (fezzedTechVars.fireworks and vars.rocketAngling)
@@ -3161,7 +3162,7 @@ function renoUpdate(dt)
         if xsb and player.setOverrideState then
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
-                    player.setOverrideState(isFlopping and "swim" or "stand")
+                    player.setOverrideState(math.__holdingGlider and "stand" or "swim")
                 else
                     if (mcontroller.crouching() or self.moves[5] or self.crouching) and not self.isSitting then
                         mcontroller.controlCrouch()
@@ -3187,7 +3188,7 @@ function renoUpdate(dt)
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
                     tech.setToolUsageSuppressed(true)
-                    tech.setParentState(isFlopping and "Swim" or "Stand")
+                    tech.setParentState(math.__holdingGlider and "Stand" or "Swim")
                 else
                     tech.setToolUsageSuppressed()
                     if (mcontroller.crouching() or self.moves[5] or self.crouching) and not self.isSitting then
