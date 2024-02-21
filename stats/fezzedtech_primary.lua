@@ -1754,6 +1754,8 @@ function renoUpdate(dt)
             self.currentAngle = angle
         end
 
+        fezzedTechVars.collisionMatch = false
+
         if lounging and not math.__sphereActive then
             local adj = 0
             local sitParameters = {
@@ -1852,8 +1854,9 @@ function renoUpdate(dt)
                     potParameters.crouchingPoly = poly.scale(potParameters.crouchingPoly, fezzedTechVars.charScale)
                 end
                 -- local jump, left, right = table.unpack(checkMovement())
-                local colBoxMismatch = polyEqual(mcontroller.collisionPoly(), potParameters.standingPoly)
+                local collisionMatch = polyEqual(mcontroller.collisionPoly(), potParameters.standingPoly)
                     or polyEqual(mcontroller.collisionPoly(), potParameters.crouchingPoly)
+                fezzedTechVars.collisionMatch = collisionMatch
                 if fezzedTechVars.flightEnabled or checkDistRaw == -2 then
                     local isSoaring = checkDistRaw == -2
                     potParameters.airForce = 250
@@ -1876,7 +1879,7 @@ function renoUpdate(dt)
                         (mcontroller.walking() or mcontroller.running())
                         and (mcontroller.groundMovement() or (not mcontroller.canJump()))
                         and (not mcontroller.liquidMovement())
-                        and not colBoxMismatch
+                        and not collisionMatch
                     then
                         if
                             self.jumpDt <= 0
@@ -2951,11 +2954,11 @@ function renoUpdate(dt)
                     0,
                 })
                 mcontroller.controlFace(self.moves[2] and -1 or 1)
-            elseif (not isMoving) and self.lastIsMoving then
+            elseif (not isMoving) and self.lastIsMoving and fezzedTechVars.collisionMatch then
                 local gravity = world.gravity(mPos)
                 mcontroller.setYVelocity(15 * math.sqrt(gravity / 80))
             end
-            self.lastIsMoving = isMoving
+            self.lastIsMoving = isMoving and fezzedTechVars.collisionMatch
         else
             self.lastIsMoving = false
         end
@@ -3147,12 +3150,18 @@ function renoUpdate(dt)
                     )
                 )
             )
-        local isOffset = (isSitting and ((self.crouching and self.isSitting) or fezzedTechVars.largePotted))
-            or math.__upsideDown
+        local isOffset = (
+            isSitting
+            and (
+                (self.crouching and self.isSitting) or (
+                    fezzedTechVars.largePotted and fezzedTechVars.collisionMatch
+                )
+            )
+        ) or math.__upsideDown
         if xsb and player.setOverrideState then
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
-                    player.setOverrideState("swim")
+                    player.setOverrideState(fezzedTechVars.collisionMatch and "swim" or "stand")
                 else
                     if (mcontroller.crouching() or self.moves[5] or self.crouching) and not self.isSitting then
                         mcontroller.controlCrouch()
@@ -3168,7 +3177,7 @@ function renoUpdate(dt)
                 if math.__upsideDown then
                     tech.setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
                 else
-                    local potFlopping = isFlopping and fezzedTechVars.largePotted
+                    local potFlopping = isFlopping and fezzedTechVars.largePotted and fezzedTechVars.collisionMatch
                     tech.setParentOffset({ 0, (potFlopping and -0.3 or -1) * fezzedTechVars.charScale })
                 end
             elseif tech then
@@ -3178,7 +3187,7 @@ function renoUpdate(dt)
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
                     tech.setToolUsageSuppressed(true)
-                    tech.setParentState("Swim")
+                    tech.setParentState(fezzedTechVars.collisionMatch and "Swim" or "Stand")
                 else
                     tech.setToolUsageSuppressed()
                     if (mcontroller.crouching() or self.moves[5] or self.crouching) and not self.isSitting then
@@ -3198,7 +3207,7 @@ function renoUpdate(dt)
                 if math.__upsideDown then
                     tech.setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
                 else
-                    local potFlopping = isFlopping and fezzedTechVars.largePotted
+                    local potFlopping = isFlopping and fezzedTechVars.largePotted and fezzedTechVars.collisionMatch
                     tech.setParentOffset({ 0, (potFlopping and -0.3 or -1) * fezzedTechVars.charScale })
                 end
             else
