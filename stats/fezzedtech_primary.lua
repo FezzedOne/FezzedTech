@@ -3161,7 +3161,7 @@ function renoUpdate(dt)
         if xsb and player.setOverrideState then
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
-                    player.setOverrideState(fezzedTechVars.collisionMatch and "swim" or "stand")
+                    player.setOverrideState(isFlopping and "swim" or "stand")
                 else
                     if (mcontroller.crouching() or self.moves[5] or self.crouching) and not self.isSitting then
                         mcontroller.controlCrouch()
@@ -3187,7 +3187,7 @@ function renoUpdate(dt)
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
                     tech.setToolUsageSuppressed(true)
-                    tech.setParentState(fezzedTechVars.collisionMatch and "Swim" or "Stand")
+                    tech.setParentState(isFlopping and "Swim" or "Stand")
                 else
                     tech.setToolUsageSuppressed()
                     if (mcontroller.crouching() or self.moves[5] or self.crouching) and not self.isSitting then
