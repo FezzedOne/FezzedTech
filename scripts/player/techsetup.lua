@@ -683,6 +683,18 @@ function init()
 end
 
 function update()
+    if input then
+        if input.bindDown("fezzedTechs", "prevActionBar") then
+            player.setActionBarGroup(player.actionBarGroup() - 2)
+        end
+        for slot = 7, 12 do
+            if input.bindDown("fezzedTechs", "slot" .. tostring(slot)) then
+                player.setSelectedActionBarSlot(slot)
+                break
+            end
+        end
+    end
+
     -- Disabling FezzedTech's appearance modifications should "disable" its "legless" stat.
     local legless = (status.statPositive("legless") or status.statusProperty("legless"))
         and (not status.statusProperty("ignoreFezzedTechAppearance"))

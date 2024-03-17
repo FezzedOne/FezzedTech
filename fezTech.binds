@@ -32,6 +32,77 @@
           }
         ],
         "name": "Toggle roleplay ruler"
+      },
+      /* Action bar slot bindings */
+      "slot7": {
+        "default": [
+          {
+            "type": "key",
+            "value": "7",
+            "mods": []
+          }
+        ],
+        "name": "Select slot 7"
+      },
+      "slot8": {
+        "default": [
+          {
+            "type": "key",
+            "value": "8",
+            "mods": []
+          }
+        ],
+        "name": "Select slot 8"
+      },
+      "slot9": {
+        "default": [
+          {
+            "type": "key",
+            "value": "9",
+            "mods": []
+          }
+        ],
+        "name": "Select slot 9"
+      },
+      "slot10": {
+        "default": [
+          {
+            "type": "key",
+            "value": "0",
+            "mods": []
+          }
+        ],
+        "name": "Select slot 10"
+      },
+      "slot11": {
+        "default": [
+          {
+            "type": "key",
+            "value": "-",
+            "mods": []
+          }
+        ],
+        "name": "Select slot 11"
+      },
+      "slot12": {
+        "default": [
+          {
+            "type": "key",
+            "value": "=",
+            "mods": []
+          }
+        ],
+        "name": "Select slot 12"
+      },
+      "prevActionBar": {
+        "default": [
+          {
+            "type": "key",
+            "value": "X",
+            "mods": ["LShift"]
+          }
+        ],
+        "name": "Previous action bar"
       }
     }
   }
