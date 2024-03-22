@@ -204,6 +204,8 @@ function renoInit()
 
     self.lastIsLame = false
 
+    self.nightVision = false
+
     math.__gliderActive = false
     math.__doThrusterAnims = false
     math.__jumpDisabled = true
@@ -2493,7 +2495,9 @@ function renoUpdate(dt)
 
         if fezzedTechVars.flyboard then self.flyboardTap:update(dt, self.moves) end
 
-        if fezzedTechVars.nightVision or fezzedTechVars.darkNightVision or fezzedTechVars.shadowVision then
+        local nightVision = fezzedTechVars.nightVision or fezzedTechVars.darkNightVision or fezzedTechVars.shadowVision
+
+        if nightVision then
             world.sendEntityMessage(entity.id(), "clearLightSources")
             local mPos = mcontroller.position()
             if not world.pointTileCollision(mPos, { "Block", "Dynamic", "Slippery" }) then
@@ -2528,12 +2532,15 @@ function renoUpdate(dt)
                 end
             end
         else
-            if xsb then
-                world.setLightMultiplier()
-                world.resetShaderParameters()
+            if nightVision ~= self.nightVision then
+                if xsb then
+                    world.setLightMultiplier()
+                    world.resetShaderParameters()
+                end
+                world.sendEntityMessage(entity.id(), "clearLightSources")
             end
-            world.sendEntityMessage(entity.id(), "clearLightSources")
         end
+        self.nightVision = nightVision
         -- world.sendEntityMessage(entity.id(), "clearDrawables")
 
         if
@@ -3152,11 +3159,7 @@ function renoUpdate(dt)
             )
         local isOffset = (
             isSitting
-            and (
-                (self.crouching and self.isSitting) or (
-                    fezzedTechVars.largePotted and fezzedTechVars.collisionMatch
-                )
-            )
+            and ((self.crouching and self.isSitting) or (fezzedTechVars.largePotted and fezzedTechVars.collisionMatch))
         ) or math.__upsideDown
         if xsb and player.setOverrideState then
             if isSitting then
