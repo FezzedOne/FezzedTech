@@ -1496,7 +1496,7 @@ function renoUpdate(dt)
                     vars.nearGround = getClosestBlockYDistance(mPos, vec2.add(mPos, { 0, (-4 * scale) }), false)
                 end
                 vars.flopping = (fezzedTechVars.mertail or potCrawling)
-                    and (smallColBox or fezzedTechVars.largePotted)
+                    and (smallColBox or fezzedTechVars.largePotted or fezzedTechVars.mertail)
                     and (self.moves[2] or self.moves[3])
                     and (mcontroller.groundMovement() or vars.nearGround)
                     and (not mcontroller.liquidMovement())
@@ -1800,15 +1800,22 @@ function renoUpdate(dt)
             do
                 local adj = fezzedTechVars.largePotted and -7 or (fezzedTechVars.mertail and 0 or -2)
                 local cAdj = fezzedTechVars.largePotted and -3 or -2
+                local inAir = (
+                    (
+                        fezzedTechVars.parkourThrusters
+                        or fezzedTechVars.fireworks
+                        or (fezzedTechVars.paragliderPack and fezzedTechVars.paramotor)
+                    ) and mcontroller.jumping()
+                )
                 local potParameters = {
                     liquidImpedance = 0,
 
                     walkSpeed = (not mcontroller.groundMovement())
-                            and (((fezzedTechVars.parkourThrusters or fezzedTechVars.fireworks or (fezzedTechVars.paragliderPack and fezzedTechVars.paramotor)) and mcontroller.jumping()) and 25 or (fezzedTechVars.soarHop and 15 or 0.5))
-                        or (fezzedTechVars.parkourThrusters and 0 or 0),
+                            and (inAir and 25 or (fezzedTechVars.soarHop and 15 or 0.5))
+                        or (fezzedTechVars.mertail and 6 or 0),
                     runSpeed = (not mcontroller.groundMovement())
-                            and (((fezzedTechVars.parkourThrusters or fezzedTechVars.fireworks or (fezzedTechVars.paragliderPack and fezzedTechVars.paramotor)) and mcontroller.jumping()) and 50 or (fezzedTechVars.soarHop and 40 or 1))
-                        or (fezzedTechVars.parkourThrusters and 0 or 0),
+                            and (inAir and 50 or (fezzedTechVars.soarHop and 40 or 1))
+                        or (fezzedTechVars.mertail and 12 or 0),
 
                     airJumpProfile = {
                         jumpSpeed = (
@@ -2314,17 +2321,18 @@ function renoUpdate(dt)
                 local windDiv = (self.moves[2] or self.moves[3]) and 10 or 7.5
                 local xVel = math.abs(mcontroller.xVelocity())
                 local windV = math.abs(wind)
+                local airMovement = (
+                    math.__flyboardActive
+                    or (usingGlider and (fezzedTechVars.parkourThrusters or fezzedTechVars.avosiGlider or fezzedTechVars.shadowRun))
+                    or (fezzedTechVars.parkourThrusters and fezzedTechVars.upgradedThrusters)
+                )
                 if self.moves[5] then
                     mcontroller.controlAcceleration({
                         wind / windDiv,
                         math.__flyboardActive and -6
                             or (fezzedTechVars.shadowRun and (mcontroller.liquidMovement() and -60 or -30) or -1),
                     })
-                elseif
-                    self.moves[1]
-                        and (math.__flyboardActive or (usingGlider and (fezzedTechVars.parkourThrusters or fezzedTechVars.avosiGlider or fezzedTechVars.shadowRun)) or (fezzedTechVars.parkourThrusters and fezzedTechVars.upgradedThrusters))
-                    or (fezzedTechVars.shadowRun and self.upgradedThrusters)
-                then
+                elseif self.moves[1] and airMovement or (fezzedTechVars.shadowRun and self.upgradedThrusters) then
                     mcontroller.controlAcceleration({
                         wind / windDiv,
                         (windV / 25)
@@ -2334,11 +2342,7 @@ function renoUpdate(dt)
                                 or (fezzedTechVars.shadowRun and 45 or 25)
                             ),
                     })
-                elseif
-                    self.moves[4]
-                        and (math.__flyboardActive or (usingGlider and (fezzedTechVars.parkourThrusters or fezzedTechVars.avosiGlider or fezzedTechVars.shadowRun)) or (fezzedTechVars.parkourThrusters and fezzedTechVars.upgradedThrusters))
-                    or (fezzedTechVars.shadowRun and self.upgradedThrusters)
-                then
+                elseif self.moves[4] and airMovement or (fezzedTechVars.shadowRun and self.upgradedThrusters) then
                     mcontroller.controlAcceleration({ wind / windDiv, (windV / 25) + (xVel / 25) + 10 })
                 elseif self.moves[1] and fezzedTechVars.windSailing and not (gliding or math.__flyboardActive) then
                     mcontroller.controlAcceleration({ wind / windDiv, (windV / 25) + (xVel / 40) + 25 })
