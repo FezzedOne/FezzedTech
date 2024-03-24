@@ -2150,7 +2150,7 @@ function renoUpdate(dt)
                 elseif fezzedTechVars.soarHop then
                     movementParameters.airJumpProfile.jumpSpeed = (mcontroller.falling() or mcontroller.flying())
                             and 4.5
-                        or (self.moves[6] and 45 or 10)
+                        or (self.moves[6] and 15 or 10)
                     -- elseif fezzedTechVars.avosiWings then
                     --     movementParameters.airJumpProfile.jumpSpeed = 10
                 else
