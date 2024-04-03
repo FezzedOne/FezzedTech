@@ -313,8 +313,8 @@ function renoUpdate(dt)
         fezzedTechVars.bouncyRaw = status.statPositive("bouncy") or fezzedTechVars.bouncyCrouch
         fezzedTechVars.bouncy = fezzedTechVars.bouncyRaw -- and math.__isParkourTech
         fezzedTechVars.largePotted = status.statPositive("largePotted") or status.statusProperty("largePotted")
-        fezzedTechVars.scarecrowPole = status.statPositive("scarecrowPole")
-            or status.statusProperty("scarecrowPole")
+        fezzedTechVars.scarecrowPoleRaw = status.statPositive("scarecrowPole") or status.statusProperty("scarecrowPole")
+        fezzedTechVars.scarecrowPole = fezzedTechVars.scarecrowPoleRaw
             or ((not math.__isParkourTech) and (fezzedTechVars.opTailStat or fezzedTechVars.ghostTailStat))
             or fezzedTechVars.bouncyRaw
             or fezzedTechVars.largePotted
@@ -3043,7 +3043,7 @@ function renoUpdate(dt)
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "duck"
                             or (aXVel > 1.5 and "idle" or "idle")
                     )
-                elseif largePottedOnGround then
+                elseif largePottedOnGround and not fezzedTechVars.scarecrowPoleRaw then
                     player.setOverrideState("idle")
                 elseif fezzedTechVars.pottedClimbing then
                     player.setOverrideState("swimIdle")
@@ -3059,7 +3059,7 @@ function renoUpdate(dt)
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "Duck"
                             or (aXVel > 1.5 and "Stand" or "Stand")
                     ) -- "Walk" or "Stand"
-                elseif largePottedOnGround then
+                elseif largePottedOnGround and not fezzedTechVars.scarecrowPoleRaw then
                     tech.setParentState("Stand")
                 elseif fezzedTechVars.pottedClimbing then
                     tech.setParentState("Fall")
