@@ -439,6 +439,8 @@ function renoUpdate(dt)
         fezzedTechVars.windSailing = status.statPositive("windSail") or status.statusProperty("windSail")
         fezzedTechVars.gravityModifier = math.__isParkourTech and (status.stat("gravityModifier") + 1) or 1
 
+        local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
+
         if not tech then fezzedTechVars.charScale = 1 end
 
         fezzedTechVars.legless = (fezzedTechVars.noLegs or fezzedTechVars.scarecrowPole)
@@ -1467,7 +1469,6 @@ function renoUpdate(dt)
 
         do
             local wingAngling = false
-            local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
             local potCrawling = (fezzedTechVars.potted or fezzedTechVars.largePotted)
                 and not fezzedTechVars.gettingOverIt
                 and scarecrowWalking
@@ -1809,7 +1810,6 @@ function renoUpdate(dt)
                         or (fezzedTechVars.paragliderPack and fezzedTechVars.paramotor)
                     ) and mcontroller.jumping()
                 )
-                local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
                 local potParameters = {
                     liquidImpedance = 0,
 
@@ -1873,7 +1873,6 @@ function renoUpdate(dt)
                 fezzedTechVars.collisionMatch = collisionMatch
                 if fezzedTechVars.flightEnabled or checkDistRaw == -2 then
                     local isSoaring = checkDistRaw == -2
-                    local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
                     potParameters.airForce = 250
                     potParameters.airFriction = 5
                     potParameters.airJumpProfile = {
@@ -2966,9 +2965,10 @@ function renoUpdate(dt)
             local isMoving = (self.moves[2] or self.moves[3]) and mcontroller.groundMovement()
             if isMoving then
                 local maxVariance = 150
+                local variantVelocity = (maxVariance * math.random() - maxVariance * 0.2) * (self.moves[2] and -1 or 1)
                 mcontroller.controlAcceleration({
-                    (maxVariance * math.random() - maxVariance * 0.2) * (self.moves[2] and -1 or 1),
-                    0,
+                    scarecrowWalking and variantVelocity or 0,
+                    scarecrowWalking and 0 or 150,
                 })
                 mcontroller.controlFace(self.moves[2] and -1 or 1)
             elseif (not isMoving) and self.lastIsMoving and fezzedTechVars.collisionMatch then
@@ -3014,7 +3014,6 @@ function renoUpdate(dt)
                 or activeMovementAbilities
             )
 
-        local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
         local largePottedOnGround = fezzedTechVars.largePotted and scarecrowWalking and mcontroller.groundMovement()
 
         if largePottedOnGround then
@@ -3155,7 +3154,6 @@ function renoUpdate(dt)
             self.isSkating = false
         end
 
-        local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
         local isSitting = self.isSitting
             or (
                 mcontroller.groundMovement()
