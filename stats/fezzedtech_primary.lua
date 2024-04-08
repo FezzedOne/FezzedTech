@@ -1809,6 +1809,7 @@ function renoUpdate(dt)
                         or (fezzedTechVars.paragliderPack and fezzedTechVars.paramotor)
                     ) and mcontroller.jumping()
                 )
+                local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
                 local potParameters = {
                     liquidImpedance = 0,
 
@@ -1821,7 +1822,9 @@ function renoUpdate(dt)
 
                     airJumpProfile = {
                         jumpSpeed = (
-                            (fezzedTechVars.potted or fezzedTechVars.largePotted) and not fezzedTechVars.fireworks
+                            (fezzedTechVars.potted or fezzedTechVars.largePotted)
+                            and not fezzedTechVars.fireworks
+                            and scarecrowWalking
                         )
                                 and 2.5
                             or (
@@ -3165,9 +3168,13 @@ function renoUpdate(dt)
                     )
                 )
             )
+        local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
         local isOffset = (
             isSitting
-            and ((self.crouching and self.isSitting) or (fezzedTechVars.largePotted and fezzedTechVars.collisionMatch))
+            and (
+                (self.crouching and self.isSitting)
+                or ((fezzedTechVars.largePotted and scarecrowWalking) and fezzedTechVars.collisionMatch)
+            )
         ) or math.__upsideDown
         if xsb and player.setOverrideState then
             if isSitting then
