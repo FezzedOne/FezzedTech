@@ -3155,6 +3155,7 @@ function renoUpdate(dt)
             self.isSkating = false
         end
 
+        local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
         local isSitting = self.isSitting
             or (
                 mcontroller.groundMovement()
@@ -3163,12 +3164,12 @@ function renoUpdate(dt)
                     fezzedTechVars.mertail
                     or (
                         (fezzedTechVars.potted or fezzedTechVars.largePotted)
+                        and scarecrowWalking
                         and (self.moves[2] or self.moves[3])
                         and not fezzedTechVars.gettingOverIt
                     )
                 )
             )
-        local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
         local isOffset = (
             isSitting
             and (
