@@ -1467,8 +1467,10 @@ function renoUpdate(dt)
 
         do
             local wingAngling = false
+            local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
             local potCrawling = (fezzedTechVars.potted or fezzedTechVars.largePotted)
                 and not fezzedTechVars.gettingOverIt
+                and scarecrowWalking
             if
                 (
                     fezzedTechVars.avosiFlight
@@ -1811,10 +1813,10 @@ function renoUpdate(dt)
                     liquidImpedance = 0,
 
                     walkSpeed = (not mcontroller.groundMovement())
-                            and (inAir and 25 or (fezzedTechVars.soarHop and 15 or 0.5))
+                            and (inAir and 25 or (fezzedTechVars.soarHop and 7.5 or 0.5))
                         or (fezzedTechVars.mertail and 6 or 0),
                     runSpeed = (not mcontroller.groundMovement())
-                            and (inAir and 50 or (fezzedTechVars.soarHop and 40 or 1))
+                            and (inAir and 50 or (fezzedTechVars.soarHop and 15 or 1))
                         or (fezzedTechVars.mertail and 12 or 0),
 
                     airJumpProfile = {
@@ -1868,12 +1870,13 @@ function renoUpdate(dt)
                 fezzedTechVars.collisionMatch = collisionMatch
                 if fezzedTechVars.flightEnabled or checkDistRaw == -2 then
                     local isSoaring = checkDistRaw == -2
+                    local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
                     potParameters.airForce = 250
                     potParameters.airFriction = 5
                     potParameters.airJumpProfile = {
                         jumpSpeed = fezzedTechVars.mertail and 5
                             or (
-                                fezzedTechVars.potted and 2.5
+                                (fezzedTechVars.potted and scarecrowWalking) and 2.5
                                 or (fezzedTechVars.avosiJetpack and 5 or (isSoaring and 25 or 15))
                             ),
                         autoJump = true,
@@ -1966,8 +1969,8 @@ function renoUpdate(dt)
                         potParameters.airJumpProfile.multiJump = self.moves[7] and (self.soarDt >= 0.2)
                     end
                     if not mcontroller.onGround() then
-                        potParameters.walkSpeed = fezzedTechVars.ghostTail and 6 or 10
-                        potParameters.runSpeed = fezzedTechVars.ghostTail and 15 or 40
+                        potParameters.walkSpeed = fezzedTechVars.ghostTail and 6 or 7.5
+                        potParameters.runSpeed = fezzedTechVars.ghostTail and 15 or 15
                     end
                     if fezzedTechVars.swimTail then
                         potParameters.walkSpeed = fezzedTechVars.shadowRun and 15 or 10
@@ -2113,7 +2116,7 @@ function renoUpdate(dt)
                 end
                 if not mcontroller.onGround() then
                     movementParameters.walkSpeed = fezzedTechVars.ghostTail and 6 or 10
-                    movementParameters.runSpeed = fezzedTechVars.ghostTail and 15 or 40
+                    movementParameters.runSpeed = fezzedTechVars.ghostTail and 15 or 15
                 else
                     if fezzedTechVars.ghostTail or fezzedTechVars.soarHop or fezzedTechVars.opTail then
                         if fezzedTechVars.legless then
@@ -3008,7 +3011,8 @@ function renoUpdate(dt)
                 or activeMovementAbilities
             )
 
-        local largePottedOnGround = fezzedTechVars.largePotted and mcontroller.groundMovement()
+        local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
+        local largePottedOnGround = fezzedTechVars.largePotted and scarecrowWalking and mcontroller.groundMovement()
 
         if largePottedOnGround then
             local notUsingThrusters = not (
