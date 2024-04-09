@@ -2438,9 +2438,10 @@ function renoUpdate(dt)
                                 + 1.75,
                         },
                         player = math.__player,
-                        backItem = player and player.equippedItem("back"),
+                        
                         flyboardDirs = "",
                     }
+                    vars.backItem = vars.player and vars.player.equippedItem("back"),
                     vars.adjPos = vec2.add(mPos, vars.mOffset)
                     if vars.backItem then
                         vars.flyboardDirs = vars.backItem.parameters.flyboardDirectives
