@@ -2801,15 +2801,16 @@ function renoUpdate(dt)
                 },
             }
             if self.moves[1] or not fezzedTechVars.isLeglessChar then
-                jumpParameters.airJumpProfile.jumpSpeed = (
+                local jumpSpeed = (
                     fezzedTechVars.avosiJetpack
                     or checkDistRaw <= -1
                     or (fezzedTechVars.bouncy and not self.moves[1])
                 )
                         and 10
                     or 35
+                jumpParameters.airJumpProfile.jumpSpeed = jumpSpeed * fezzedTechVars.jumpSpeedMult
             else
-                jumpParameters.airJumpProfile.jumpSpeed = 15
+                jumpParameters.airJumpProfile.jumpSpeed = 15 * fezzedTechVars.jumpSpeedMult
             end
             if fezzedTechVars.bouncy and inLiquid and self.moves[5] then
                 mcontroller.controlApproachYVelocity(-10, 150)
