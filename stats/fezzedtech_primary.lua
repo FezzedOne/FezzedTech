@@ -283,6 +283,8 @@ function renoUpdate(dt)
             status.setStatusProperty("legless", (noLegs or scarecrowPole) and not grandfatheredLeglessChar)
         end
     else
+        if not player then player = math.__player or {} end
+
         if xsb and player.setOverrideState then player.setOverrideState() end
 
         math.__fezzedTechLoaded = true
@@ -935,9 +937,9 @@ function renoUpdate(dt)
             and not (math.__sphereActive or math.__flyboardActive)
         then
             if not mcontroller.zeroG() then
-                local player = math.__player
+                -- local player = math.__player
                 if fezzedTechVars.paragliderPack then
-                    local backItem = player.equippedItem("back")
+                    local backItem = player.equippedItem and player.equippedItem("back") or nil
 
                     if backItem then
                         local paragliderDirsRaw = type(backItem.parameters.paragliderDirectives) == "string"
@@ -1075,7 +1077,7 @@ function renoUpdate(dt)
                     and (self.usingItemTimer == 0)
                     and (fezzedTechVars.paragliderPack or fezzedTechVars.invisibleFlyer)
                 then
-                    local swapItem = player.swapSlotItem()
+                    local swapItem = player.swapSlotItem and player.swapSlotItem() or nil
                     if not swapItem then
                         math.__gliderActive = true
                         player.setSwapSlotItem(
@@ -1093,7 +1095,7 @@ function renoUpdate(dt)
 
                 -- if self.moves[1] and (self.moves[1] ~= self.oldJump) then self.fallDanger = false end
                 if (not mcontroller.groundMovement()) and (not mcontroller.liquidMovement()) then
-                    local swapItem = player.swapSlotItem()
+                    local swapItem = player.swapSlotItem and player.swapSlotItem() or nil
 
                     if
                         (
@@ -1116,7 +1118,10 @@ function renoUpdate(dt)
                             )
                         ) and not swapItem
                     then
-                        if not (fezzedTechVars.fezTech or fezzedTechVars.garyTech or fezzedTechVars.shadowRun) then
+                        if
+                            player.setSwapSlotItem
+                            and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech or fezzedTechVars.shadowRun)
+                        then
                             player.setSwapSlotItem(
                                 fezzedTechVars.parkourThrustersStat and self.phantomThruster
                                     or (
@@ -1129,11 +1134,8 @@ function renoUpdate(dt)
                     end
 
                     if
-                        (
-                            fezzedTechVars.fezTech
-                            or fezzedTechVars.garyTech
-                            or (self.shadowFlight and not fezzedTechVars.parkourThrusters)
-                        )
+                        player.setSwapSlotItem
+                        and (fezzedTechVars.fezTech or fezzedTechVars.garyTech or (self.shadowFlight and not fezzedTechVars.parkourThrusters))
                         and (self.isFalling and not ((self.moves[5] and (self.moves[6] or not self.moves[7])) or math.__firingGrapple))
                         and not swapItem
                     then
@@ -1145,7 +1147,8 @@ function renoUpdate(dt)
                     end
 
                     if
-                        (fezzedTechVars.garyTech or self.shadowFlight)
+                        player.setSwapSlotItem
+                        and (fezzedTechVars.garyTech or self.shadowFlight)
                         and self.moves[1]
                         and (self.running or fezzedTechVars.parkourThrusters)
                         and not (math.__onWall or self.lastJump or mcontroller.jumping() or mcontroller.liquidMovement() or mcontroller.groundMovement())
@@ -2437,11 +2440,9 @@ function renoUpdate(dt)
                                 + (1.6785 * scale)
                                 + 1.75,
                         },
-                        player = math.__player,
-                        
                         flyboardDirs = "",
                     }
-                    vars.backItem = vars.player and vars.player.equippedItem("back")
+                    vars.backItem = player.equippedItem and player.equippedItem("back") or nil
                     vars.adjPos = vec2.add(mPos, vars.mOffset)
                     if vars.backItem then
                         vars.flyboardDirs = vars.backItem.parameters.flyboardDirectives
