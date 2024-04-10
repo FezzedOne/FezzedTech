@@ -772,7 +772,7 @@ function renoUpdate(dt)
                     or math.__onWall
                     or lounging
                 )
-            if fezzedTechVars.avosiFlying then
+            if avosiFlying then
                 if xsb and player.setOverrideState then
                     player.setOverrideState("fall")
                 else
@@ -783,7 +783,7 @@ function renoUpdate(dt)
                     if not (xsb and player.setOverrideState) then tech.setParentState() end
                 end
             end
-            self.lastAvosiFlying = fezzedTechVars.avosiFlying
+            self.lastAvosiFlying = avosiFlying
         end
 
         if
