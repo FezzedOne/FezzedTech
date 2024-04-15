@@ -68,35 +68,6 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
 end
 
 function init()
-    if xsb then
-        message.setHandler("inspectionMessage", function(_, _, entityId, message)
-            local entityName = "^red;<@" .. tostring(entityId) .. ">^reset;"
-            if entityId == 0 then
-                entityName = "^#888888;::^#aaa,set;"
-            elseif world.entityExists(entityId) then
-                local entType = world.entityType(entityId)
-                if entType == "player" or entType == "npc" then
-                    entityName = world.entityName(entityId) or entityName
-                    entityName = "^#888888,set;[" .. entityName .. "]^#aaa,set;"
-                else
-                    entityName = "^#888888;::^#aaa,set;"
-                end
-            else
-                entityName = "^#888888;::^#aaa,set;"
-            end
-            interface.addChatMessage(
-                { context = { mode = "CommandResult" }, nick = "", message = entityName .. " " .. message },
-                true
-            )
-            world.sendEntityMessage(player.id(), "newChatMessage", {
-                mode = "Whisper",
-                nickname = player.name(),
-                connection = math.max(math.floor(((player.id() or 0) - 65535) / -65536), 0),
-                text = entityName .. " " .. message,
-            })
-        end)
-    end
-
     if xsb or starExtensions then
         message.setHandler("/roll", function(_, sameClient, rawArgs)
             if sameClient then
