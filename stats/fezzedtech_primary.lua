@@ -437,7 +437,7 @@ function renoUpdate(dt)
         local activeMovementAbilities = status.statPositive("activeMovementAbilities")
         fezzedTechVars.charScale = status.stat("charHeight") ~= 0 and (status.stat("charHeight") / 175)
             or (
-                status.stat("bodyscale") ~= 0 and status.stat("bodyscale")
+                status.stat("bodysize") ~= 0 and status.stat("bodysize")
                 or (type(math.__scale == "number") and math.__scale or 1.0)
             )
         fezzedTechVars.rulerEnabled = status.statusProperty("roleplayRuler")
