@@ -435,7 +435,7 @@ function renoUpdate(dt)
         fezzedTechVars.slowRecharge = status.statPositive("slowRecharge") and math.__isParkourTech
         fezzedTechVars.isLame = status.statPositive("isLame")
         local activeMovementAbilities = status.statPositive("activeMovementAbilities")
-        fezzedTechVars.charScale = status.stat("charHeight") ~= 0 and (status.stat("charHeight") / 187.5)
+        fezzedTechVars.charScale = status.stat("bodysize") ~= 0 and (status.stat("bodysize") / 175)
             or (type(math.__scale == "number") and math.__scale or 1)
         fezzedTechVars.rulerEnabled = status.statusProperty("roleplayRuler")
         fezzedTechVars.windSailing = status.statPositive("windSail") or status.statusProperty("windSail")
