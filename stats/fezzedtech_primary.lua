@@ -3165,13 +3165,15 @@ function renoUpdate(dt)
                 mcontroller.groundMovement()
                 and (fezzedTechVars.mertail or fezzedTechVars.largePotted)
                 and (
-                    fezzedTechVars.mertail
-                    or (
-                        (fezzedTechVars.potted or fezzedTechVars.largePotted)
-                        and scarecrowWalking
-                        and (self.moves[2] or self.moves[3])
-                        and not fezzedTechVars.gettingOverIt
-                    )
+                    (
+                        fezzedTechVars.mertail
+                        or (
+                            (fezzedTechVars.potted or fezzedTechVars.largePotted)
+                            and scarecrowWalking
+                            and (self.moves[2] or self.moves[3])
+                            and not fezzedTechVars.gettingOverIt
+                        )
+                    ) and fezzedTechVars.collisionMatch
                 )
             )
         local isOffset = (
