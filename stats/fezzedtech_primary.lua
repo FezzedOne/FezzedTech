@@ -3214,7 +3214,7 @@ function renoUpdate(dt)
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
                     player.setOverrideState(math.__holdingGlider and "stand" or "swim")
                 else
-                    if (mcontroller.crouching() or self.moves[5] or self.crouching) and not self.isSitting then
+                    if (self.moves[5] or self.crouching) and not self.isSitting then
                         mcontroller.controlCrouch()
                         player.setOverrideState("duck")
                     else
@@ -3241,7 +3241,7 @@ function renoUpdate(dt)
                     tech.setParentState(math.__holdingGlider and "Stand" or "Swim")
                 else
                     tech.setToolUsageSuppressed()
-                    if (mcontroller.crouching() or self.moves[5] or self.crouching) and not self.isSitting then
+                    if (self.moves[5] or self.crouching) and not self.isSitting then
                         mcontroller.controlCrouch()
                         tech.setParentState("Duck")
                     else
