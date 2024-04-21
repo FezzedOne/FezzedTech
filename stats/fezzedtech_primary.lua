@@ -20,10 +20,12 @@ function angleLerp(a0, a1, t, m)
     end
 end
 
+function floatVectorEq(a, b) return math.abs(a[1] - b[1]) <= 0.001 or math.abs(a[2] - b[2]) <= 0.001 end
+
 function polyEqual(poly1, poly2)
     if #poly1 ~= #poly2 then return false end
     for n = 1, #poly1 do
-        if not vec2.eq(poly1[n], poly2[n]) then return false end
+        if not floatVectorEq(poly1[n], poly2[n]) then return false end
     end
     return true
 end
@@ -1317,8 +1319,8 @@ function renoUpdate(dt)
         local collisionMatch = false
         local largeCollisionMatch = false
         if fezzedTechVars.largePotted or fezzedTechVars.scarecrowPole then
-            local adj = fezzedTechVars.largePotted and -7 or (fezzedTechVars.mertail and 0 or -2)
-            local cAdj = fezzedTechVars.largePotted and -3 or -2
+            local adj = -7
+            local cAdj = -3
             local standingPoly, crouchingPoly
             local altStandingPoly = {
                 { -0.3, -2.0 + 0.875 + (adj / 8) },
@@ -1383,6 +1385,8 @@ function renoUpdate(dt)
                 standingPoly = poly.scale(standingPoly, fezzedTechVars.charScale)
                 crouchingPoly = poly.scale(crouchingPoly, fezzedTechVars.charScale)
             end
+
+            sb.setLogMap("FezzedTech^003;", "noLegs.standingPoly = %s", sb.printJson(standingPoly))
 
             collisionMatch = polyEqual(mcontroller.collisionPoly(), standingPoly)
                 or polyEqual(mcontroller.collisionPoly(), crouchingPoly)
@@ -1489,6 +1493,18 @@ function renoUpdate(dt)
             -- if self.moves[5] then mcontroller.controlCrouch() end
             -- if self.moves[5] and self.moves[6] then mcontroller.controlDown() end
         end
+
+        sb.setLogMap(
+            "FezzedTech^000;",
+            "collisionMatch = %s",
+            collisionMatch and "^green;true^reset;" or "^red;false^reset;"
+        )
+        sb.setLogMap(
+            "FezzedTech^001;",
+            "largeCollisionMatch = %s",
+            largeCollisionMatch and "^green;true^reset;" or "^red;false^reset;"
+        )
+        sb.setLogMap("FezzedTech^002;", "collisionPoly = %s", sb.printJson(mcontroller.collisionPoly()))
 
         local colliding
 
@@ -3191,15 +3207,13 @@ function renoUpdate(dt)
                 mcontroller.groundMovement()
                 and (fezzedTechVars.mertail or fezzedTechVars.largePotted)
                 and (
-                    (
-                        fezzedTechVars.mertail
-                        or (
-                            (fezzedTechVars.potted or fezzedTechVars.largePotted)
-                            and scarecrowWalking
-                            and (self.moves[2] or self.moves[3])
-                            and not fezzedTechVars.gettingOverIt
-                        )
-                    ) and fezzedTechVars.collisionMatch
+                    fezzedTechVars.mertail
+                    or (
+                        (fezzedTechVars.potted or fezzedTechVars.largePotted)
+                        and scarecrowWalking
+                        and (self.moves[2] or self.moves[3])
+                        and not fezzedTechVars.gettingOverIt
+                    )
                 )
             )
         local isOffset = (
@@ -3218,7 +3232,7 @@ function renoUpdate(dt)
                         mcontroller.controlCrouch()
                         player.setOverrideState("duck")
                     else
-                        player.setOverrideState("sit")
+                        player.setOverrideState(fezzedTechVars.collisionMatch and "sit" or "stand")
                     end
                 end
             else
@@ -3245,7 +3259,7 @@ function renoUpdate(dt)
                         mcontroller.controlCrouch()
                         tech.setParentState("Duck")
                     else
-                        tech.setParentState("Sit")
+                        tech.setParentState(fezzedTechVars.collisionMatch and "Sit" or "Stand")
                     end
                 end
             else
