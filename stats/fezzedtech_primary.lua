@@ -20,7 +20,7 @@ function angleLerp(a0, a1, t, m)
     end
 end
 
-function floatVectorEq(a, b) return math.abs(a[1] - b[1]) <= 0.001 or math.abs(a[2] - b[2]) <= 0.001 end
+function floatVectorEq(a, b) return math.abs(a[1] - b[1]) <= 0.001 and math.abs(a[2] - b[2]) <= 0.001 end
 
 function polyEqual(poly1, poly2)
     if #poly1 ~= #poly2 then return false end
@@ -1386,8 +1386,6 @@ function renoUpdate(dt)
                 crouchingPoly = poly.scale(crouchingPoly, fezzedTechVars.charScale)
             end
 
-            sb.setLogMap("FezzedTech^003;", "noLegs.standingPoly = %s", sb.printJson(standingPoly))
-
             collisionMatch = polyEqual(mcontroller.collisionPoly(), standingPoly)
                 or polyEqual(mcontroller.collisionPoly(), crouchingPoly)
             fezzedTechVars.collisionMatch = collisionMatch or fezzedTechVars.collisionMatch
@@ -1493,18 +1491,6 @@ function renoUpdate(dt)
             -- if self.moves[5] then mcontroller.controlCrouch() end
             -- if self.moves[5] and self.moves[6] then mcontroller.controlDown() end
         end
-
-        sb.setLogMap(
-            "FezzedTech^000;",
-            "collisionMatch = %s",
-            collisionMatch and "^green;true^reset;" or "^red;false^reset;"
-        )
-        sb.setLogMap(
-            "FezzedTech^001;",
-            "largeCollisionMatch = %s",
-            largeCollisionMatch and "^green;true^reset;" or "^red;false^reset;"
-        )
-        sb.setLogMap("FezzedTech^002;", "collisionPoly = %s", sb.printJson(mcontroller.collisionPoly()))
 
         local colliding
 
