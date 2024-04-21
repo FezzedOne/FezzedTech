@@ -443,6 +443,7 @@ function renoUpdate(dt)
         fezzedTechVars.rulerEnabled = status.statusProperty("roleplayRuler")
         fezzedTechVars.windSailing = status.statPositive("windSail") or status.statusProperty("windSail")
         fezzedTechVars.gravityModifier = math.__isParkourTech and (status.stat("gravityModifier") + 1) or 1
+        fezzedTechVars.collisionMatch = false
 
         local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
 
@@ -1360,6 +1361,8 @@ function renoUpdate(dt)
             smallColBox = polyEqual(mcontroller.collisionPoly(), standingPoly)
                 or polyEqual(mcontroller.collisionPoly(), crouchingPoly)
 
+            fezzedTechVars.collisionMatch = smallColBox
+
             if
                 mcontroller.groundMovement()
                 and ((self.moves[2] or self.moves[3]) and not self.moves[1])
@@ -1765,8 +1768,6 @@ function renoUpdate(dt)
             self.currentAngle = angle
         end
 
-        fezzedTechVars.collisionMatch = false
-
         if lounging and not math.__sphereActive then
             local adj = 0
             local sitParameters = {
@@ -1876,7 +1877,7 @@ function renoUpdate(dt)
                 -- local jump, left, right = table.unpack(checkMovement())
                 local collisionMatch = polyEqual(mcontroller.collisionPoly(), potParameters.standingPoly)
                     or polyEqual(mcontroller.collisionPoly(), potParameters.crouchingPoly)
-                fezzedTechVars.collisionMatch = collisionMatch
+                fezzedTechVars.collisionMatch = fezzedTechVars.collisionMatch or collisionMatch
                 if fezzedTechVars.flightEnabled or checkDistRaw == -2 then
                     local isSoaring = checkDistRaw == -2
                     potParameters.airForce = 250
