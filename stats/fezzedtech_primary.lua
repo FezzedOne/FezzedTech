@@ -1314,20 +1314,46 @@ function renoUpdate(dt)
         -- end
         -- self.lastCrouching = mcontroller.crouching()
 
-        local smallColBox = false
-
-        local largeColBoxMismatch = false
+        local collisionMatch = false
+        local largeCollisionMatch = false
         if fezzedTechVars.largePotted or fezzedTechVars.scarecrowPole then
+            local adj = fezzedTechVars.largePotted and -7 or (fezzedTechVars.mertail and 0 or -2)
+            local cAdj = fezzedTechVars.largePotted and -3 or -2
             local standingPoly, crouchingPoly
+            local altStandingPoly = {
+                { -0.3, -2.0 + 0.875 + (adj / 8) },
+                { -0.08, -2.5 + 0.875 + (adj / 8) },
+                { 0.08, -2.5 + 0.875 + (adj / 8) },
+                { 0.3, -2.0 + 0.875 + (adj / 8) },
+                { 0.75, 0.65 },
+                { 0.35, 1.22 },
+                { -0.35, 1.22 },
+                { -0.75, 0.65 },
+            }
+            local altCrouchingPoly = {
+                { -0.75, -2.0 + 0.375 + (cAdj / 8) },
+                { -0.35, -2.5 + 0.375 + (cAdj / 8) },
+                { 0.35, -2.5 + 0.375 + (cAdj / 8) },
+                { 0.75, -2.0 + 0.375 + (cAdj / 8) },
+                { 0.75, -1 },
+                { 0.35, -0.5 },
+                { -0.35, -0.5 },
+                { -0.75, -1 },
+            }
             if fezzedTechVars.charScale and fezzedTechVars.charScale ~= 1 then
                 standingPoly = poly.scale(self.baseColBox.standingPoly, fezzedTechVars.charScale)
                 crouchingPoly = poly.scale(self.baseColBox.crouchingPoly, fezzedTechVars.charScale)
+                standingPoly = poly.scale(altStandingPoly, fezzedTechVars.charScale)
+                crouchingPoly = poly.scale(altCrouchingPoly, fezzedTechVars.charScale)
             else
                 standingPoly = self.baseColBox.standingPoly
                 crouchingPoly = self.baseColBox.crouchingPoly
             end
-            largeColBoxMismatch = polyEqual(mcontroller.collisionPoly(), standingPoly)
+            largeCollisionMatch = polyEqual(mcontroller.collisionPoly(), standingPoly)
                 or polyEqual(mcontroller.collisionPoly(), crouchingPoly)
+                or polyEqual(mcontroller.collisionPoly(), altStandingPoly)
+                or polyEqual(mcontroller.collisionPoly(), altCrouchingPoly)
+            fezzedTechVars.collisionMatch = largeCollisionMatch
         end
 
         if fezzedTechVars.noLegs then
@@ -1358,19 +1384,18 @@ function renoUpdate(dt)
                 crouchingPoly = poly.scale(crouchingPoly, fezzedTechVars.charScale)
             end
 
-            smallColBox = polyEqual(mcontroller.collisionPoly(), standingPoly)
+            collisionMatch = polyEqual(mcontroller.collisionPoly(), standingPoly)
                 or polyEqual(mcontroller.collisionPoly(), crouchingPoly)
-
-            fezzedTechVars.collisionMatch = smallColBox
+            fezzedTechVars.collisionMatch = collisionMatch or fezzedTechVars.collisionMatch
 
             if
                 mcontroller.groundMovement()
                 and ((self.moves[2] or self.moves[3]) and not self.moves[1])
-                and (fezzedTechVars.scarecrowPole or fezzedTechVars.soarHop or smallColBox)
+                and (fezzedTechVars.scarecrowPole or fezzedTechVars.soarHop or collisionMatch)
                 and not fezzedTechVars.mertail
             then
                 -- and not self.moves[6]
-                -- if smallColBox or self.moves[7] then
+                -- if collisionMatch or self.moves[7] then
                 mcontroller.controlModifiers({ movementSuppressed = true })
                 -- end
                 -- or (self.moves[7] and mcontroller.walking())
@@ -1875,9 +1900,9 @@ function renoUpdate(dt)
                     potParameters.crouchingPoly = poly.scale(potParameters.crouchingPoly, fezzedTechVars.charScale)
                 end
                 -- local jump, left, right = table.unpack(checkMovement())
-                local collisionMatch = polyEqual(mcontroller.collisionPoly(), potParameters.standingPoly)
-                    or polyEqual(mcontroller.collisionPoly(), potParameters.crouchingPoly)
-                fezzedTechVars.collisionMatch = fezzedTechVars.collisionMatch or collisionMatch
+                -- local collisionMatch = polyEqual(mcontroller.collisionPoly(), potParameters.standingPoly)
+                --     or polyEqual(mcontroller.collisionPoly(), potParameters.crouchingPoly)
+                -- fezzedTechVars.collisionMatch = fezzedTechVars.collisionMatch or collisionMatch
                 if fezzedTechVars.flightEnabled or checkDistRaw == -2 then
                     local isSoaring = checkDistRaw == -2
                     potParameters.airForce = 250
@@ -1900,12 +1925,12 @@ function renoUpdate(dt)
                         (mcontroller.walking() or mcontroller.running())
                         and (mcontroller.groundMovement() or (not mcontroller.canJump()))
                         and (not mcontroller.liquidMovement())
-                        and not collisionMatch
+                        and not fezzedTechVars.collisionMatch
                     then
                         if
                             self.jumpDt <= 0
                             and not (fezzedTechVars.mertail or fezzedTechVars.largePotted)
-                            and not largeColBoxMismatch
+                            and not largeCollisionMatch
                         then
                             mcontroller.controlJump()
                             -- if soarHop then
@@ -2046,7 +2071,7 @@ function renoUpdate(dt)
                             or 0.4
                         )
                     then
-                        if not (fezzedTechVars.bouncy or fezzedTechVars.largePotted or largeColBoxMismatch) then
+                        if not (fezzedTechVars.bouncy or fezzedTechVars.largePotted or largeCollisionMatch) then
                             mcontroller.controlJump()
                         end --  and (not self.running)
                         -- if soarHop then
