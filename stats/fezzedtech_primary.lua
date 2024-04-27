@@ -3218,7 +3218,7 @@ function renoUpdate(dt)
                         mcontroller.controlCrouch()
                         player.setOverrideState("duck")
                     else
-                        player.setOverrideState(fezzedTechVars.collisionMatch and "sit" or "stand")
+                        player.setOverrideState("sit") -- fezzedTechVars.collisionMatch and "sit" or "stand"
                     end
                 end
             else
@@ -3245,7 +3245,7 @@ function renoUpdate(dt)
                         mcontroller.controlCrouch()
                         tech.setParentState("Duck")
                     else
-                        tech.setParentState(fezzedTechVars.collisionMatch and "Sit" or "Stand")
+                        tech.setParentState("Sit") -- fezzedTechVars.collisionMatch and "Sit" or "Stand"
                     end
                 end
             else
