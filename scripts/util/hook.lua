@@ -1,4 +1,4 @@
--- shoutout to Silverfeelin for telling me you can re-define functions lol
+-- Function hook stuff.
 function attachHook(target, func)
     local original = type(_ENV[target]) == "function" and _ENV[target] or (function(...) end)
     _ENV[target] = function(...)
@@ -9,5 +9,9 @@ end
 
 function frontHook(target, func)
     local original = type(_ENV[target]) == "function" and _ENV[target] or (function(...) end)
-    _ENV[target] = function(...) return original(func(...)) end
+    _ENV[target] = function(...)
+        local funcRet = table.pack(func(...))
+        original(...)
+        return table.unpack(funcRet)
+    end
 end
