@@ -938,7 +938,7 @@ function renoUpdate(dt)
         end
 
         if
-            math.__player
+            (player or math.__player)
             and (fezzedTechVars.paragliderPack or fezzedTechVars.parkourThrusters or fezzedTechVars.invisibleFlyer)
             and not (math.__sphereActive or math.__flyboardActive)
         then
