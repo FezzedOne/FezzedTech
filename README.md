@@ -4,14 +4,15 @@ This mod includes scripts and tech that allow the use of my custom items as inte
 
 ## Requirements
 
-Some features of this mod require xSB-2 xClient, OpenStarbound, StarExtensions 1.9.11+, or `starlight` v1.0+:
+Some features of this mod require xSB-2 xClient, StarExtensions 1.9.11+, or `starlight` v1.0+:
 
 - xSB-2 is available [here](https://github.com/FezzedOne/xSB-2/releases).
-- OpenStarbound is available [here](https://github.com/OpenStarbound/OpenStarbound).
 - StarExtensions is available [here](https://github.com/StarExtensions/StarExtensions/releases).
 - `starlight` is available [here](https://gitee.com/erodeesfleurs/starlight/releases).
 
-If you're not on Windows, use xSB-2 or OpenStarbound, or use WINE to play `starlight` or Starbound with StarExtensions.
+If you're not on Windows, use xSB-2 or use WINE to play `starlight` or Starbound with StarExtensions.
+
+**Note:** FezzedTech is *NOT* compatible with OpenStarbound and will cause it to crash on startup.
 
 ## Keybinds
 
