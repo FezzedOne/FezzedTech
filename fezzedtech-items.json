@@ -1,5 +1,6 @@
 [
   {
+    "shortdescription": "Aetheric Harness",
     "parameters": {
       "maxStack": 1000,
       "itemName": "violiumbroadsword",
@@ -505,6 +506,7 @@
     "name": "violiumbroadsword"
   },
   {
+    "shortdescription": "Aetheric Gale",
     "parameters": {
       "maxStack": 1000,
       "itemName": "violiumbroadsword",
@@ -1027,6 +1029,7 @@
   },
   {
     "name": "violiumbroadsword",
+    "shortdescription": "Aetheric Gust",
     "count": 1000,
     "parameters": {
       "itemName": "violiumbroadsword",
@@ -1545,6 +1548,7 @@
     }
   },
   {
+    "shortdescription": "Aetheric Wind",
     "parameters": {
       "itemName": "violiumbroadsword",
       "description": "^green;Right-click^reset; to activate effect. Flight, no fall damage and increased speed while active.",
@@ -2064,6 +2068,7 @@
     "name": "violiumbroadsword"
   },
   {
+    "shortdescription": "Soaring Flight",
     "parameters": {
       "maxStack": 20,
       "description": "^cyan;Launch yourself^reset; through the air and ^cyan;soar^reset;!",
@@ -2313,6 +2318,7 @@
     "name": "commonhammer"
   },
   {
+    "shortdescription": "Gravitic Soarwings ^yellow;^reset;",
     "name": "tigertailback",
     "count": 1,
     "parameters": {
@@ -2349,6 +2355,7 @@
     }
   },
   {
+    "shortdescription": "Gravitic Soarwings",
     "name": "tigertailback",
     "count": 1,
     "parameters": {
@@ -2381,523 +2388,531 @@
     }
   },
   {
-    "critChance": -1000,
-    "itemName": "violiumbroadsword",
-    "description": "^green;Right-click^reset; to activate the soarglider. Soaring flight, no fall damage and slightly increased speed while active.",
-    "maxStack": 1000,
-    "scripts": ["/items/active/weapons/melee/energymeleeweapon.lua"],
-    "elementalType": "physical",
-    "price": 0,
-    "rarity": "Essential",
-    "inventoryIcon": "/assetmissing.png?setcolor=fff?replace;fff0=fff?crop;0;0;2;2?blendmult=/items/active/weapons/protectorate/aegisaltpistol/beamend.png;0;0?replace;a355c0a5=00010000;a355c07b=2a010000;ffffffa5=00012a00;ffffff7b=2a012a00?scale=43;43?crop;1;1;44;44?replace;10011400=a85636;11011300=6f2919;11011400=e0975c;11011500=a85636;12011200=951500;12011300=6f2919;12011400=e0975c;12011500=e0975c;12011600=a85636;13011100=85734f;13011200=85734f;13011300=be1b00;13011400=6f2919;13011500=e0975c;13011600=e0975c;13011700=a85636;14010f00=85734f;14011000=85734f;14011200=951500;14011300=be1b00;14011400=be1b00;14011500=6f2919;14011600=e0975c;14011700=a85636;15010e00=85734f;15011100=85734f;15011200=85734f;15011300=951500;15011400=be1b00;15011500=6f2919;15011600=e0975c;15011700=a85636;16010e00=85734f;16010f00=85734f;16011000=85734f;16011300=951500;16011400=be1b00;16011500=6f2919;16011600=e0975c;16011700=a85636;17011300=951500;17011400=be1b00;17011500=6f2919;17011600=e0975c;17011700=a85636;18011300=951500;18011400=be1b00;18011500=6f2919;18011600=e0975c;18011700=a85636;19010e00=85734f;19010f00=85734f;19011000=85734f;19011300=951500;19011400=be1b00;19011500=6f2919;19011600=e0975c;19011700=a85636;1a010e00=85734f;1a011100=85734f;1a011200=85734f;1a011300=951500;1a011400=be1b00;1a011500=6f2919;1a011600=e0975c;1a011700=a85636;1b010f00=85734f;1b011000=85734f;1b011200=951500;1b011300=be1b00;1b011400=be1b00;1b011500=6f2919;1b011600=e0975c;1b011700=a85636;1c011100=85734f;1c011200=85734f;1c011300=be1b00;1c011400=6f2919;1c011500=e0975c;1c011600=e0975c;1c011700=a85636;1d011200=951500;1d011300=6f2919;1d011400=e0975c;1d011500=e0975c;1d011600=a85636;1e011300=6f2919;1e011400=e0975c;1e011500=a85636;1f011400=a85636?replace;85734F=111111d0;d9c189=111111d0?replace;e0975c=29332b;f32200=232b2b;6f2919=141915;951500=111515;dc1f00=1f2828;ffca8a=333f35;be1b00=1a2020;a85636=1e2620",
     "shortdescription": "Soarglider",
-    "altAbilityType": "flipslash",
-    "twoHanded": true,
-    "createdby": "FezzedOne",
-    "altAbility": {
-      "flipMovementParameters": {
-        "walkSpeed": 8,
-        "airForce": 250,
-        "standingPoly": [
-          [-0.75, -2],
-          [-0.35, -2.5],
-          [0.35, -2.5],
-          [0.75, -2],
-          [0.75, 0.65],
-          [0.35, 1.22],
-          [-0.35, 1.22],
-          [-0.75, 0.65]
-        ],
-        "liquidForce": 250,
-        "airJumpProfile": {
-          "jumpControlForce": 900,
-          "multiJump": true,
-          "reJumpDelay": 0.05,
-          "jumpHoldTime": 0.05,
-          "jumpInitialPercentage": 1,
-          "autoJump": true,
-          "jumpSpeed": 8,
-          "collisionCancelled": false
-        },
-        "gravityMultiplier": 0.25,
-        "crouchingPoly": [
-          [-0.75, -2],
-          [-0.35, -2.5],
-          [0.35, -2.5],
-          [0.75, -2],
-          [0.75, -1],
-          [0.35, -0.5],
-          [-0.35, -0.5],
-          [-0.75, -1]
-        ],
-        "flySpeed": 250,
-        "airFriction": 5,
-        "liquidJumpProfile": {
-          "jumpControlForce": 100,
-          "multiJump": true,
-          "reJumpDelay": 0.05,
-          "jumpHoldTime": 0.05,
-          "jumpInitialPercentage": 1,
-          "autoJump": true,
-          "jumpSpeed": 15,
-          "collisionCancelled": false
-        },
-        "runSpeed": 18,
-        "liquidFriction": 5,
-        "liquidImpedance": 0
-      },
-      "baseDps": 0,
-      "damageConfig": {
-        "timeout": 10000000000,
-        "statusEffects": [],
-        "damageSourceKind": "hidden",
-        "knockbackMode": "facing",
-        "baseDamage": 0,
-        "knockback": [0, 0]
-      },
-      "rotations": 9999999999,
-      "jumpDuration": 0.01,
-      "energyUsage": 0,
-      "jumpVelocity": [0, 0],
-      "stances": {
-        "flip": {
-          "frontArmFrame": "fall.2",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "backArmFrame": "fall.2"
-        },
-        "windup": {
-          "frontArmFrame": "fall.1",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "duration": 0.2,
-          "backArmFrame": "fall.1"
-        }
-      },
-      "rotationTime": 10000000000
-    },
-    "animationCustom": {
-      "sounds": {
-        "fire2": [],
-        "fire3": [],
-        "flipSlash": [],
-        "fire": []
-      },
-      "globalTagDefaults": {
-        "paletteSwaps": ""
-      },
-      "animatedParts": {
-        "stateTypes": {
-          "blade": {
-            "states": {
-              "active": {
-                "properties": {
-                  "lightsOn": ["glow"],
-                  "persistentSound": "/assetmissing.wav",
-                  "particleEmittersOn": ["blade"]
-                },
-                "mode": "loop",
-                "cycle": 0.5,
-                "frames": 9
-              },
-              "inactive": {
-                "properties": {
-                  "particleEmittersOff": ["blade"],
-                  "lightsOff": ["glow"]
-                }
-              },
-              "extend": {
-                "properties": {
-                  "lightsOn": ["glow"],
-                  "immediateSound": "/assetmissing.wav",
-                  "particleEmittersOn": ["blade"]
-                },
-                "mode": "transition",
-                "cycle": 0.15,
-                "frames": 5,
-                "transition": "active"
-              },
-              "retract": {
-                "properties": {
-                  "lightsOn": ["glow"],
-                  "immediateSound": "/assetmissing.wav",
-                  "particleEmittersOn": ["blade"]
-                },
-                "mode": "transition",
-                "cycle": 0.15,
-                "frames": 5,
-                "transition": "inactive"
-              }
-            },
-            "default": "inactive"
+    "name": "violiumbroadsword",
+    "count": 1,
+    "parameters": {
+      "xSBrarity": "colour1",
+      "critChance": -1000,
+      "itemName": "violiumbroadsword",
+      "description": "^green;Right-click^reset; to activate the soarglider. Soaring flight, no fall damage and slightly increased speed while active.",
+      "maxStack": 1000,
+      "scripts": ["/items/active/weapons/melee/energymeleeweapon.lua"],
+      "elementalType": "physical",
+      "price": 0,
+      "rarity": "Essential",
+      "inventoryIcon": "/assetmissing.png?setcolor=fff?replace;fff0=fff?crop;0;0;2;2?blendmult=/items/active/weapons/protectorate/aegisaltpistol/beamend.png;0;0?replace;a355c0a5=00010000;a355c07b=2a010000;ffffffa5=00012a00;ffffff7b=2a012a00?scale=43;43?crop;1;1;44;44?replace;10011400=a85636;11011300=6f2919;11011400=e0975c;11011500=a85636;12011200=951500;12011300=6f2919;12011400=e0975c;12011500=e0975c;12011600=a85636;13011100=85734f;13011200=85734f;13011300=be1b00;13011400=6f2919;13011500=e0975c;13011600=e0975c;13011700=a85636;14010f00=85734f;14011000=85734f;14011200=951500;14011300=be1b00;14011400=be1b00;14011500=6f2919;14011600=e0975c;14011700=a85636;15010e00=85734f;15011100=85734f;15011200=85734f;15011300=951500;15011400=be1b00;15011500=6f2919;15011600=e0975c;15011700=a85636;16010e00=85734f;16010f00=85734f;16011000=85734f;16011300=951500;16011400=be1b00;16011500=6f2919;16011600=e0975c;16011700=a85636;17011300=951500;17011400=be1b00;17011500=6f2919;17011600=e0975c;17011700=a85636;18011300=951500;18011400=be1b00;18011500=6f2919;18011600=e0975c;18011700=a85636;19010e00=85734f;19010f00=85734f;19011000=85734f;19011300=951500;19011400=be1b00;19011500=6f2919;19011600=e0975c;19011700=a85636;1a010e00=85734f;1a011100=85734f;1a011200=85734f;1a011300=951500;1a011400=be1b00;1a011500=6f2919;1a011600=e0975c;1a011700=a85636;1b010f00=85734f;1b011000=85734f;1b011200=951500;1b011300=be1b00;1b011400=be1b00;1b011500=6f2919;1b011600=e0975c;1b011700=a85636;1c011100=85734f;1c011200=85734f;1c011300=be1b00;1c011400=6f2919;1c011500=e0975c;1c011600=e0975c;1c011700=a85636;1d011200=951500;1d011300=6f2919;1d011400=e0975c;1d011500=e0975c;1d011600=a85636;1e011300=6f2919;1e011400=e0975c;1e011500=a85636;1f011400=a85636?replace;85734F=111111d0;d9c189=111111d0?replace;e0975c=29332b;f32200=232b2b;6f2919=141915;951500=111515;dc1f00=1f2828;ffca8a=333f35;be1b00=1a2020;a85636=1e2620",
+      "shortdescription": "Soarglider",
+      "altAbilityType": "flipslash",
+      "twoHanded": true,
+      "createdby": "FezzedOne",
+      "altAbility": {
+        "flipMovementParameters": {
+          "walkSpeed": 8,
+          "airForce": 250,
+          "standingPoly": [
+            [-0.75, -2],
+            [-0.35, -2.5],
+            [0.35, -2.5],
+            [0.75, -2],
+            [0.75, 0.65],
+            [0.35, 1.22],
+            [-0.35, 1.22],
+            [-0.75, 0.65]
+          ],
+          "liquidForce": 250,
+          "airJumpProfile": {
+            "jumpControlForce": 900,
+            "multiJump": true,
+            "reJumpDelay": 0.05,
+            "jumpHoldTime": 0.05,
+            "jumpInitialPercentage": 1,
+            "autoJump": true,
+            "jumpSpeed": 8,
+            "collisionCancelled": false
           },
-          "swoosh": {
-            "states": {
-              "fire2": {
-                "mode": "transition",
-                "cycle": 0.1,
-                "frames": 3,
-                "transition": "idle"
-              },
-              "fire3": {
-                "mode": "transition",
-                "cycle": 0.1,
-                "frames": 3,
-                "transition": "idle"
-              },
-              "idle": {},
-              "fire": {
-                "mode": "transition",
-                "cycle": 0.1,
-                "frames": 3,
-                "transition": "idle"
-              },
-              "flip": {}
-            },
-            "default": "idle"
+          "gravityMultiplier": 0.25,
+          "crouchingPoly": [
+            [-0.75, -2],
+            [-0.35, -2.5],
+            [0.35, -2.5],
+            [0.75, -2],
+            [0.75, -1],
+            [0.35, -0.5],
+            [-0.35, -0.5],
+            [-0.75, -1]
+          ],
+          "flySpeed": 250,
+          "airFriction": 5,
+          "liquidJumpProfile": {
+            "jumpControlForce": 100,
+            "multiJump": true,
+            "reJumpDelay": 0.05,
+            "jumpHoldTime": 0.05,
+            "jumpInitialPercentage": 1,
+            "autoJump": true,
+            "jumpSpeed": 15,
+            "collisionCancelled": false
+          },
+          "runSpeed": 18,
+          "liquidFriction": 5,
+          "liquidImpedance": 0
+        },
+        "baseDps": 0,
+        "damageConfig": {
+          "timeout": 10000000000,
+          "statusEffects": [],
+          "damageSourceKind": "hidden",
+          "knockbackMode": "facing",
+          "baseDamage": 0,
+          "knockback": [0, 0]
+        },
+        "rotations": 9999999999,
+        "jumpDuration": 0.01,
+        "energyUsage": 0,
+        "jumpVelocity": [0, 0],
+        "stances": {
+          "flip": {
+            "frontArmFrame": "fall.2",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "backArmFrame": "fall.2"
+          },
+          "windup": {
+            "frontArmFrame": "fall.1",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "duration": 0.2,
+            "backArmFrame": "fall.1"
           }
         },
-        "parts": {
-          "blade": {
-            "properties": {
-              "offset": [0, 1.875],
-              "fullbright": true,
-              "damageArea": [
-                [-0.7, -1],
-                [-0.7, 2.5],
-                [0.5, 2.5],
-                [0.5, -1]
-              ],
-              "zLevel": 0,
-              "transformationGroups": ["weapon"],
-              "rotationCenter": [0, 0],
-              "centered": true
-            },
-            "partStates": {
-              "blade": {
+        "rotationTime": 10000000000
+      },
+      "animationCustom": {
+        "sounds": {
+          "fire2": [],
+          "fire3": [],
+          "flipSlash": [],
+          "fire": []
+        },
+        "globalTagDefaults": {
+          "paletteSwaps": ""
+        },
+        "animatedParts": {
+          "stateTypes": {
+            "blade": {
+              "states": {
                 "active": {
                   "properties": {
-                    "image": "/assetmissing.png"
-                  }
+                    "lightsOn": ["glow"],
+                    "persistentSound": "/assetmissing.wav",
+                    "particleEmittersOn": ["blade"]
+                  },
+                  "mode": "loop",
+                  "cycle": 0.5,
+                  "frames": 9
                 },
                 "inactive": {
                   "properties": {
-                    "image": "/assetmissing.png"
+                    "particleEmittersOff": ["blade"],
+                    "lightsOff": ["glow"]
                   }
                 },
                 "extend": {
                   "properties": {
-                    "image": "/assetmissing.png"
-                  }
+                    "lightsOn": ["glow"],
+                    "immediateSound": "/assetmissing.wav",
+                    "particleEmittersOn": ["blade"]
+                  },
+                  "mode": "transition",
+                  "cycle": 0.15,
+                  "frames": 5,
+                  "transition": "active"
                 },
                 "retract": {
                   "properties": {
-                    "image": "/assetmissing.png"
+                    "lightsOn": ["glow"],
+                    "immediateSound": "/assetmissing.wav",
+                    "particleEmittersOn": ["blade"]
+                  },
+                  "mode": "transition",
+                  "cycle": 0.15,
+                  "frames": 5,
+                  "transition": "inactive"
+                }
+              },
+              "default": "inactive"
+            },
+            "swoosh": {
+              "states": {
+                "fire2": {
+                  "mode": "transition",
+                  "cycle": 0.1,
+                  "frames": 3,
+                  "transition": "idle"
+                },
+                "fire3": {
+                  "mode": "transition",
+                  "cycle": 0.1,
+                  "frames": 3,
+                  "transition": "idle"
+                },
+                "idle": {},
+                "fire": {
+                  "mode": "transition",
+                  "cycle": 0.1,
+                  "frames": 3,
+                  "transition": "idle"
+                },
+                "flip": {}
+              },
+              "default": "idle"
+            }
+          },
+          "parts": {
+            "blade": {
+              "properties": {
+                "offset": [0, 1.875],
+                "fullbright": true,
+                "damageArea": [
+                  [-0.7, -1],
+                  [-0.7, 2.5],
+                  [0.5, 2.5],
+                  [0.5, -1]
+                ],
+                "zLevel": 0,
+                "transformationGroups": ["weapon"],
+                "rotationCenter": [0, 0],
+                "centered": true
+              },
+              "partStates": {
+                "blade": {
+                  "active": {
+                    "properties": {
+                      "image": "/assetmissing.png"
+                    }
+                  },
+                  "inactive": {
+                    "properties": {
+                      "image": "/assetmissing.png"
+                    }
+                  },
+                  "extend": {
+                    "properties": {
+                      "image": "/assetmissing.png"
+                    }
+                  },
+                  "retract": {
+                    "properties": {
+                      "image": "/assetmissing.png"
+                    }
                   }
                 }
               }
-            }
-          },
-          "handleFullbright": {
-            "properties": {
-              "image": "/assetmissing.png",
-              "offset": [0, 1.875],
-              "fullbright": true,
-              "zLevel": 2,
-              "transformationGroups": ["weapon"],
-              "rotationCenter": [0, 0],
-              "centered": true
-            }
-          },
-          "handle": {
-            "properties": {
-              "image": "/assetmissing.png",
-              "offset": [0, 1.875],
-              "zLevel": 1,
-              "transformationGroups": ["weapon"],
-              "rotationCenter": [0, 0],
-              "centered": true
-            }
-          },
-          "swoosh": {
-            "properties": {
-              "zLevel": 1000,
-              "transformationGroups": ["swoosh"],
-              "rotationCenter": [0, 0],
-              "centered": true,
-              "fullbright": false
             },
-            "partStates": {
-              "swoosh": {
-                "fire2": {
-                  "properties": {
-                    "damageArea": [
-                      [-4, 1],
-                      [2.5, 1],
-                      [2.5, -2],
-                      [-4, -2]
-                    ],
-                    "image": "/assetmissing.png",
-                    "offset": [5, 1]
-                  }
-                },
-                "fire3": {
-                  "properties": {
-                    "damageArea": [
-                      [-4.75, 1.5],
-                      [3, 1],
-                      [3, 0],
-                      [-4.75, -1.5]
-                    ],
-                    "image": "/assetmissing.png",
-                    "offset": [3.5, 0]
-                  }
-                },
-                "idle": {
-                  "properties": {
-                    "image": ""
-                  }
-                },
-                "fire": {
-                  "properties": {
-                    "damageArea": [
-                      [-5, 2],
-                      [-2.5, 3],
-                      [1, 3],
-                      [4, 1.75],
-                      [5, -0.25],
-                      [5, -2.25],
-                      [4, -3.25],
-                      [0, -2.5]
-                    ],
-                    "image": "/assetmissing.png",
-                    "offset": [0, 2.5]
-                  }
-                },
-                "flip": {
-                  "properties": {
-                    "damageArea": [
-                      [-6, -3.5],
-                      [-6, 0],
-                      [-3.5, 2.5],
-                      [0, 2.5],
-                      [2.5, 0],
-                      [2.5, -3.5],
-                      [0, -6],
-                      [-3.5, -6]
-                    ],
-                    "image": "/assetmissing.png?setcolor=fff?replace;fff0=fff?crop;0;0;2;2?blendmult=/items/active/weapons/protectorate/aegisaltpistol/beamend.png;0;0?replace;a355c0a5=00010000;a355c07b=54010000;ffffffa5=00015400;ffffff7b=54015400?scale=85;85?crop;1;1;86;86?replace;1f012000=d9c189;1f013300=d9c189;20012000=d9c189;20013300=d9c189;21011f00=d9c189;21013400=d9c189;22011f00=d9c189;22013400=d9c189;23011f00=d9c189;23013400=d9c189;24011e00=d9c189;24013500=d9c189;25011e00=d9c189;25013500=d9c189;26011d00=d9c189;26013600=d9c189;27011d00=d9c189;27013600=d9c189;28011d00=d9c189;28013600=d9c189;29011c00=d9c189;29013700=d9c189;2a011c00=d9c189;2a013700=d9c189;2b011c00=d9c189;2b013700=d9c189;2c011b00=d9c189;2c013800=d9c189;2d011b00=d9c189;2d013800=d9c189;2e011a00=d9c189;2e013900=d9c189;2f011a00=d9c189;2f013900=d9c189;30011900=d9c189;30011a00=d9c189;30013900=d9c189;30013a00=d9c189;31011800=d9c189;31011a00=d9c189;31013900=d9c189;31013b00=d9c189;32011000=951500;32011100=951500;32011700=d9c189;32011b00=d9c189;32013800=d9c189;32013c00=d9c189;32014800=951500;32014900=951500;33010f00=951500;33011000=be1b00;33011100=be1b00;33011200=951500;33011600=d9c189;33011b00=d9c189;33013800=d9c189;33013d00=d9c189;33014700=951500;33014800=be1b00;33014900=be1b00;33014a00=951500;34010e00=951500;34010f00=dc1f00;34011000=dc1f00;34011100=be1b00;34011200=be1b00;34011300=951500;34011400=951500;34011500=d9c189;34011b00=d9c189;34013800=d9c189;34013e00=d9c189;34014500=951500;34014600=951500;34014700=be1b00;34014800=be1b00;34014900=be1b00;34014a00=6f2919;34014b00=6f2919;35010d00=951500;35010e00=dc1f00;35010f00=dc1f00;35011000=dc1f00;35011100=dc1f00;35011200=be1b00;35011300=be1b00;35011400=85734f;35011500=951500;35011600=951500;35011b00=d9c189;35013800=d9c189;35013f00=d9c189;35014300=951500;35014400=951500;35014500=be1b00;35014600=be1b00;35014700=be1b00;35014800=dc1f00;35014900=6f2919;35014a00=a85636;35014b00=a85636;35014c00=6f2919;36010c00=6f2919;36010d00=6f2919;36010e00=f32200;36010f00=dc1f00;36011000=dc1f00;36011100=dc1f00;36011200=dc1f00;36011300=85734f;36011400=85734f;36011500=be1b00;36011600=be1b00;36011700=951500;36011800=951500;36011b00=d9c189;36013800=d9c189;36014000=d9c189;36014100=951500;36014200=951500;36014300=be1b00;36014400=be1b00;36014500=be1b00;36014600=dc1f00;36014700=dc1f00;36014800=6f2919;36014900=a85636;36014a00=a85636;36014b00=a85636;36014c00=6f2919;37010b00=6f2919;37010c00=a85636;37010d00=a85636;37010e00=6f2919;37010f00=f32200;37011000=dc1f00;37011100=dc1f00;37011200=85734f;37011300=dc1f00;37011400=dc1f00;37011500=85734f;37011600=be1b00;37011700=be1b00;37011800=be1b00;37011900=951500;37011a00=951500;37011c00=d9c189;37013700=d9c189;37013f00=951500;37014000=85734f;37014100=85734f;37014200=be1b00;37014300=be1b00;37014400=dc1f00;37014500=dc1f00;37014600=6f2919;37014700=6f2919;37014800=a85636;37014900=a85636;37014a00=a85636;37014b00=a85636;37014c00=a85636;37014d00=6f2919;38010a00=6f2919;38010b00=a85636;38010c00=a85636;38010d00=a85636;38010e00=a85636;38010f00=6f2919;38011000=f32200;38011100=f32200;38011200=dc1f00;38011300=dc1f00;38011400=dc1f00;38011500=85734f;38011600=dc1f00;38011700=dc1f00;38011800=be1b00;38011900=be1b00;38011a00=be1b00;38011b00=951500;38011c00=85734f;38013700=d9c189;38013d00=951500;38013e00=951500;38013f00=85734f;38014000=be1b00;38014100=be1b00;38014200=85734f;38014300=dc1f00;38014400=6f2919;38014500=6f2919;38014600=a85636;38014700=a85636;38014800=a85636;38014900=a85636;38014a00=a85636;38014b00=a85636;38014c00=e0975c;38014d00=a85636;39010900=a85636;39010a00=e0975c;39010b00=a85636;39010c00=a85636;39010d00=a85636;39010e00=a85636;39010f00=a85636;39011000=6f2919;39011100=6f2919;39011200=f32200;39011300=f32200;39011400=dc1f00;39011500=dc1f00;39011600=dc1f00;39011700=dc1f00;39011800=dc1f00;39011900=dc1f00;39011a00=be1b00;39011b00=be1b00;39011c00=85734f;39011d00=951500;39011e00=951500;39011f00=951500;39013700=d9c189;39013a00=951500;39013b00=951500;39013c00=951500;39013d00=be1b00;39013e00=be1b00;39013f00=85734f;39014000=dc1f00;39014100=dc1f00;39014200=6f2919;39014300=6f2919;39014400=a85636;39014500=a85636;39014600=a85636;39014700=a85636;39014800=a85636;39014900=a85636;39014a00=a85636;39014b00=e0975c;39014c00=e0975c;39014d00=a85636;3a010900=a85636;3a010a00=e0975c;3a010b00=e0975c;3a010c00=e0975c;3a010d00=a85636;3a010e00=a85636;3a010f00=a85636;3a011000=a85636;3a011100=a85636;3a011200=6f2919;3a011300=6f2919;3a011400=f32200;3a011500=f32200;3a011600=dc1f00;3a011700=dc1f00;3a011800=dc1f00;3a011900=dc1f00;3a011a00=dc1f00;3a011b00=85734f;3a011c00=85734f;3a011d00=be1b00;3a011e00=be1b00;3a011f00=be1b00;3a012000=951500;3a012100=951500;3a012200=951500;3a012300=951500;3a013600=951500;3a013700=85734f;3a013800=85734f;3a013900=951500;3a013a00=be1b00;3a013b00=be1b00;3a013c00=be1b00;3a013d00=be1b00;3a013e00=dc1f00;3a013f00=dc1f00;3a014000=6f2919;3a014100=6f2919;3a014200=a85636;3a014300=a85636;3a014400=a85636;3a014500=a85636;3a014600=a85636;3a014700=a85636;3a014800=a85636;3a014900=a85636;3a014a00=e0975c;3a014b00=e0975c;3a014c00=a85636;3b010900=a85636;3b010a00=e0975c;3b010b00=e0975c;3b010c00=e0975c;3b010d00=e0975c;3b010e00=e0975c;3b010f00=a85636;3b011000=a85636;3b011100=a85636;3b011200=a85636;3b011300=a85636;3b011400=6f2919;3b011500=6f2919;3b011600=f32200;3b011700=f32200;3b011800=dc1f00;3b011900=dc1f00;3b011a00=85734f;3b011b00=dc1f00;3b011c00=dc1f00;3b011d00=85734f;3b011e00=dc1f00;3b011f00=be1b00;3b012000=be1b00;3b012100=be1b00;3b012200=be1b00;3b012300=be1b00;3b012400=951500;3b012500=951500;3b012600=951500;3b012700=951500;3b012800=951500;3b012900=951500;3b012a00=951500;3b012b00=951500;3b012c00=951500;3b012d00=951500;3b012e00=951500;3b012f00=951500;3b013000=951500;3b013100=951500;3b013200=951500;3b013300=951500;3b013400=951500;3b013500=951500;3b013600=85734f;3b013700=be1b00;3b013800=be1b00;3b013900=85734f;3b013a00=be1b00;3b013b00=dc1f00;3b013c00=dc1f00;3b013d00=dc1f00;3b013e00=6f2919;3b013f00=6f2919;3b014000=a85636;3b014100=a85636;3b014200=a85636;3b014300=a85636;3b014400=a85636;3b014500=a85636;3b014600=a85636;3b014700=a85636;3b014800=e0975c;3b014900=e0975c;3b014a00=e0975c;3b014b00=a85636;3c010a00=a85636;3c010b00=e0975c;3c010c00=e0975c;3c010d00=e0975c;3c010e00=e0975c;3c010f00=e0975c;3c011000=e0975c;3c011100=a85636;3c011200=a85636;3c011300=a85636;3c011400=a85636;3c011500=a85636;3c011600=6f2919;3c011700=6f2919;3c011800=f32200;3c011900=f32200;3c011a00=dc1f00;3c011b00=dc1f00;3c011c00=dc1f00;3c011d00=85734f;3c011e00=dc1f00;3c011f00=dc1f00;3c012000=dc1f00;3c012100=dc1f00;3c012200=dc1f00;3c012300=be1b00;3c012400=be1b00;3c012500=be1b00;3c012600=be1b00;3c012700=be1b00;3c012800=be1b00;3c012900=be1b00;3c012a00=be1b00;3c012b00=be1b00;3c012c00=be1b00;3c012d00=be1b00;3c012e00=be1b00;3c012f00=be1b00;3c013000=be1b00;3c013100=be1b00;3c013200=be1b00;3c013300=be1b00;3c013400=be1b00;3c013500=be1b00;3c013600=85734f;3c013700=be1b00;3c013800=dc1f00;3c013900=dc1f00;3c013a00=dc1f00;3c013b00=dc1f00;3c013c00=6f2919;3c013d00=6f2919;3c013e00=a85636;3c013f00=a85636;3c014000=a85636;3c014100=a85636;3c014200=a85636;3c014300=a85636;3c014400=a85636;3c014500=a85636;3c014600=e0975c;3c014700=e0975c;3c014800=e0975c;3c014900=a85636;3c014a00=a85636;3d010b00=a85636;3d010c00=a85636;3d010d00=e0975c;3d010e00=e0975c;3d010f00=e0975c;3d011000=e0975c;3d011100=e0975c;3d011200=e0975c;3d011300=a85636;3d011400=a85636;3d011500=a85636;3d011600=a85636;3d011700=a85636;3d011800=6f2919;3d011900=6f2919;3d011a00=f32200;3d011b00=f32200;3d011c00=f32200;3d011d00=dc1f00;3d011e00=dc1f00;3d011f00=dc1f00;3d012000=dc1f00;3d012100=dc1f00;3d012200=dc1f00;3d012300=dc1f00;3d012400=dc1f00;3d012500=dc1f00;3d012600=dc1f00;3d012700=dc1f00;3d012800=dc1f00;3d012900=dc1f00;3d012a00=dc1f00;3d012b00=dc1f00;3d012c00=dc1f00;3d012d00=dc1f00;3d012e00=dc1f00;3d012f00=dc1f00;3d013000=dc1f00;3d013100=dc1f00;3d013200=dc1f00;3d013300=dc1f00;3d013400=dc1f00;3d013500=dc1f00;3d013600=dc1f00;3d013700=dc1f00;3d013800=dc1f00;3d013900=dc1f00;3d013a00=6f2919;3d013b00=6f2919;3d013c00=a85636;3d013d00=a85636;3d013e00=a85636;3d013f00=a85636;3d014000=a85636;3d014100=a85636;3d014200=a85636;3d014300=a85636;3d014400=e0975c;3d014500=e0975c;3d014600=e0975c;3d014700=a85636;3d014800=a85636;3e010d00=a85636;3e010e00=a85636;3e010f00=e0975c;3e011000=e0975c;3e011100=e0975c;3e011200=e0975c;3e011300=e0975c;3e011400=e0975c;3e011500=a85636;3e011600=a85636;3e011700=a85636;3e011800=a85636;3e011900=a85636;3e011a00=6f2919;3e011b00=6f2919;3e011c00=6f2919;3e011d00=f32200;3e011e00=f32200;3e011f00=f32200;3e012000=f32200;3e012100=dc1f00;3e012200=dc1f00;3e012300=dc1f00;3e012400=dc1f00;3e012500=dc1f00;3e012600=dc1f00;3e012700=dc1f00;3e012800=dc1f00;3e012900=dc1f00;3e012a00=dc1f00;3e012b00=dc1f00;3e012c00=dc1f00;3e012d00=dc1f00;3e012e00=dc1f00;3e012f00=dc1f00;3e013000=dc1f00;3e013100=dc1f00;3e013200=dc1f00;3e013300=dc1f00;3e013400=dc1f00;3e013500=dc1f00;3e013600=dc1f00;3e013700=6f2919;3e013800=6f2919;3e013900=6f2919;3e013a00=a85636;3e013b00=a85636;3e013c00=a85636;3e013d00=a85636;3e013e00=a85636;3e013f00=a85636;3e014000=a85636;3e014100=a85636;3e014200=e0975c;3e014300=e0975c;3e014400=e0975c;3e014500=a85636;3e014600=a85636;3f010f00=a85636;3f011000=a85636;3f011100=e0975c;3f011200=e0975c;3f011300=e0975c;3f011400=e0975c;3f011500=e0975c;3f011600=e0975c;3f011700=a85636;3f011800=a85636;3f011900=a85636;3f011a00=a85636;3f011b00=a85636;3f011c00=a85636;3f011d00=6f2919;3f011e00=6f2919;3f011f00=6f2919;3f012000=6f2919;3f012100=f32200;3f012200=f32200;3f012300=f32200;3f012400=f32200;3f012500=f32200;3f012600=f32200;3f012700=f32200;3f012800=f32200;3f012900=f32200;3f012a00=f32200;3f012b00=f32200;3f012c00=f32200;3f012d00=f32200;3f012e00=f32200;3f012f00=f32200;3f013000=f32200;3f013100=f32200;3f013200=f32200;3f013300=6f2919;3f013400=6f2919;3f013500=6f2919;3f013600=6f2919;3f013700=a85636;3f013800=a85636;3f013900=a85636;3f013a00=a85636;3f013b00=a85636;3f013c00=a85636;3f013d00=a85636;3f013e00=a85636;3f013f00=a85636;3f014000=e0975c;3f014100=e0975c;3f014200=e0975c;3f014300=a85636;3f014400=a85636;40011100=a85636;40011200=a85636;40011300=e0975c;40011400=e0975c;40011500=e0975c;40011600=e0975c;40011700=e0975c;40011800=a85636;40011900=a85636;40011a00=a85636;40011b00=a85636;40011c00=a85636;40011d00=a85636;40011e00=a85636;40011f00=a85636;40012000=a85636;40012100=6f2919;40012200=6f2919;40012300=6f2919;40012400=6f2919;40012500=6f2919;40012600=6f2919;40012700=6f2919;40012800=6f2919;40012900=6f2919;40012a00=6f2919;40012b00=6f2919;40012c00=6f2919;40012d00=6f2919;40012e00=6f2919;40012f00=6f2919;40013000=6f2919;40013100=6f2919;40013200=6f2919;40013300=a85636;40013400=a85636;40013500=a85636;40013600=a85636;40013700=a85636;40013800=a85636;40013900=a85636;40013a00=a85636;40013b00=a85636;40013c00=a85636;40013d00=e0975c;40013e00=e0975c;40013f00=e0975c;40014000=e0975c;40014100=a85636;40014200=a85636;41011300=a85636;41011400=a85636;41011500=e0975c;41011600=e0975c;41011700=e0975c;41011800=e0975c;41011900=e0975c;41011a00=e0975c;41011b00=e0975c;41011c00=a85636;41011d00=a85636;41011e00=a85636;41011f00=a85636;41012000=a85636;41012100=a85636;41012200=a85636;41012300=a85636;41012400=a85636;41012500=a85636;41012600=a85636;41012700=a85636;41012800=a85636;41012900=a85636;41012a00=a85636;41012b00=a85636;41012c00=a85636;41012d00=a85636;41012e00=a85636;41012f00=a85636;41013000=a85636;41013100=a85636;41013200=a85636;41013300=a85636;41013400=a85636;41013500=a85636;41013600=a85636;41013700=a85636;41013800=a85636;41013900=e0975c;41013a00=e0975c;41013b00=e0975c;41013c00=e0975c;41013d00=e0975c;41013e00=e0975c;41013f00=a85636;41014000=a85636;42011500=a85636;42011600=a85636;42011700=e0975c;42011800=e0975c;42011900=e0975c;42011a00=e0975c;42011b00=e0975c;42011c00=e0975c;42011d00=e0975c;42011e00=e0975c;42011f00=e0975c;42012000=a85636;42012100=a85636;42012200=a85636;42012300=a85636;42012400=a85636;42012500=a85636;42012600=a85636;42012700=a85636;42012800=a85636;42012900=a85636;42012a00=a85636;42012b00=a85636;42012c00=a85636;42012d00=a85636;42012e00=a85636;42012f00=a85636;42013000=a85636;42013100=a85636;42013200=a85636;42013300=a85636;42013400=e0975c;42013500=e0975c;42013600=e0975c;42013700=e0975c;42013800=e0975c;42013900=e0975c;42013a00=e0975c;42013b00=e0975c;42013c00=e0975c;42013d00=a85636;42013e00=a85636;43011700=a85636;43011800=a85636;43011900=e0975c;43011a00=e0975c;43011b00=e0975c;43011c00=e0975c;43011d00=e0975c;43011e00=e0975c;43011f00=e0975c;43012000=e0975c;43012100=e0975c;43012200=e0975c;43012300=e0975c;43012400=e0975c;43012500=e0975c;43012600=e0975c;43012700=e0975c;43012800=e0975c;43012900=e0975c;43012a00=e0975c;43012b00=e0975c;43012c00=e0975c;43012d00=e0975c;43012e00=e0975c;43012f00=e0975c;43013000=e0975c;43013100=e0975c;43013200=e0975c;43013300=e0975c;43013400=e0975c;43013500=e0975c;43013600=e0975c;43013700=e0975c;43013800=e0975c;43013900=e0975c;43013a00=e0975c;43013b00=a85636;43013c00=a85636;44011900=a85636;44011a00=a85636;44011b00=a85636;44011c00=e0975c;44011d00=e0975c;44011e00=e0975c;44011f00=e0975c;44012000=e0975c;44012100=e0975c;44012200=e0975c;44012300=e0975c;44012400=e0975c;44012500=e0975c;44012600=e0975c;44012700=e0975c;44012800=e0975c;44012900=e0975c;44012a00=e0975c;44012b00=e0975c;44012c00=e0975c;44012d00=e0975c;44012e00=e0975c;44012f00=e0975c;44013000=e0975c;44013100=e0975c;44013200=e0975c;44013300=e0975c;44013400=e0975c;44013500=e0975c;44013600=e0975c;44013700=e0975c;44013800=a85636;44013900=a85636;44013a00=a85636;45011c00=a85636;45011d00=a85636;45011e00=a85636;45011f00=a85636;45012000=e0975c;45012100=e0975c;45012200=e0975c;45012300=e0975c;45012400=e0975c;45012500=e0975c;45012600=e0975c;45012700=e0975c;45012800=e0975c;45012900=e0975c;45012a00=e0975c;45012b00=e0975c;45012c00=e0975c;45012d00=e0975c;45012e00=e0975c;45012f00=e0975c;45013000=e0975c;45013100=e0975c;45013200=e0975c;45013300=e0975c;45013400=a85636;45013500=a85636;45013600=a85636;45013700=a85636;46012000=a85636;46012100=a85636;46012200=a85636;46012300=a85636;46012400=a85636;46012500=a85636;46012600=e0975c;46012700=e0975c;46012800=e0975c;46012900=e0975c;46012a00=e0975c;46012b00=e0975c;46012c00=e0975c;46012d00=e0975c;46012e00=a85636;46012f00=a85636;46013000=a85636;46013100=a85636;46013200=a85636;46013300=a85636;47012600=a85636;47012700=a85636;47012800=a85636;47012900=a85636;47012a00=a85636;47012b00=a85636;47012c00=a85636;47012d00=a85636?replace;85734F=111111;d9c189=111111d0?replace;e0975c=29332b;f32200=232b2b;6f2919=141915;951500=111515;dc1f00=1f2828;ffca8a=333f35;be1b00=1a2020;a85636=1e2620",
-                    "offset": [2.625, 1.125]
+            "handleFullbright": {
+              "properties": {
+                "image": "/assetmissing.png",
+                "offset": [0, 1.875],
+                "fullbright": true,
+                "zLevel": 2,
+                "transformationGroups": ["weapon"],
+                "rotationCenter": [0, 0],
+                "centered": true
+              }
+            },
+            "handle": {
+              "properties": {
+                "image": "/assetmissing.png",
+                "offset": [0, 1.875],
+                "zLevel": 1,
+                "transformationGroups": ["weapon"],
+                "rotationCenter": [0, 0],
+                "centered": true
+              }
+            },
+            "swoosh": {
+              "properties": {
+                "zLevel": 1000,
+                "transformationGroups": ["swoosh"],
+                "rotationCenter": [0, 0],
+                "centered": true,
+                "fullbright": false
+              },
+              "partStates": {
+                "swoosh": {
+                  "fire2": {
+                    "properties": {
+                      "damageArea": [
+                        [-4, 1],
+                        [2.5, 1],
+                        [2.5, -2],
+                        [-4, -2]
+                      ],
+                      "image": "/assetmissing.png",
+                      "offset": [5, 1]
+                    }
+                  },
+                  "fire3": {
+                    "properties": {
+                      "damageArea": [
+                        [-4.75, 1.5],
+                        [3, 1],
+                        [3, 0],
+                        [-4.75, -1.5]
+                      ],
+                      "image": "/assetmissing.png",
+                      "offset": [3.5, 0]
+                    }
+                  },
+                  "idle": {
+                    "properties": {
+                      "image": ""
+                    }
+                  },
+                  "fire": {
+                    "properties": {
+                      "damageArea": [
+                        [-5, 2],
+                        [-2.5, 3],
+                        [1, 3],
+                        [4, 1.75],
+                        [5, -0.25],
+                        [5, -2.25],
+                        [4, -3.25],
+                        [0, -2.5]
+                      ],
+                      "image": "/assetmissing.png",
+                      "offset": [0, 2.5]
+                    }
+                  },
+                  "flip": {
+                    "properties": {
+                      "damageArea": [
+                        [-6, -3.5],
+                        [-6, 0],
+                        [-3.5, 2.5],
+                        [0, 2.5],
+                        [2.5, 0],
+                        [2.5, -3.5],
+                        [0, -6],
+                        [-3.5, -6]
+                      ],
+                      "image": "/assetmissing.png?setcolor=fff?replace;fff0=fff?crop;0;0;2;2?blendmult=/items/active/weapons/protectorate/aegisaltpistol/beamend.png;0;0?replace;a355c0a5=00010000;a355c07b=54010000;ffffffa5=00015400;ffffff7b=54015400?scale=85;85?crop;1;1;86;86?replace;1f012000=d9c189;1f013300=d9c189;20012000=d9c189;20013300=d9c189;21011f00=d9c189;21013400=d9c189;22011f00=d9c189;22013400=d9c189;23011f00=d9c189;23013400=d9c189;24011e00=d9c189;24013500=d9c189;25011e00=d9c189;25013500=d9c189;26011d00=d9c189;26013600=d9c189;27011d00=d9c189;27013600=d9c189;28011d00=d9c189;28013600=d9c189;29011c00=d9c189;29013700=d9c189;2a011c00=d9c189;2a013700=d9c189;2b011c00=d9c189;2b013700=d9c189;2c011b00=d9c189;2c013800=d9c189;2d011b00=d9c189;2d013800=d9c189;2e011a00=d9c189;2e013900=d9c189;2f011a00=d9c189;2f013900=d9c189;30011900=d9c189;30011a00=d9c189;30013900=d9c189;30013a00=d9c189;31011800=d9c189;31011a00=d9c189;31013900=d9c189;31013b00=d9c189;32011000=951500;32011100=951500;32011700=d9c189;32011b00=d9c189;32013800=d9c189;32013c00=d9c189;32014800=951500;32014900=951500;33010f00=951500;33011000=be1b00;33011100=be1b00;33011200=951500;33011600=d9c189;33011b00=d9c189;33013800=d9c189;33013d00=d9c189;33014700=951500;33014800=be1b00;33014900=be1b00;33014a00=951500;34010e00=951500;34010f00=dc1f00;34011000=dc1f00;34011100=be1b00;34011200=be1b00;34011300=951500;34011400=951500;34011500=d9c189;34011b00=d9c189;34013800=d9c189;34013e00=d9c189;34014500=951500;34014600=951500;34014700=be1b00;34014800=be1b00;34014900=be1b00;34014a00=6f2919;34014b00=6f2919;35010d00=951500;35010e00=dc1f00;35010f00=dc1f00;35011000=dc1f00;35011100=dc1f00;35011200=be1b00;35011300=be1b00;35011400=85734f;35011500=951500;35011600=951500;35011b00=d9c189;35013800=d9c189;35013f00=d9c189;35014300=951500;35014400=951500;35014500=be1b00;35014600=be1b00;35014700=be1b00;35014800=dc1f00;35014900=6f2919;35014a00=a85636;35014b00=a85636;35014c00=6f2919;36010c00=6f2919;36010d00=6f2919;36010e00=f32200;36010f00=dc1f00;36011000=dc1f00;36011100=dc1f00;36011200=dc1f00;36011300=85734f;36011400=85734f;36011500=be1b00;36011600=be1b00;36011700=951500;36011800=951500;36011b00=d9c189;36013800=d9c189;36014000=d9c189;36014100=951500;36014200=951500;36014300=be1b00;36014400=be1b00;36014500=be1b00;36014600=dc1f00;36014700=dc1f00;36014800=6f2919;36014900=a85636;36014a00=a85636;36014b00=a85636;36014c00=6f2919;37010b00=6f2919;37010c00=a85636;37010d00=a85636;37010e00=6f2919;37010f00=f32200;37011000=dc1f00;37011100=dc1f00;37011200=85734f;37011300=dc1f00;37011400=dc1f00;37011500=85734f;37011600=be1b00;37011700=be1b00;37011800=be1b00;37011900=951500;37011a00=951500;37011c00=d9c189;37013700=d9c189;37013f00=951500;37014000=85734f;37014100=85734f;37014200=be1b00;37014300=be1b00;37014400=dc1f00;37014500=dc1f00;37014600=6f2919;37014700=6f2919;37014800=a85636;37014900=a85636;37014a00=a85636;37014b00=a85636;37014c00=a85636;37014d00=6f2919;38010a00=6f2919;38010b00=a85636;38010c00=a85636;38010d00=a85636;38010e00=a85636;38010f00=6f2919;38011000=f32200;38011100=f32200;38011200=dc1f00;38011300=dc1f00;38011400=dc1f00;38011500=85734f;38011600=dc1f00;38011700=dc1f00;38011800=be1b00;38011900=be1b00;38011a00=be1b00;38011b00=951500;38011c00=85734f;38013700=d9c189;38013d00=951500;38013e00=951500;38013f00=85734f;38014000=be1b00;38014100=be1b00;38014200=85734f;38014300=dc1f00;38014400=6f2919;38014500=6f2919;38014600=a85636;38014700=a85636;38014800=a85636;38014900=a85636;38014a00=a85636;38014b00=a85636;38014c00=e0975c;38014d00=a85636;39010900=a85636;39010a00=e0975c;39010b00=a85636;39010c00=a85636;39010d00=a85636;39010e00=a85636;39010f00=a85636;39011000=6f2919;39011100=6f2919;39011200=f32200;39011300=f32200;39011400=dc1f00;39011500=dc1f00;39011600=dc1f00;39011700=dc1f00;39011800=dc1f00;39011900=dc1f00;39011a00=be1b00;39011b00=be1b00;39011c00=85734f;39011d00=951500;39011e00=951500;39011f00=951500;39013700=d9c189;39013a00=951500;39013b00=951500;39013c00=951500;39013d00=be1b00;39013e00=be1b00;39013f00=85734f;39014000=dc1f00;39014100=dc1f00;39014200=6f2919;39014300=6f2919;39014400=a85636;39014500=a85636;39014600=a85636;39014700=a85636;39014800=a85636;39014900=a85636;39014a00=a85636;39014b00=e0975c;39014c00=e0975c;39014d00=a85636;3a010900=a85636;3a010a00=e0975c;3a010b00=e0975c;3a010c00=e0975c;3a010d00=a85636;3a010e00=a85636;3a010f00=a85636;3a011000=a85636;3a011100=a85636;3a011200=6f2919;3a011300=6f2919;3a011400=f32200;3a011500=f32200;3a011600=dc1f00;3a011700=dc1f00;3a011800=dc1f00;3a011900=dc1f00;3a011a00=dc1f00;3a011b00=85734f;3a011c00=85734f;3a011d00=be1b00;3a011e00=be1b00;3a011f00=be1b00;3a012000=951500;3a012100=951500;3a012200=951500;3a012300=951500;3a013600=951500;3a013700=85734f;3a013800=85734f;3a013900=951500;3a013a00=be1b00;3a013b00=be1b00;3a013c00=be1b00;3a013d00=be1b00;3a013e00=dc1f00;3a013f00=dc1f00;3a014000=6f2919;3a014100=6f2919;3a014200=a85636;3a014300=a85636;3a014400=a85636;3a014500=a85636;3a014600=a85636;3a014700=a85636;3a014800=a85636;3a014900=a85636;3a014a00=e0975c;3a014b00=e0975c;3a014c00=a85636;3b010900=a85636;3b010a00=e0975c;3b010b00=e0975c;3b010c00=e0975c;3b010d00=e0975c;3b010e00=e0975c;3b010f00=a85636;3b011000=a85636;3b011100=a85636;3b011200=a85636;3b011300=a85636;3b011400=6f2919;3b011500=6f2919;3b011600=f32200;3b011700=f32200;3b011800=dc1f00;3b011900=dc1f00;3b011a00=85734f;3b011b00=dc1f00;3b011c00=dc1f00;3b011d00=85734f;3b011e00=dc1f00;3b011f00=be1b00;3b012000=be1b00;3b012100=be1b00;3b012200=be1b00;3b012300=be1b00;3b012400=951500;3b012500=951500;3b012600=951500;3b012700=951500;3b012800=951500;3b012900=951500;3b012a00=951500;3b012b00=951500;3b012c00=951500;3b012d00=951500;3b012e00=951500;3b012f00=951500;3b013000=951500;3b013100=951500;3b013200=951500;3b013300=951500;3b013400=951500;3b013500=951500;3b013600=85734f;3b013700=be1b00;3b013800=be1b00;3b013900=85734f;3b013a00=be1b00;3b013b00=dc1f00;3b013c00=dc1f00;3b013d00=dc1f00;3b013e00=6f2919;3b013f00=6f2919;3b014000=a85636;3b014100=a85636;3b014200=a85636;3b014300=a85636;3b014400=a85636;3b014500=a85636;3b014600=a85636;3b014700=a85636;3b014800=e0975c;3b014900=e0975c;3b014a00=e0975c;3b014b00=a85636;3c010a00=a85636;3c010b00=e0975c;3c010c00=e0975c;3c010d00=e0975c;3c010e00=e0975c;3c010f00=e0975c;3c011000=e0975c;3c011100=a85636;3c011200=a85636;3c011300=a85636;3c011400=a85636;3c011500=a85636;3c011600=6f2919;3c011700=6f2919;3c011800=f32200;3c011900=f32200;3c011a00=dc1f00;3c011b00=dc1f00;3c011c00=dc1f00;3c011d00=85734f;3c011e00=dc1f00;3c011f00=dc1f00;3c012000=dc1f00;3c012100=dc1f00;3c012200=dc1f00;3c012300=be1b00;3c012400=be1b00;3c012500=be1b00;3c012600=be1b00;3c012700=be1b00;3c012800=be1b00;3c012900=be1b00;3c012a00=be1b00;3c012b00=be1b00;3c012c00=be1b00;3c012d00=be1b00;3c012e00=be1b00;3c012f00=be1b00;3c013000=be1b00;3c013100=be1b00;3c013200=be1b00;3c013300=be1b00;3c013400=be1b00;3c013500=be1b00;3c013600=85734f;3c013700=be1b00;3c013800=dc1f00;3c013900=dc1f00;3c013a00=dc1f00;3c013b00=dc1f00;3c013c00=6f2919;3c013d00=6f2919;3c013e00=a85636;3c013f00=a85636;3c014000=a85636;3c014100=a85636;3c014200=a85636;3c014300=a85636;3c014400=a85636;3c014500=a85636;3c014600=e0975c;3c014700=e0975c;3c014800=e0975c;3c014900=a85636;3c014a00=a85636;3d010b00=a85636;3d010c00=a85636;3d010d00=e0975c;3d010e00=e0975c;3d010f00=e0975c;3d011000=e0975c;3d011100=e0975c;3d011200=e0975c;3d011300=a85636;3d011400=a85636;3d011500=a85636;3d011600=a85636;3d011700=a85636;3d011800=6f2919;3d011900=6f2919;3d011a00=f32200;3d011b00=f32200;3d011c00=f32200;3d011d00=dc1f00;3d011e00=dc1f00;3d011f00=dc1f00;3d012000=dc1f00;3d012100=dc1f00;3d012200=dc1f00;3d012300=dc1f00;3d012400=dc1f00;3d012500=dc1f00;3d012600=dc1f00;3d012700=dc1f00;3d012800=dc1f00;3d012900=dc1f00;3d012a00=dc1f00;3d012b00=dc1f00;3d012c00=dc1f00;3d012d00=dc1f00;3d012e00=dc1f00;3d012f00=dc1f00;3d013000=dc1f00;3d013100=dc1f00;3d013200=dc1f00;3d013300=dc1f00;3d013400=dc1f00;3d013500=dc1f00;3d013600=dc1f00;3d013700=dc1f00;3d013800=dc1f00;3d013900=dc1f00;3d013a00=6f2919;3d013b00=6f2919;3d013c00=a85636;3d013d00=a85636;3d013e00=a85636;3d013f00=a85636;3d014000=a85636;3d014100=a85636;3d014200=a85636;3d014300=a85636;3d014400=e0975c;3d014500=e0975c;3d014600=e0975c;3d014700=a85636;3d014800=a85636;3e010d00=a85636;3e010e00=a85636;3e010f00=e0975c;3e011000=e0975c;3e011100=e0975c;3e011200=e0975c;3e011300=e0975c;3e011400=e0975c;3e011500=a85636;3e011600=a85636;3e011700=a85636;3e011800=a85636;3e011900=a85636;3e011a00=6f2919;3e011b00=6f2919;3e011c00=6f2919;3e011d00=f32200;3e011e00=f32200;3e011f00=f32200;3e012000=f32200;3e012100=dc1f00;3e012200=dc1f00;3e012300=dc1f00;3e012400=dc1f00;3e012500=dc1f00;3e012600=dc1f00;3e012700=dc1f00;3e012800=dc1f00;3e012900=dc1f00;3e012a00=dc1f00;3e012b00=dc1f00;3e012c00=dc1f00;3e012d00=dc1f00;3e012e00=dc1f00;3e012f00=dc1f00;3e013000=dc1f00;3e013100=dc1f00;3e013200=dc1f00;3e013300=dc1f00;3e013400=dc1f00;3e013500=dc1f00;3e013600=dc1f00;3e013700=6f2919;3e013800=6f2919;3e013900=6f2919;3e013a00=a85636;3e013b00=a85636;3e013c00=a85636;3e013d00=a85636;3e013e00=a85636;3e013f00=a85636;3e014000=a85636;3e014100=a85636;3e014200=e0975c;3e014300=e0975c;3e014400=e0975c;3e014500=a85636;3e014600=a85636;3f010f00=a85636;3f011000=a85636;3f011100=e0975c;3f011200=e0975c;3f011300=e0975c;3f011400=e0975c;3f011500=e0975c;3f011600=e0975c;3f011700=a85636;3f011800=a85636;3f011900=a85636;3f011a00=a85636;3f011b00=a85636;3f011c00=a85636;3f011d00=6f2919;3f011e00=6f2919;3f011f00=6f2919;3f012000=6f2919;3f012100=f32200;3f012200=f32200;3f012300=f32200;3f012400=f32200;3f012500=f32200;3f012600=f32200;3f012700=f32200;3f012800=f32200;3f012900=f32200;3f012a00=f32200;3f012b00=f32200;3f012c00=f32200;3f012d00=f32200;3f012e00=f32200;3f012f00=f32200;3f013000=f32200;3f013100=f32200;3f013200=f32200;3f013300=6f2919;3f013400=6f2919;3f013500=6f2919;3f013600=6f2919;3f013700=a85636;3f013800=a85636;3f013900=a85636;3f013a00=a85636;3f013b00=a85636;3f013c00=a85636;3f013d00=a85636;3f013e00=a85636;3f013f00=a85636;3f014000=e0975c;3f014100=e0975c;3f014200=e0975c;3f014300=a85636;3f014400=a85636;40011100=a85636;40011200=a85636;40011300=e0975c;40011400=e0975c;40011500=e0975c;40011600=e0975c;40011700=e0975c;40011800=a85636;40011900=a85636;40011a00=a85636;40011b00=a85636;40011c00=a85636;40011d00=a85636;40011e00=a85636;40011f00=a85636;40012000=a85636;40012100=6f2919;40012200=6f2919;40012300=6f2919;40012400=6f2919;40012500=6f2919;40012600=6f2919;40012700=6f2919;40012800=6f2919;40012900=6f2919;40012a00=6f2919;40012b00=6f2919;40012c00=6f2919;40012d00=6f2919;40012e00=6f2919;40012f00=6f2919;40013000=6f2919;40013100=6f2919;40013200=6f2919;40013300=a85636;40013400=a85636;40013500=a85636;40013600=a85636;40013700=a85636;40013800=a85636;40013900=a85636;40013a00=a85636;40013b00=a85636;40013c00=a85636;40013d00=e0975c;40013e00=e0975c;40013f00=e0975c;40014000=e0975c;40014100=a85636;40014200=a85636;41011300=a85636;41011400=a85636;41011500=e0975c;41011600=e0975c;41011700=e0975c;41011800=e0975c;41011900=e0975c;41011a00=e0975c;41011b00=e0975c;41011c00=a85636;41011d00=a85636;41011e00=a85636;41011f00=a85636;41012000=a85636;41012100=a85636;41012200=a85636;41012300=a85636;41012400=a85636;41012500=a85636;41012600=a85636;41012700=a85636;41012800=a85636;41012900=a85636;41012a00=a85636;41012b00=a85636;41012c00=a85636;41012d00=a85636;41012e00=a85636;41012f00=a85636;41013000=a85636;41013100=a85636;41013200=a85636;41013300=a85636;41013400=a85636;41013500=a85636;41013600=a85636;41013700=a85636;41013800=a85636;41013900=e0975c;41013a00=e0975c;41013b00=e0975c;41013c00=e0975c;41013d00=e0975c;41013e00=e0975c;41013f00=a85636;41014000=a85636;42011500=a85636;42011600=a85636;42011700=e0975c;42011800=e0975c;42011900=e0975c;42011a00=e0975c;42011b00=e0975c;42011c00=e0975c;42011d00=e0975c;42011e00=e0975c;42011f00=e0975c;42012000=a85636;42012100=a85636;42012200=a85636;42012300=a85636;42012400=a85636;42012500=a85636;42012600=a85636;42012700=a85636;42012800=a85636;42012900=a85636;42012a00=a85636;42012b00=a85636;42012c00=a85636;42012d00=a85636;42012e00=a85636;42012f00=a85636;42013000=a85636;42013100=a85636;42013200=a85636;42013300=a85636;42013400=e0975c;42013500=e0975c;42013600=e0975c;42013700=e0975c;42013800=e0975c;42013900=e0975c;42013a00=e0975c;42013b00=e0975c;42013c00=e0975c;42013d00=a85636;42013e00=a85636;43011700=a85636;43011800=a85636;43011900=e0975c;43011a00=e0975c;43011b00=e0975c;43011c00=e0975c;43011d00=e0975c;43011e00=e0975c;43011f00=e0975c;43012000=e0975c;43012100=e0975c;43012200=e0975c;43012300=e0975c;43012400=e0975c;43012500=e0975c;43012600=e0975c;43012700=e0975c;43012800=e0975c;43012900=e0975c;43012a00=e0975c;43012b00=e0975c;43012c00=e0975c;43012d00=e0975c;43012e00=e0975c;43012f00=e0975c;43013000=e0975c;43013100=e0975c;43013200=e0975c;43013300=e0975c;43013400=e0975c;43013500=e0975c;43013600=e0975c;43013700=e0975c;43013800=e0975c;43013900=e0975c;43013a00=e0975c;43013b00=a85636;43013c00=a85636;44011900=a85636;44011a00=a85636;44011b00=a85636;44011c00=e0975c;44011d00=e0975c;44011e00=e0975c;44011f00=e0975c;44012000=e0975c;44012100=e0975c;44012200=e0975c;44012300=e0975c;44012400=e0975c;44012500=e0975c;44012600=e0975c;44012700=e0975c;44012800=e0975c;44012900=e0975c;44012a00=e0975c;44012b00=e0975c;44012c00=e0975c;44012d00=e0975c;44012e00=e0975c;44012f00=e0975c;44013000=e0975c;44013100=e0975c;44013200=e0975c;44013300=e0975c;44013400=e0975c;44013500=e0975c;44013600=e0975c;44013700=e0975c;44013800=a85636;44013900=a85636;44013a00=a85636;45011c00=a85636;45011d00=a85636;45011e00=a85636;45011f00=a85636;45012000=e0975c;45012100=e0975c;45012200=e0975c;45012300=e0975c;45012400=e0975c;45012500=e0975c;45012600=e0975c;45012700=e0975c;45012800=e0975c;45012900=e0975c;45012a00=e0975c;45012b00=e0975c;45012c00=e0975c;45012d00=e0975c;45012e00=e0975c;45012f00=e0975c;45013000=e0975c;45013100=e0975c;45013200=e0975c;45013300=e0975c;45013400=a85636;45013500=a85636;45013600=a85636;45013700=a85636;46012000=a85636;46012100=a85636;46012200=a85636;46012300=a85636;46012400=a85636;46012500=a85636;46012600=e0975c;46012700=e0975c;46012800=e0975c;46012900=e0975c;46012a00=e0975c;46012b00=e0975c;46012c00=e0975c;46012d00=e0975c;46012e00=a85636;46012f00=a85636;46013000=a85636;46013100=a85636;46013200=a85636;46013300=a85636;47012600=a85636;47012700=a85636;47012800=a85636;47012900=a85636;47012a00=a85636;47012b00=a85636;47012c00=a85636;47012d00=a85636?replace;85734F=111111;d9c189=111111d0?replace;e0975c=29332b;f32200=232b2b;6f2919=141915;951500=111515;dc1f00=1f2828;ffca8a=333f35;be1b00=1a2020;a85636=1e2620",
+                      "offset": [2.625, 1.125]
+                    }
                   }
                 }
               }
             }
           }
+        },
+        "transformationGroups": {
+          "weapon": {},
+          "swoosh": {}
+        },
+        "particleEmitters": {
+          "physicalswoosh": {
+            "active": false,
+            "transformationGroups": ["swoosh"],
+            "particles": [],
+            "burstCount": 4
+          },
+          "blade": {
+            "active": false,
+            "transformationGroups": ["weapon"],
+            "offsetRegion": [-0.5, 1.5, 0.5, 4],
+            "particles": [],
+            "emissionRate": 5
+          },
+          "flip": {
+            "active": false,
+            "transformationGroups": ["weapon"],
+            "offsetRegion": [-4, -4, 5, 5],
+            "particles": [],
+            "emissionRate": 70
+          }
+        },
+        "lights": {
+          "glow": {
+            "transformationGroups": ["weapon"],
+            "position": [0, 2],
+            "color": [0, 0, 0]
+          }
         }
       },
-      "transformationGroups": {
-        "weapon": {},
-        "swoosh": {}
+      "itemTags": ["weapon", "melee", "broadsword"],
+      "animation": "/items/active/weapons/melee/broadsword/energybroadsword.animation",
+      "level": 6,
+      "activeTime": 3,
+      "tooltipFields": {
+        "rarityLabel": "fezTech Abilities"
       },
-      "particleEmitters": {
-        "physicalswoosh": {
-          "active": false,
-          "transformationGroups": ["swoosh"],
-          "particles": [],
-          "burstCount": 4
+      "primaryAbility": {
+        "comboSpeedFactor": 0.9,
+        "baseDps": 0,
+        "scripts": ["/items/active/weapons/melee/meleecombo.lua"],
+        "type": "broadswordcombo",
+        "stances": {
+          "preslash1": {
+            "frontArmFrame": "fall.2",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "duration": 0.025,
+            "backArmFrame": "fall.2"
+          },
+          "fire1": {
+            "frontArmFrame": "fall.2",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "duration": 0.15,
+            "backArmFrame": "fall.2"
+          },
+          "fire2": {
+            "frontArmFrame": "fall.2",
+            "weaponRotation": 0,
+            "allowFlip": true,
+            "allowRotate": false,
+            "armRotation": 0,
+            "weaponOffset": [0, 0],
+            "twoHanded": true,
+            "duration": 0.2,
+            "backArmFrame": "fall.2"
+          },
+          "fire3": {
+            "frontArmFrame": "fall.2",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "duration": 0.3,
+            "backArmFrame": "fall.2"
+          },
+          "wait1": {
+            "frontArmFrame": "idle.5",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "duration": 0.2,
+            "backArmFrame": "idle.5"
+          },
+          "idle": {
+            "frontArmFrame": "idle.1",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "backArmFrame": "idle.1"
+          },
+          "wait2": {
+            "frontArmFrame": "idle.5",
+            "weaponRotation": 0,
+            "allowFlip": true,
+            "allowRotate": false,
+            "armRotation": 0,
+            "weaponOffset": [0, 0],
+            "twoHanded": true,
+            "duration": 0.2,
+            "backArmFrame": "idle.5"
+          },
+          "windup1": {
+            "frontArmFrame": "idle.5",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "duration": 0.1,
+            "backArmFrame": "idle.5"
+          },
+          "windup2": {
+            "frontArmFrame": "idle.5",
+            "weaponRotation": 0,
+            "allowFlip": true,
+            "allowRotate": false,
+            "armRotation": 0,
+            "weaponOffset": [0, 0],
+            "twoHanded": true,
+            "duration": 0.15,
+            "backArmFrame": "idle.5"
+          },
+          "windup3": {
+            "frontArmFrame": "idle.5",
+            "allowFlip": true,
+            "weaponRotation": 0,
+            "allowRotate": false,
+            "armRotation": 0,
+            "twoHanded": true,
+            "duration": 0.15,
+            "backArmFrame": "idle.5"
+          }
         },
-        "blade": {
-          "active": false,
-          "transformationGroups": ["weapon"],
-          "offsetRegion": [-0.5, 1.5, 0.5, 4],
-          "particles": [],
-          "emissionRate": 5
+        "flashTime": 0.15,
+        "flashDirectives": "fade=FFFFFFFF=0.15",
+        "name": "Combo Slash",
+        "damageConfig": {
+          "timeout": 10000000000,
+          "statusEffects": [],
+          "damageSourceKind": "hidden",
+          "knockbackMode": "facing",
+          "baseDamage": 0,
+          "knockback": [0, 0]
         },
-        "flip": {
-          "active": false,
-          "transformationGroups": ["weapon"],
-          "offsetRegion": [-4, -4, 5, 5],
-          "particles": [],
-          "emissionRate": 70
-        }
+        "swooshOffsetRegions": [
+          [0.75, 0, 4.25, 5],
+          [3, -0.5, 6.5, 2],
+          [1.5, -1, 5.5, 1]
+        ],
+        "edgeTriggerGrace": 0.25,
+        "fireTime": 0.8,
+        "stepDamageConfig": [
+          {
+            "baseDamageFactor": 1,
+            "knockback": 15
+          },
+          {
+            "baseDamageFactor": 0.5,
+            "knockback": 10
+          },
+          {
+            "baseDamageFactor": 1,
+            "knockback": 25
+          }
+        ],
+        "class": "MeleeCombo",
+        "comboSteps": 3
       },
-      "lights": {
-        "glow": {
-          "transformationGroups": ["weapon"],
-          "position": [0, 2],
-          "color": [0, 0, 0]
-        }
-      }
-    },
-    "itemTags": ["weapon", "melee", "broadsword"],
-    "animation": "/items/active/weapons/melee/broadsword/energybroadsword.animation",
-    "level": 6,
-    "activeTime": 3,
-    "tooltipFields": {
-      "rarityLabel": "fezTech Abilities"
-    },
-    "primaryAbility": {
-      "comboSpeedFactor": 0.9,
-      "baseDps": 0,
-      "scripts": ["/items/active/weapons/melee/meleecombo.lua"],
-      "type": "broadswordcombo",
-      "stances": {
-        "preslash1": {
-          "frontArmFrame": "fall.2",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "duration": 0.025,
-          "backArmFrame": "fall.2"
-        },
-        "fire1": {
-          "frontArmFrame": "fall.2",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "duration": 0.15,
-          "backArmFrame": "fall.2"
-        },
-        "fire2": {
-          "frontArmFrame": "fall.2",
-          "weaponRotation": 0,
-          "allowFlip": true,
-          "allowRotate": false,
-          "armRotation": 0,
-          "weaponOffset": [0, 0],
-          "twoHanded": true,
-          "duration": 0.2,
-          "backArmFrame": "fall.2"
-        },
-        "fire3": {
-          "frontArmFrame": "fall.2",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "duration": 0.3,
-          "backArmFrame": "fall.2"
-        },
-        "wait1": {
-          "frontArmFrame": "idle.5",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "duration": 0.2,
-          "backArmFrame": "idle.5"
-        },
-        "idle": {
-          "frontArmFrame": "idle.1",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "backArmFrame": "idle.1"
-        },
-        "wait2": {
-          "frontArmFrame": "idle.5",
-          "weaponRotation": 0,
-          "allowFlip": true,
-          "allowRotate": false,
-          "armRotation": 0,
-          "weaponOffset": [0, 0],
-          "twoHanded": true,
-          "duration": 0.2,
-          "backArmFrame": "idle.5"
-        },
-        "windup1": {
-          "frontArmFrame": "idle.5",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "duration": 0.1,
-          "backArmFrame": "idle.5"
-        },
-        "windup2": {
-          "frontArmFrame": "idle.5",
-          "weaponRotation": 0,
-          "allowFlip": true,
-          "allowRotate": false,
-          "armRotation": 0,
-          "weaponOffset": [0, 0],
-          "twoHanded": true,
-          "duration": 0.15,
-          "backArmFrame": "idle.5"
-        },
-        "windup3": {
-          "frontArmFrame": "idle.5",
-          "allowFlip": true,
-          "weaponRotation": 0,
-          "allowRotate": false,
-          "armRotation": 0,
-          "twoHanded": true,
-          "duration": 0.15,
-          "backArmFrame": "idle.5"
-        }
+      "animationParts": {
+        "blade": "/assetmissing.png",
+        "handleFullbright": "handlefullbright.png",
+        "handle": "handle.png"
       },
-      "flashTime": 0.15,
-      "flashDirectives": "fade=FFFFFFFF=0.15",
-      "name": "Combo Slash",
-      "damageConfig": {
-        "timeout": 10000000000,
-        "statusEffects": [],
-        "damageSourceKind": "hidden",
-        "knockbackMode": "facing",
-        "baseDamage": 0,
-        "knockback": [0, 0]
-      },
-      "swooshOffsetRegions": [
-        [0.75, 0, 4.25, 5],
-        [3, -0.5, 6.5, 2],
-        [1.5, -1, 5.5, 1]
-      ],
-      "edgeTriggerGrace": 0.25,
-      "fireTime": 0.8,
-      "stepDamageConfig": [
-        {
-          "baseDamageFactor": 1,
-          "knockback": 15
-        },
-        {
-          "baseDamageFactor": 0.5,
-          "knockback": 10
-        },
-        {
-          "baseDamageFactor": 1,
-          "knockback": 25
-        }
-      ],
-      "class": "MeleeCombo",
-      "comboSteps": 3
-    },
-    "animationParts": {
-      "blade": "/assetmissing.png",
-      "handleFullbright": "handlefullbright.png",
-      "handle": "handle.png"
-    },
-    "builder": "/items/buildscripts/buildunrandweapon.lua",
-    "tooltipKind": "back",
-    "primaryAbilityType": "broadswordcombo",
-    "category": "Tool"
+      "builder": "/items/buildscripts/buildunrandweapon.lua",
+      "tooltipKind": "back",
+      "primaryAbilityType": "broadswordcombo",
+      "category": "Tool"
+    }
   },
   {
+    "shortdescription": "Night Vision Glasses",
     "parameters": {
+      "xSBrarity": "colour3",
       "maxStack": 1,
       "description": "A pair of protective goggles with night-vision sensors.\n\n^#f22;[FezzedTech]^reset;Gives night vision when worn in the head armour slot.",
       "maleFrames": "head.png",
@@ -2919,5 +2934,429 @@
     },
     "count": 1,
     "name": "eyepatchhead"
+  },
+  {
+    "shortdescription": "Hang Glider ^gray;[Two-Handed]^reset;",
+    "parameters": {
+      "xSBrarity": "colour1",
+      "description": "Glide through the air in style! Hold the ^orange;mouse button^reset; to use. ^orange;Jump^reset; while in the air for a small upward boost. Hold the ^orange;walk key^reset; to slow down.",
+      "itemName": "parasol",
+      "maxStack": 1000,
+      "activeRotation": 27.5,
+      "scripts": ["parasol.lua"],
+      "price": 500,
+      "inventoryIcon": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d",
+      "rarity": "Legendary",
+      "shortdescription": "Hang Glider ^gray;[Two-Handed]^reset;",
+      "twoHanded": true,
+      "createdby": "FezzedOne and SpicySpaceSnake",
+      "animationCustom": {
+        "sounds": {
+          "open": []
+        },
+        "rotationGroups": {
+          "parasol": {
+            "angularVelocity": 8
+          }
+        },
+        "animatedParts": {
+          "stateTypes": {
+            "parasol": {
+              "states": {
+                "open": {
+                  "mode": "end",
+                  "cycle": 0.2,
+                  "frames": 2
+                },
+                "close": {
+                  "mode": "end",
+                  "cycle": 0.2,
+                  "frames": 2
+                },
+                "closed": {}
+              },
+              "default": "closed"
+            }
+          },
+          "parts": {
+            "parasol": {
+              "properties": {
+                "offset": [-0.625, 0.625],
+                "zLevel": -1,
+                "rotationCenter": [0, 0],
+                "rotationGroup": "parasol",
+                "centered": true
+              },
+              "partStates": {
+                "parasol": {
+                  "open": {
+                    "properties": {
+                      "image": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d"
+                    }
+                  },
+                  "close": {
+                    "properties": {
+                      "image": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d"
+                    }
+                  },
+                  "closed": {
+                    "properties": {
+                      "image": "/assetmissing.png"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "animation": "parasol.animation",
+      "tooltipFields": {
+        "subtitle": "Glider ^orange;<Thermal Boost>^reset;",
+        "rarityLabel": "FezzedTech"
+      },
+      "animationParts": {},
+      "idleRotation": 23.5,
+      "fallingParameters": {
+        "fallStatusSpeedMin": 100.0,
+        "runSpeed": 75,
+        "walkSpeed": 25,
+        "airForce": 200,
+        "airJumpProfile": {
+          "jumpSpeed": 5.0,
+          "jumpControlForce": 100.0,
+          "jumpInitialPercentage": 1.0,
+          "jumpHoldTime": 0.02,
+          "multiJump": true,
+          "reJumpDelay": 0.02,
+          "autoJump": true,
+          "collisionCancelled": false
+        }
+      },
+      "switchTime": 0.3,
+      "maxFallSpeed": -5,
+      "tooltipKind": "armor",
+      "category": "tool"
+    },
+    "count": 1000,
+    "name": "parasol"
+  },
+  {
+    "shortdescription": "Hang Glider ^gray;[Two-Handed]^reset;",
+    "parameters": {
+      "xSBrarity": "colour1",
+      "description": "Glide through the air in style! Hold the ^orange;mouse button^reset; to use. ^orange;Jump^reset; while in the air to slow your descent. Hold the ^orange;walk key^reset; to slow down.",
+      "itemName": "parasol",
+      "maxStack": 1000,
+      "activeRotation": 27.5,
+      "scripts": ["parasol.lua"],
+      "price": 500,
+      "inventoryIcon": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d",
+      "rarity": "Legendary",
+      "shortdescription": "Hang Glider ^gray;[Two-Handed]^reset;",
+      "twoHanded": true,
+      "createdby": "FezzedOne and SpicySpaceSnake",
+      "animationCustom": {
+        "sounds": {
+          "open": []
+        },
+        "rotationGroups": {
+          "parasol": {
+            "angularVelocity": 8
+          }
+        },
+        "animatedParts": {
+          "stateTypes": {
+            "parasol": {
+              "states": {
+                "open": {
+                  "mode": "end",
+                  "cycle": 0.2,
+                  "frames": 2
+                },
+                "close": {
+                  "mode": "end",
+                  "cycle": 0.2,
+                  "frames": 2
+                },
+                "closed": {}
+              },
+              "default": "closed"
+            }
+          },
+          "parts": {
+            "parasol": {
+              "properties": {
+                "offset": [-0.625, 0.625],
+                "zLevel": -1,
+                "rotationCenter": [0, 0],
+                "rotationGroup": "parasol",
+                "centered": true
+              },
+              "partStates": {
+                "parasol": {
+                  "open": {
+                    "properties": {
+                      "image": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d"
+                    }
+                  },
+                  "close": {
+                    "properties": {
+                      "image": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d"
+                    }
+                  },
+                  "closed": {
+                    "properties": {
+                      "image": "/assetmissing.png"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "animation": "parasol.animation",
+      "tooltipFields": {
+        "subtitle": "Glider",
+        "rarityLabel": "FezzedTech"
+      },
+      "animationParts": {},
+      "idleRotation": 23.5,
+      "fallingParameters": {
+        "fallStatusSpeedMin": 100.0,
+        "runSpeed": 75,
+        "walkSpeed": 25,
+        "airForce": 200,
+        "airJumpProfile": {
+          "jumpSpeed": 0.5,
+          "jumpControlForce": 100.0,
+          "jumpInitialPercentage": 1.0,
+          "jumpHoldTime": 0.02,
+          "multiJump": true,
+          "reJumpDelay": 0.02,
+          "autoJump": true,
+          "collisionCancelled": false
+        }
+      },
+      "switchTime": 0.3,
+      "maxFallSpeed": -5,
+      "tooltipKind": "armor",
+      "category": "tool"
+    },
+    "count": 1000,
+    "name": "parasol"
+  },
+  {
+    "shortdescription": "Hang Glider ^gray;[One-Handed]^reset;",
+    "parameters": {
+      "xSBrarity": "colour1",
+      "description": "Glide through the air in style! Hold the ^orange;mouse button^reset; to use. ^orange;Jump^reset; while in the air for a small upward boost. Hold the ^orange;walk key^reset; to slow down.",
+      "itemName": "parasol",
+      "maxStack": 1000,
+      "activeRotation": 27.5,
+      "scripts": ["parasol.lua"],
+      "price": 500,
+      "inventoryIcon": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d",
+      "rarity": "Legendary",
+      "shortdescription": "Hang Glider ^gray;[One-Handed]^reset;",
+      "twoHanded": false,
+      "createdby": "FezzedOne and SpicySpaceSnake",
+      "animationCustom": {
+        "sounds": {
+          "open": []
+        },
+        "rotationGroups": {
+          "parasol": {
+            "angularVelocity": 8
+          }
+        },
+        "animatedParts": {
+          "stateTypes": {
+            "parasol": {
+              "states": {
+                "open": {
+                  "mode": "end",
+                  "cycle": 0.2,
+                  "frames": 2
+                },
+                "close": {
+                  "mode": "end",
+                  "cycle": 0.2,
+                  "frames": 2
+                },
+                "closed": {}
+              },
+              "default": "closed"
+            }
+          },
+          "parts": {
+            "parasol": {
+              "properties": {
+                "offset": [-0.625, 0.625],
+                "zLevel": -1,
+                "rotationCenter": [0, 0],
+                "rotationGroup": "parasol",
+                "centered": true
+              },
+              "partStates": {
+                "parasol": {
+                  "open": {
+                    "properties": {
+                      "image": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d"
+                    }
+                  },
+                  "close": {
+                    "properties": {
+                      "image": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d"
+                    }
+                  },
+                  "closed": {
+                    "properties": {
+                      "image": "/assetmissing.png"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "animation": "parasol.animation",
+      "tooltipFields": {
+        "subtitle": "Glider ^orange;<Thermal Boost>^reset;",
+        "rarityLabel": "FezzedTech"
+      },
+      "animationParts": {},
+      "idleRotation": 23.5,
+      "fallingParameters": {
+        "fallStatusSpeedMin": 100.0,
+        "runSpeed": 75,
+        "walkSpeed": 25,
+        "airForce": 200,
+        "airJumpProfile": {
+          "jumpSpeed": 5.0,
+          "jumpControlForce": 100.0,
+          "jumpInitialPercentage": 1.0,
+          "jumpHoldTime": 0.02,
+          "multiJump": true,
+          "reJumpDelay": 0.02,
+          "autoJump": true,
+          "collisionCancelled": false
+        }
+      },
+      "switchTime": 0.3,
+      "maxFallSpeed": -5,
+      "tooltipKind": "armor",
+      "category": "tool"
+    },
+    "count": 1000,
+    "name": "parasol"
+  },
+  {
+    "shortdescription": "Hang Glider ^gray;[One-Handed]^reset;",
+    "parameters": {
+      "xSBrarity": "colour1",
+      "description": "Glide through the air in style! Hold the ^orange;mouse button^reset; to use. ^orange;Jump^reset; while in the air to slow your descent. Hold the ^orange;walk key^reset; to slow down.",
+      "itemName": "parasol",
+      "maxStack": 1000,
+      "activeRotation": 27.5,
+      "scripts": ["parasol.lua"],
+      "price": 500,
+      "inventoryIcon": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d",
+      "rarity": "Legendary",
+      "shortdescription": "Hang Glider ^gray;[One-Handed]^reset;",
+      "twoHanded": false,
+      "createdby": "FezzedOne and SpicySpaceSnake",
+      "animationCustom": {
+        "sounds": {
+          "open": []
+        },
+        "rotationGroups": {
+          "parasol": {
+            "angularVelocity": 8
+          }
+        },
+        "animatedParts": {
+          "stateTypes": {
+            "parasol": {
+              "states": {
+                "open": {
+                  "mode": "end",
+                  "cycle": 0.2,
+                  "frames": 2
+                },
+                "close": {
+                  "mode": "end",
+                  "cycle": 0.2,
+                  "frames": 2
+                },
+                "closed": {}
+              },
+              "default": "closed"
+            }
+          },
+          "parts": {
+            "parasol": {
+              "properties": {
+                "offset": [-0.625, 0.625],
+                "zLevel": -1,
+                "rotationCenter": [0, 0],
+                "rotationGroup": "parasol",
+                "centered": true
+              },
+              "partStates": {
+                "parasol": {
+                  "open": {
+                    "properties": {
+                      "image": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d"
+                    }
+                  },
+                  "close": {
+                    "properties": {
+                      "image": "/assetmissing.png?crop;0;0;1;1?setcolor=fff?replace;fff0=fff?border=1;fff;000?scale=1.15;1.12?crop;1;1;3;3?replace;fbfbfb=000;eaeaea=2c0000;e4e4e4=00000f;6a6a6a=2c000f?multiply=fff0?scale=43.5;14.5?crop=0;0;44;15?replace;0000=0100;00000100=0100;01000000=0100;01000100=2100;01000200=0100;02000100=0100;02000200=2100;02000300=0100;03000100=0100;03000200=2100;03000300=1100;03000400=0100;04000100=0100;04000200=2100;04000300=2100;04000400=1100;04000500=0100;05000100=0100;05000200=2100;05000300=2100;05000400=1100;05000500=1100;05000600=0100;05000700=0100;06000200=0100;06000300=2100;06000400=1100;06000500=1100;06000600=1100;06000700=2100;06000800=0100;07000200=0100;07000300=2100;07000400=2100;07000500=1100;07000600=1100;07000700=2100;07000800=3100;07000900=0100;08000000=0100;08000100=0100;08000200=0100;08000300=2100;08000400=2100;08000500=1100;08000600=1100;08000700=2100;08000800=1100;08000900=3100;08000a00=0100;09000000=0100;09000100=2100;09000200=2100;09000300=0100;09000400=2100;09000500=1100;09000600=2100;09000700=2100;09000800=1100;09000900=3100;09000a00=3100;09000b00=0100;0a000000=0100;0a000100=0100;0a000200=2100;0a000300=0100;0a000400=2100;0a000500=1100;0a000600=2100;0a000700=1100;0a000800=2100;0a000900=3100;0a000a00=3100;0a000b00=3100;0a000c00=0100;0a000d00=0100;0b000100=0100;0b000200=2100;0b000300=0100;0b000400=2100;0b000500=1100;0b000600=1100;0b000700=1100;0b000800=2100;0b000900=3100;0b000a00=1100;0b000b00=3100;0b000c00=0100;0b000d00=2100;0b000e00=0100;0c000100=0100;0c000200=2100;0c000300=0100;0c000400=2100;0c000500=1100;0c000600=1100;0c000700=1100;0c000800=2100;0c000900=3100;0c000a00=1100;0c000b00=3100;0c000c00=0100;0c000d00=2100;0c000e00=0100;0d000100=0100;0d000200=0100;0d000300=2100;0d000400=0100;0d000500=2100;0d000600=2100;0d000700=1100;0d000800=2100;0d000900=3100;0d000a00=3100;0d000b00=3100;0d000c00=0100;0d000d00=2100;0d000e00=0100;0e000200=0100;0e000300=2100;0e000400=0100;0e000500=2100;0e000600=2100;0e000700=1100;0e000800=2100;0e000900=3100;0e000a00=3100;0e000b00=3100;0e000c00=0100;0e000d00=1100;0e000e00=0100;0f000200=0100;0f000300=2100;0f000400=0100;0f000500=2100;0f000600=1100;0f000700=1100;0f000800=2100;0f000900=3100;0f000a00=3100;0f000b00=1100;0f000c00=0100;0f000d00=1100;0f000e00=0100;10000200=0100;10000300=0100;10000400=0100;10000500=2100;10000600=1100;10000700=1100;10000800=2100;10000900=1100;10000a00=3100;10000b00=1100;10000c00=0100;10000d00=3100;10000e00=0100;11000300=0100;11000400=2100;11000500=0100;11000600=2100;11000700=1100;11000800=2100;11000900=1100;11000a00=3100;11000b00=3100;11000c00=0100;11000d00=1100;11000e00=0100;12000300=0100;12000400=0100;12000500=0100;12000600=2100;12000700=2100;12000800=1100;12000900=2100;12000a00=3100;12000b00=3100;12000c00=0100;12000d00=3100;12000e00=0100;13000400=0100;13000500=0100;13000600=2100;13000700=2100;13000800=1100;13000900=2100;13000a00=3100;13000b00=3100;13000c00=0100;13000d00=3100;13000e00=0100;14000400=0100;14000500=2100;14000600=0100;14000700=2100;14000800=1100;14000900=2100;14000a00=1100;14000b00=3100;14000c00=0100;14000d00=3100;14000e00=0100;15000400=0100;15000500=0100;15000600=0100;15000700=2100;15000800=1100;15000900=2100;15000a00=1100;15000b00=3100;15000c00=0100;15000d00=1100;15000e00=0100;16000500=0100;16000600=0100;16000700=2100;16000800=2100;16000900=2100;16000a00=3100;16000b00=3100;16000c00=0100;16000d00=1100;16000e00=0100;17000500=0100;17000600=0100;17000700=2100;17000800=2100;17000900=2100;17000a00=3100;17000b00=1100;17000c00=0100;17000d00=1100;17000e00=0100;18000300=0100;18000400=0100;18000500=0100;18000600=0100;18000700=0100;18000800=2100;18000900=2100;18000a00=3100;18000b00=1100;18000c00=0100;18000d00=3100;18000e00=0100;19000200=0100;19000300=3100;19000400=3100;19000500=1100;19000600=1100;19000700=0100;19000800=2100;19000900=2100;19000a00=3100;19000b00=3100;19000c00=0100;19000d00=1100;19000e00=0100;1a000100=0100;1a000200=1100;1a000300=0100;1a000400=0100;1a000500=0100;1a000600=0100;1a000700=0100;1a000800=2100;1a000900=1100;1a000a00=2100;1a000b00=3100;1a000c00=0100;1a000d00=1100;1a000e00=0100;1b000000=0100;1b000100=3100;1b000200=0100;1b000600=0100;1b000700=0100;1b000800=0100;1b000900=2100;1b000a00=2100;1b000b00=3100;1b000c00=0100;1b000d00=1100;1b000e00=0100;1c000000=0100;1c000100=1100;1c000200=0100;1c000700=0100;1c000800=0100;1c000900=2100;1c000a00=2100;1c000b00=3100;1c000c00=0100;1c000d00=1100;1c000e00=0100;1d000000=0100;1d000100=2100;1d000200=0100;1d000700=0100;1d000800=0100;1d000900=2100;1d000a00=2100;1d000b00=3100;1d000c00=0100;1d000d00=1100;1d000e00=0100;1e000100=0100;1e000200=1100;1e000300=0100;1e000400=0100;1e000500=0100;1e000600=0100;1e000700=0100;1e000800=0100;1e000900=2100;1e000a00=2100;1e000b00=1100;1e000c00=0100;1e000d00=3100;1e000e00=0100;1f000200=0100;1f000300=2100;1f000400=2100;1f000500=1100;1f000600=1100;1f000700=2100;1f000800=2100;1f000900=0100;1f000a00=2100;1f000b00=1100;1f000c00=0100;1f000d00=3100;1f000e00=0100;20000300=0100;20000400=0100;20000500=0100;20000600=0100;20000700=0100;20000800=0100;20000900=0100;20000a00=2100;20000b00=3100;20000c00=0100;20000d00=3100;20000e00=0100;21000800=0100;21000900=0100;21000a00=2100;21000b00=3100;21000c00=0100;21000d00=3100;21000e00=0100;22000900=0100;22000a00=1100;22000b00=2100;22000c00=0100;22000d00=3100;22000e00=0100;23000900=0100;23000a00=0100;23000b00=2100;23000c00=0100;23000d00=1100;23000e00=0100;24000a00=0100;24000b00=2100;24000c00=0100;24000d00=1100;24000e00=0100;25000a00=0100;25000b00=2100;25000c00=0100;25000d00=3100;25000e00=0100;26000a00=0100;26000b00=0100;26000c00=0100;26000d00=1100;26000e00=0100;27000b00=0100;27000c00=0100;27000d00=1100;27000e00=0100;28000b00=0100;28000c00=0100;28000d00=2100;28000e00=0100;29000b00=0100;29000c00=0100;29000d00=2100;29000e00=0100;2a000c00=0100;2a000d00=2100;2a000e00=0100;2b000c00=0100;2b000d00=0100?replace;0100=151515;1100=262626;2100=1c1c1c;3100=2d2d2d"
+                    }
+                  },
+                  "closed": {
+                    "properties": {
+                      "image": "/assetmissing.png"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "animation": "parasol.animation",
+      "tooltipFields": {
+        "subtitle": "Glider",
+        "rarityLabel": "FezzedTech"
+      },
+      "animationParts": {},
+      "idleRotation": 23.5,
+      "fallingParameters": {
+        "fallStatusSpeedMin": 100.0,
+        "runSpeed": 75,
+        "walkSpeed": 25,
+        "airForce": 200,
+        "airJumpProfile": {
+          "jumpSpeed": 0.5,
+          "jumpControlForce": 100.0,
+          "jumpInitialPercentage": 1.0,
+          "jumpHoldTime": 0.02,
+          "multiJump": true,
+          "reJumpDelay": 0.02,
+          "autoJump": true,
+          "collisionCancelled": false
+        }
+      },
+      "switchTime": 0.3,
+      "maxFallSpeed": -5,
+      "tooltipKind": "armor",
+      "category": "tool"
+    },
+    "count": 1000,
+    "name": "parasol"
   }
 ]

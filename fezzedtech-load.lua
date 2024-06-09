@@ -11,7 +11,7 @@ if sipFound then
     if pcall(assets.bytes, "/xSIP.lua") then
         sb.logInfo("[FezzedTech] Detected xSIP; adding FezzedTech items...")
     else
-        sb.logInfo("[FezzedTech] Detected Spawnable Item Pack; adding FezzedTech items...")
+        goto skipSip
     end
     local fezzedTechItems = assets.json("/fezzedtech-items.json")
     for _, item in pairs(fezzedTechItems) do
@@ -20,3 +20,4 @@ if sipFound then
     assets.erase("/sipCustomItems.json")
     assets.add("/sipCustomItems.json", sipCustomItems)
 end
+::skipSip::
