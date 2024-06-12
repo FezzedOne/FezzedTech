@@ -1849,10 +1849,10 @@ function renoUpdate(dt)
 
                     walkSpeed = (not mcontroller.groundMovement())
                             and (inAir and 25 or (fezzedTechVars.soarHop and 7.5 or 0.5))
-                        or (fezzedTechVars.mertail and 6 or 0),
+                        or (fezzedTechVars.mertail and 2 or 0),
                     runSpeed = (not mcontroller.groundMovement())
                             and (inAir and 50 or (fezzedTechVars.soarHop and 15 or 1))
-                        or (fezzedTechVars.mertail and 12 or 0),
+                        or (fezzedTechVars.mertail and 5 or 0),
 
                     airJumpProfile = {
                         jumpSpeed = (
@@ -2851,8 +2851,8 @@ function renoUpdate(dt)
                 jumpParameters.airJumpProfile.autoJump = fezzedTechVars.scarecrowPole
             end
             if fezzedTechVars.noLegs then
-                jumpParameters.runSpeed = 14
-                jumpParameters.walkSpeed = 8
+                jumpParameters.runSpeed = 7.0
+                jumpParameters.walkSpeed = 3.0
             end
             if
                 (
