@@ -289,6 +289,18 @@ function renoUpdate(dt)
 
         if xsb and player.setOverrideState then player.setOverrideState() end
 
+        local mPos = mcontroller.position()
+        local atLiquid = (function()
+            local at = world.liquidAt({ math.floor(mPos[1] + 0.5), math.floor(mPos[2] + 0.5) })
+            -- return at and at[2]
+            local below = world.liquidAt({ math.floor(mPos[1] + 0.5), math.floor(mPos[2] - 0.5) })
+            if at and below then
+                return at[2] > below[2] and at[2] or below[2]
+            else
+                return (at and at[2]) or (below and below[2])
+            end
+        end)()
+
         math.__fezzedTechLoaded = true
 
         local tech = nil
@@ -349,14 +361,11 @@ function renoUpdate(dt)
             and math.__isParkourTech
         fezzedTechVars.mertail = status.statPositive("mertail") or status.statusProperty("mertail")
         fezzedTechVars.fastSwimming = (status.statPositive("fastSwimming") or status.statusProperty("fastSwimming")) -- or fezzedTechVars.mertail
-        fezzedTechVars.swimTail = (
-            (
-                fezzedTechVars.scarecrowPole
-                or fezzedTechVars.soarHop
-                or fezzedTechVars.shadowRun
-                or fezzedTechVars.fastSwimming
-            ) and mcontroller.liquidMovement()
-        )
+        fezzedTechVars.hasSwimTail = fezzedTechVars.scarecrowPole
+            or fezzedTechVars.soarHop
+            or fezzedTechVars.shadowRun
+            or fezzedTechVars.fastSwimming
+        fezzedTechVars.swimTail = fezzedTechVars.hasSwimTail and mcontroller.liquidMovement()
         fezzedTechVars.avosiWingedArms = (
             status.statPositive("avosiWingedArms") or status.statusProperty("avosiWingedArms")
         ) and math.__isParkourTech
@@ -595,7 +604,6 @@ function renoUpdate(dt)
         fezzedTechVars.jumpSpeedMult = fezzedTechVars.scarecrowPole and fezzedTechVars.jumpSpeedMult
             or math.min(1.3, fezzedTechVars.jumpSpeedMult)
 
-        local mPos = mcontroller.position()
         fezzedTechVars.liqCheckPos = { math.floor(mPos[1] + 0.5), math.floor(mPos[2] - 2) }
         fezzedTechVars.liqCheckPosDown = { math.floor(mPos[1] + 0.5), math.floor(mPos[2] - 3) }
         fezzedTechVars.liqCheckPosUp = { math.floor(mPos[1] + 0.5), math.floor(mPos[2] - 1) }
@@ -1651,7 +1659,6 @@ function renoUpdate(dt)
                                         },
                                     },
                                 }
-                                local mPos = mcontroller.position()
                                 if not math.__onWall then
                                     world.spawnProjectile(
                                         "flamethrower",
@@ -1717,7 +1724,6 @@ function renoUpdate(dt)
                                         },
                                     },
                                 }
-                                local mPos = mcontroller.position()
                                 if not math.__onWall then
                                     world.spawnProjectile(
                                         "invisibleprojectile",
@@ -1747,7 +1753,6 @@ function renoUpdate(dt)
                     or (self.collisionTimer ~= 0 and not vars.flopping)
                     or keepUpward
                 then
-                    local mPos = mcontroller.position()
                     local liqCheckPosDown = { math.floor(mPos[1] + 0.5), math.floor(mPos[2] - 3) }
                     if
                         fezzedTechVars.bouncy
@@ -1973,19 +1978,28 @@ function renoUpdate(dt)
                                 or math.min(self.soarDt + (dt / 5), 2)
                         end
                     end
-                    if fezzedTechVars.ghostTail or fezzedTechVars.swimTail then
+                    local isSwimming = fezzedTechVars.hasSwimTail and (fezzedTechVars.swimTail or atLiquid)
+                    if fezzedTechVars.ghostTail or isSwimming then
                         potParameters.airFriction = 5
                         potParameters.airJumpProfile.jumpSpeed = 10
                         potParameters.airJumpProfile.jumpHoldTime = 0.25
                         potParameters.airJumpProfile.jumpInitialPercentage = 1
                         potParameters.airJumpProfile.multiJump = true -- self.soarDt > 0
                         potParameters.airJumpProfile.autoJump = self.moves[6] or self.soarDt == 0 -- true
-                        local moveSpeed = fezzedTechVars.swimTail and (self.moves[7] and 25 or 10) or 10
+                        local moveSpeed = {
+                            fezzedTechVars.swimTail and (self.moves[7] and 8 or 5) or 5,
+                            fezzedTechVars.swimTail and (self.moves[7] and 8 or 5) or 5,
+                        }
                         if self.soarDt == 0 then
-                            if self.moves[5] then
-                                mcontroller.setYVelocity(math.min(mcontroller.yVelocity(), -moveSpeed))
-                            elseif self.moves[4] then
-                                mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed))
+                            if self.moves[2] then
+                                mcontroller.setXVelocity(math.min(mcontroller.xVelocity(), -moveSpeed[1]))
+                            elseif self.moves[3] then
+                                mcontroller.setXVelocity(math.max(mcontroller.xVelocity(), moveSpeed[1]))
+                            end
+                            if self.moves[5] and (fezzedTechVars.ghostTail or fezzedTechVars.swimTail) then
+                                mcontroller.setYVelocity(math.min(mcontroller.yVelocity(), -moveSpeed[2]))
+                            elseif self.moves[4] and (fezzedTechVars.ghostTail or fezzedTechVars.swimTail) then
+                                mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed[2]))
                             else
                                 local swimFloor = (mcontroller.groundMovement() and fezzedTechVars.swimTail) and 2 or 0
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
@@ -2454,7 +2468,6 @@ function renoUpdate(dt)
             mcontroller.controlParameters(movementParameters)
 
             if math.__flyboardActive and (tech and not lounging) then
-                -- local mPos = mcontroller.position()
                 self.flyboardTimer = math.max(0, self.flyboardTimer - dt)
                 local scale = fezzedTechVars.charScale or 1
                 if self.flyboardTimer == 0 then
@@ -2541,7 +2554,6 @@ function renoUpdate(dt)
 
         if nightVision then
             world.sendEntityMessage(entity.id(), "clearLightSources")
-            local mPos = mcontroller.position()
             if not world.pointTileCollision(mPos, { "Block", "Dynamic", "Slippery" }) then
                 local lightColour
                 if xsb then
@@ -2687,7 +2699,6 @@ function renoUpdate(dt)
 
         if fezzedTechVars.roleplayMode then
             self.collision = nil
-            local mPos = mcontroller.position()
             local face = mcontroller.facingDirection()
             local colTime = 0.15
             local noReset = false
