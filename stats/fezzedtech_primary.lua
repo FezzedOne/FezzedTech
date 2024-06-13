@@ -2833,13 +2833,11 @@ function renoUpdate(dt)
                 },
             }
             if self.moves[1] or not fezzedTechVars.isLeglessChar then
-                local jumpSpeed = (
-                    fezzedTechVars.avosiJetpack
+                local smallJump = fezzedTechVars.avosiJetpack
                     or checkDistRaw <= -1
                     or (fezzedTechVars.bouncy and not self.moves[1])
-                )
-                        and 10
-                    or 35
+                    or fezzedTechVars.noLegs
+                local jumpSpeed = smallJump and 10 or 35
                 jumpParameters.airJumpProfile.jumpSpeed = jumpSpeed * fezzedTechVars.jumpSpeedMult
             else
                 jumpParameters.airJumpProfile.jumpSpeed = 15 * fezzedTechVars.jumpSpeedMult
@@ -2851,9 +2849,9 @@ function renoUpdate(dt)
                 jumpParameters.airJumpProfile.multiJump = false
                 jumpParameters.airJumpProfile.autoJump = fezzedTechVars.scarecrowPole
             end
-            if fezzedTechVars.noLegs then
-                jumpParameters.runSpeed = 7.0
-                jumpParameters.walkSpeed = 3.0
+            if fezzedTechVars.noLegs and mcontroller.groundMovement() then
+                jumpParameters.runSpeed = 2.0
+                jumpParameters.walkSpeed = 0.8
             end
             if
                 (
