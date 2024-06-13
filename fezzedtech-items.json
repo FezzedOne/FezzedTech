@@ -3113,6 +3113,10 @@
           "amount": 1.75
         },
         {
+          "stat": "jumpAdder",
+          "amount": 1.5
+        },
+        {
           "stat": "pathHopInstead",
           "amount": 1
         }
@@ -3149,6 +3153,10 @@
         {
           "stat": "fastSwimming",
           "amount": 1
+        },
+        {
+          "stat": "jumpAdder",
+          "amount": 3.0
         },
         {
           "stat": "runSpeedAdder",
