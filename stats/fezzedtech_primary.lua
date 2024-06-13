@@ -290,16 +290,6 @@ function renoUpdate(dt)
         if xsb and player.setOverrideState then player.setOverrideState() end
 
         local mPos = mcontroller.position()
-        local atLiquid = (function()
-            local at = world.liquidAt({ math.floor(mPos[1] + 0.5), math.floor(mPos[2] + 0.5) })
-            -- return at and at[2]
-            local below = world.liquidAt({ math.floor(mPos[1] + 0.5), math.floor(mPos[2] - 0.5) })
-            if at and below then
-                return at[2] > below[2] and at[2] or below[2]
-            else
-                return (at and at[2]) or (below and below[2])
-            end
-        end)()
 
         math.__fezzedTechLoaded = true
 
@@ -1978,9 +1968,9 @@ function renoUpdate(dt)
                                 or math.min(self.soarDt + (dt / 5), 2)
                         end
                     end
-                    local isSwimming = fezzedTechVars.hasSwimTail and (fezzedTechVars.swimTail or atLiquid)
-                    if fezzedTechVars.ghostTail or isSwimming then
+                    if fezzedTechVars.ghostTail or fezzedTechVars.swimTail then
                         potParameters.airFriction = 5
+                        potParameters.minimumLiquidPercentage = 0.2
                         potParameters.airJumpProfile.jumpSpeed = 10
                         potParameters.airJumpProfile.jumpHoldTime = 0.25
                         potParameters.airJumpProfile.jumpInitialPercentage = 1
@@ -1996,9 +1986,9 @@ function renoUpdate(dt)
                             elseif self.moves[3] then
                                 mcontroller.setXVelocity(math.max(mcontroller.xVelocity(), moveSpeed[1]))
                             end
-                            if self.moves[5] and (fezzedTechVars.ghostTail or fezzedTechVars.swimTail) then
+                            if self.moves[5] then
                                 mcontroller.setYVelocity(math.min(mcontroller.yVelocity(), -moveSpeed[2]))
-                            elseif self.moves[4] and (fezzedTechVars.ghostTail or fezzedTechVars.swimTail) then
+                            elseif self.moves[4] then
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed[2]))
                             else
                                 local swimFloor = (mcontroller.groundMovement() and fezzedTechVars.swimTail) and 2 or 0
