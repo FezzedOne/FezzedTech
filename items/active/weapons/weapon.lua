@@ -20,6 +20,8 @@ function Weapon:new(weaponConfig)
 end
 
 function Weapon:init()
+  require("/scripts/util/globals.lua")
+
   self.attackTimer = 0
   self.aimAngle = 0
   self.aimDirection = 1
@@ -33,13 +35,13 @@ end
 
 function Weapon:update(dt, fireMode, shiftHeld)
   if fireMode ~= "primary" and fireMode ~= "alt" then
-    if math.__jumpFiring and self.jumpFireMode then
+    if globals.jumpFiring and self.jumpFireMode then
       fireMode = self.jumpFireMode
     end
   end
 
   if fireMode == "primary" or fireMode == "alt" then
-    math.__weaponFiring = true
+    globals.weaponFiring = true
   end
 
   self.attackTimer = math.max(0, self.attackTimer - dt)
@@ -73,12 +75,12 @@ function Weapon:update(dt, fireMode, shiftHeld)
     self.relativeArmRotation = self.relativeArmRotation + self.armAngularVelocity * dt
     self.relativeWeaponRotation = self.relativeWeaponRotation + self.weaponAngularVelocity * dt
 
-    math.__canFlyWithItem = self.stance.canFlyWithItem and (activeItem.callOtherHandScript("dwCanFlyWithItem") ~= false)
-    math.__isStable = self.stance.isStable or activeItem.callOtherHandScript("dwIsStable")
+    globals.canFlyWithItem = self.stance.canFlyWithItem and (activeItem.callOtherHandScript("dwCanFlyWithItem") ~= false)
+    globals.isStable = self.stance.isStable or activeItem.callOtherHandScript("dwIsStable")
   else
     activeItem.setHoldingItem(true)
-    math.__canFlyWithItem = false
-    math.__isStable = activeItem.callOtherHandScript("dwIsStable")
+    globals.canFlyWithItem = false
+    globals.isStable = activeItem.callOtherHandScript("dwIsStable")
   end
 
   if self.handGrip == "wrap" then
@@ -101,8 +103,8 @@ function Weapon:uninit()
     end
   end
 
-  math.__isStable = nil
-  math.__canFlyWithItem = nil
+  globals.isStable = nil
+  globals.canFlyWithItem = nil
 end
 
 function Weapon:clearDamageSources()

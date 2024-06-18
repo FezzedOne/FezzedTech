@@ -4,6 +4,8 @@ require "/scripts/poly.lua"
 require "/scripts/status.lua"
 
 function init()
+  require("/scripts/util/globals.lua")
+
   initCommonParameters()
 
   self.ignorePlatforms = config.getParameter("ignorePlatforms")
@@ -30,7 +32,7 @@ function init()
 end
 
 function update(args)
-  math.__sphereActive = self.active
+  globals.sphereActive = self.active
 
   restoreStoredPosition()
 
@@ -143,5 +145,5 @@ function findGroundDirection()
 end
 
 function uninit()
-  math.__sphereActive = nil
+  globals.sphereActive = nil
 end

@@ -1,13 +1,15 @@
 require "/tech/distortionsphere/distortionsphere.lua"
 
 function init()
+  require("/scripts/util/globals.lua")
+
   initCommonParameters()
 
   self.ballLiquidSpeed = config.getParameter("ballLiquidSpeed")
 end
 
 function update(args)
-  math.__sphereActive = self.active
+  globals.sphereActive = self.active
 
   restoreStoredPosition()
 
@@ -72,5 +74,5 @@ function updateAngularVelocity(dt, inLiquid, controlDirection)
 end
 
 function uninit()
-  math.__sphereActive = nil
+  globals.sphereActive = nil
 end

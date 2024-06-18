@@ -1,6 +1,8 @@
 require "/scripts/vec2.lua"
 
 function init()
+  require("/scripts/util/globals.lua")
+
   initCommonParameters()
 end
 
@@ -30,7 +32,7 @@ function uninit()
 end
 
 function update(args)
-  math.__sphereActive = self.active
+  globals.sphereActive = self.active
 
   restoreStoredPosition()
 
@@ -235,5 +237,5 @@ function minY(poly)
 end
 
 function uninit()
-  math.__sphereActive = nil
+  globals.sphereActive = nil
 end

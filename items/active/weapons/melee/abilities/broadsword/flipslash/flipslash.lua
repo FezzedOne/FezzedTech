@@ -6,13 +6,15 @@ require "/items/active/weapons/weapon.lua"
 FlipSlash = WeaponAbility:new()
 
 function FlipSlash:init()
+    require("/scripts/util/globals.lua")
+
     self.cooldownTimer = self.cooldownTime
-    if self.isPhantomItem then math.__gliderFiring = false end
-    math.__isGlider = self.isGlider or nil
+    if self.isPhantomItem then globals.gliderFiring = false end
+    globals.isGlider = self.isGlider or nil
 end
 
 function FlipSlash:update(dt, fireMode, shiftHeld)
-    math.__isGlider = self.isGlider or nil
+    globals.isGlider = self.isGlider or nil
 
     WeaponAbility.update(self, dt, fireMode, shiftHeld)
 
@@ -25,8 +27,8 @@ function FlipSlash:update(dt, fireMode, shiftHeld)
       status.overConsumeResource("energy", self.energyUsage) then self:setState(self.windup) end
 
     if self.isPhantomItem then
-        math.__gliderFiring = fireMode == "alt" or fireMode == "primary"
-        if not math.__gliderActive then item.consume(1) end
+        globals.gliderFiring = fireMode == "alt" or fireMode == "primary"
+        if not globals.gliderActive then item.consume(1) end
     end
 end
 
@@ -54,7 +56,7 @@ function FlipSlash:flip()
     self.jumpTimer = self.jumpDuration
 
     while self.flipTimer < self.flipTime do
-        math.__holdingGlider = self.energyUsage == 0
+        globals.holdingGlider = self.energyUsage == 0
 
         self.flipTimer = self.flipTimer + self.dt
 
@@ -79,7 +81,7 @@ function FlipSlash:flip()
 
     status.clearPersistentEffects("weaponMovementAbility")
 
-    math.__holdingGlider = false
+    globals.holdingGlider = false
 
     animator.setAnimationState("swoosh", "idle")
     mcontroller.setRotation(0)
@@ -88,14 +90,14 @@ function FlipSlash:flip()
 end
 
 function FlipSlash:uninit()
-    math.__holdingGlider = false
+    globals.holdingGlider = false
     status.clearPersistentEffects("weaponMovementAbility")
     animator.setAnimationState("swoosh", "idle")
     mcontroller.setRotation(0)
     animator.setParticleEmitterActive("flip", false)
     if self.isPhantomItem then
-        math.__gliderFiring = false
+        globals.gliderFiring = false
         item.consume(1)
     end
-    math.__isGlider = nil
+    globals.isGlider = nil
 end

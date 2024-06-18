@@ -68,6 +68,9 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
 end
 
 function init()
+    if xsb and not entity then sb.logWarn("[FIXME] Add entity callbacks here!") end
+    require("/scripts/util/globals.lua")
+
     if xsb or starExtensions then
         message.setHandler("/roll", function(_, sameClient, rawArgs)
             if sameClient then
@@ -650,7 +653,7 @@ function init()
     self.humanHairDirs = humanLeglessConfig.hairDirectives
     self.humanHairEnd = humanLeglessConfig.hairDirectivesEnd
 
-    math.__player = player
+    globals.player = player
 end
 
 function update()

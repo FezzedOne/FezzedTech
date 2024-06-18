@@ -2,6 +2,8 @@ require "/scripts/util.lua"
 require "/scripts/status.lua"
 
 function init()
+  require("/scripts/util/globals.lua")
+
   self.debug = true
 
   self.aimAngle = 0
@@ -33,13 +35,13 @@ end
 
 function update(dt, fireMode, shiftHeld)
   if fireMode ~= "primary" and fireMode ~= "alt" then
-    if math.__jumpFiring and self.jumpFireMode then
+    if globals.jumpFiring and self.jumpFireMode then
       fireMode = self.jumpFireMode
     end
   end
 
   if fireMode == "primary" or fireMode == "alt" then
-    math.__weaponFiring = true
+    globals.weaponFiring = true
   end
 
   self.cooldownTimer = math.max(0, self.cooldownTimer - dt)
@@ -78,11 +80,11 @@ function update(dt, fireMode, shiftHeld)
     else
       activeItem.setHoldingItem(true)
     end
-    math.__canFlyWithItem = self.stance.canFlyWithItem and (activeItem.callOtherHandScript("dwCanFlyWithItem") ~= false)
-    math.__isStable = self.stance.isStable or activeItem.callOtherHandScript("dwIsStable")
+    globals.canFlyWithItem = self.stance.canFlyWithItem and (activeItem.callOtherHandScript("dwCanFlyWithItem") ~= false)
+    globals.isStable = self.stance.isStable or activeItem.callOtherHandScript("dwIsStable")
   else
-    math.__canFlyWithItem = false
-    math.__isStable = activeItem.callOtherHandScript("dwIsStable")
+    globals.canFlyWithItem = false
+    globals.isStable = activeItem.callOtherHandScript("dwIsStable")
   end
 end
 
@@ -90,8 +92,8 @@ function uninit()
   status.clearPersistentEffects(activeItem.hand() .. "Shield")
   activeItem.setItemShieldPolys({})
   activeItem.setItemDamageSources({})
-  math.__isStable = nil
-  math.__canFlyWithItem = nil
+  globals.isStable = nil
+  globals.canFlyWithItem = nil
 end
 
 function updateAim()

@@ -5,13 +5,13 @@ require("/tech/doubletap.lua")
 
 -- function checkMovement() return world.sendEntityMessage(entity.id(), "checkJumping"):result() end
 
-function shortAngleDist(a0, a1)
+local function shortAngleDist(a0, a1)
     local max = math.pi * 2
     local da = (a1 - a0) % max
     return 2 * da % max - da
 end
 
-function angleLerp(a0, a1, t, m)
+local function angleLerp(a0, a1, t, m)
     local d = shortAngleDist(a0, a1)
     if (math.abs(d * t) > (m or 0)) or (math.abs(d * t) > (2 * math.pi + (m or 0))) then
         return a0 + d * t
@@ -20,9 +20,9 @@ function angleLerp(a0, a1, t, m)
     end
 end
 
-function floatVectorEq(a, b) return math.abs(a[1] - b[1]) <= 0.001 and math.abs(a[2] - b[2]) <= 0.001 end
+local function floatVectorEq(a, b) return math.abs(a[1] - b[1]) <= 0.001 and math.abs(a[2] - b[2]) <= 0.001 end
 
-function polyEqual(poly1, poly2)
+local function polyEqual(poly1, poly2)
     if #poly1 ~= #poly2 then return false end
     for n = 1, #poly1 do
         if not floatVectorEq(poly1[n], poly2[n]) then return false end
@@ -30,9 +30,9 @@ function polyEqual(poly1, poly2)
     return true
 end
 
-function log10(x) return math.log(x) / math.log(10) end
+local function log10(x) return math.log(x) / math.log(10) end
 
-function distToPenalty(distance)
+local function distToPenalty(distance)
     if distance > 2 then
         local magnitude = log10(distance / 2)
         local penalty = math.floor((magnitude * -6) + 1)
@@ -42,7 +42,7 @@ function distToPenalty(distance)
     end
 end
 
-function getClosestBlockYDistance(lineStart, lineEnd, ignorePlatforms)
+local function getClosestBlockYDistance(lineStart, lineEnd, ignorePlatforms)
     local yDistance = false
 
     if lineEnd then
@@ -55,7 +55,7 @@ function getClosestBlockYDistance(lineStart, lineEnd, ignorePlatforms)
     return yDistance
 end
 
-function backgroundExists(position, ignoreObjects, ignoreForeground)
+local function backgroundExists(position, ignoreObjects, ignoreForeground)
     local tilePos = { math.floor(position[1] + 0.5), math.floor(position[2] + 0.5) }
     local tileOccupied = world.tileIsOccupied(tilePos, false, false)
         or ((not ignoreForeground) and world.tileIsOccupied(tilePos, true, false))
@@ -64,11 +64,12 @@ function backgroundExists(position, ignoreObjects, ignoreForeground)
 end
 
 function renoInit()
+    require("/scripts/util/globals.lua")
     -- Communicate the presence of FezzedTech to other mods and allow a way to disable it in scripts.
     if status.statusProperty("ignoreFezzedTech") then
-        math.__fezzedTechLoaded = true
+        globals.fezzedTechLoaded = true
     else
-        math.__fezzedTechLoaded = false
+        globals.fezzedTechLoaded = false
     end
 
     self.jumpDt = 0
@@ -147,26 +148,26 @@ function renoInit()
     self.runningTap = DoubleTap:new({ 2, 3 }, 0.25, function(tapKey) self.running = not self.running end)
 
     self.parawingTap = DoubleTap:new({ 4 }, 0.25, function(tapKey)
-        if math.__shadowRun then
+        if globals.shadowRun then
             self.shadowFlight = not self.shadowFlight
         else
             if
-                (math.__fezTech or math.__garyTech or math.__upgradedThrusters)
-                and math.__isGlider
+                (globals.fezTech or globals.garyTech or globals.upgradedThrusters)
+                and globals.isGlider
                 and not (mcontroller.groundMovement() or mcontroller.liquidMovement())
             then
                 self.hovering = not self.hovering
             else
-                if math.__isGlider and not math.__garyTech then
-                    math.__gliderActive = false
+                if globals.isGlider and not globals.garyTech then
+                    globals.gliderActive = false
                     self.fallDanger = false
                     self.useParawing = false
                 else
-                    if not (mcontroller.liquidMovement() or math.__shadowRun) then
+                    if not (mcontroller.liquidMovement() or globals.shadowRun) then
                         if
-                            (self.moves[7] or math.__garyTech)
+                            (self.moves[7] or globals.garyTech)
                             and (mcontroller.groundMovement())
-                            and math.__parkourThrusters
+                            and globals.parkourThrusters
                         then
                             self.isRunBoosting = not self.isRunBoosting
                         else
@@ -179,7 +180,7 @@ function renoInit()
     end)
 
     self.crouchingTap = DoubleTap:new({ 5 }, 0.25, function(tapKey)
-        if self.moves[7] and (self.parkourThrusters or math.__shadowRun) then
+        if self.moves[7] and (self.parkourThrusters or globals.shadowRun) then
             self.thrustersActive = not self.thrustersActive
         else
             if mcontroller.groundMovement() then self.crouching = not self.crouching end
@@ -189,7 +190,7 @@ function renoInit()
     self.flyboardTap = DoubleTap:new(
         { 8 },
         0.25,
-        function(tapKey) math.__flyboardActive = not math.__flyboardActive end
+        function(tapKey) globals.flyboardActive = not globals.flyboardActive end
     )
 
     self.isFalling = false
@@ -208,25 +209,25 @@ function renoInit()
 
     self.nightVision = false
 
-    math.__gliderActive = false
-    math.__doThrusterAnims = false
-    math.__jumpDisabled = true
-    math.__paramotor = false
-    math.__wingFlap = false
-    math.__doSkateSound = false
-    math.__parkourThrusters = false
-    math.__noLegs = false
-    math.__fezTech = false
-    math.__garyTech = false
-    math.__resetJumps = false
-    math.__upgradedThrusters = false
-    math.__flyboardActive = false
-    math.__rpMovement = false
-    math.__canGrabWall = false
-    math.__bouncy = false
-    math.__avosiWings = false
+    globals.gliderActive = false
+    globals.doThrusterAnims = false
+    globals.jumpDisabled = true
+    globals.paramotor = false
+    globals.wingFlap = false
+    globals.doSkateSound = false
+    globals.parkourThrusters = false
+    globals.noLegs = false
+    globals.fezTech = false
+    globals.garyTech = false
+    globals.resetJumps = false
+    globals.upgradedThrusters = false
+    globals.flyboardActive = false
+    globals.rpMovement = false
+    globals.canGrabWall = false
+    globals.bouncy = false
+    globals.avosiWings = false
 
-    math.__playerMController = mcontroller
+    globals.playerMController = mcontroller
 
     if status.statusProperty("roleplayMode") and (not status.statusProperty("ignoreFezzedTech")) then
         local rpStatusEffects = {
@@ -256,7 +257,7 @@ function renoUpdate(dt)
     end
 
     if status.statusProperty("ignoreFezzedTech") then
-        math.__fezzedTechLoaded = false
+        globals.fezzedTechLoaded = false
 
         if not status.statusProperty("ignoreFezzedTechAppearance") then
             -- Check only the appearance-affecting stats.
@@ -266,7 +267,7 @@ function renoUpdate(dt)
             local largePotted = status.statPositive("largePotted") or status.statusProperty("largePotted")
             local scarecrowPole = status.statPositive("scarecrowPole")
                 or status.statusProperty("scarecrowPole")
-                or ((not math.__isParkourTech) and (opTailStat or ghostTailStat))
+                or ((not globals.isParkourTech) and (opTailStat or ghostTailStat))
                 or bouncyRaw
                 or largePotted
             local grandfatheredLeglessChar = status.statPositive("leglessSmallColBox")
@@ -285,16 +286,16 @@ function renoUpdate(dt)
             status.setStatusProperty("legless", (noLegs or scarecrowPole) and not grandfatheredLeglessChar)
         end
     else
-        if not player then player = math.__player or {} end
+        if not player then player = globals.player or {} end
 
         if xsb and player.setOverrideState then player.setOverrideState() end
 
         local mPos = mcontroller.position()
 
-        math.__fezzedTechLoaded = true
+        globals.fezzedTechLoaded = true
 
         local tech = nil
-        if not tech then tech = math.__tech end
+        if not tech then tech = globals.tech end
 
         if mcontroller.onGround() then status.setStatusProperty("ballisticVelocity", { 0, -4 }) end
 
@@ -310,30 +311,30 @@ function renoUpdate(dt)
         local fezzedTechVars = {}
         fezzedTechVars.isLegged = status.statPositive("legged") or status.statusProperty("legged")
         fezzedTechVars.highGrav = world.gravity(mcontroller.position()) >= 30
-        fezzedTechVars.flightEnabled = (status.statPositive("flightEnabled")) and math.__isParkourTech
+        fezzedTechVars.flightEnabled = (status.statPositive("flightEnabled")) and globals.isParkourTech
         fezzedTechVars.opTailStat = status.statPositive("opTail") or status.statusProperty("opTail")
-        fezzedTechVars.opTail = fezzedTechVars.opTailStat and math.__isParkourTech
+        fezzedTechVars.opTail = fezzedTechVars.opTailStat and globals.isParkourTech
         fezzedTechVars.ghostTailStat = status.statPositive("ghostTail") or status.statusProperty("ghostTail")
-        fezzedTechVars.ghostTail = fezzedTechVars.ghostTailStat and math.__isParkourTech
+        fezzedTechVars.ghostTail = fezzedTechVars.ghostTailStat and globals.isParkourTech
         fezzedTechVars.bouncyCrouch = status.statPositive("bouncy2")
         fezzedTechVars.bouncyRaw = status.statPositive("bouncy") or fezzedTechVars.bouncyCrouch
-        fezzedTechVars.bouncy = fezzedTechVars.bouncyRaw -- and math.__isParkourTech
+        fezzedTechVars.bouncy = fezzedTechVars.bouncyRaw -- and globals.isParkourTech
         fezzedTechVars.largePotted = status.statPositive("largePotted") or status.statusProperty("largePotted")
         fezzedTechVars.scarecrowPoleRaw = status.statPositive("scarecrowPole") or status.statusProperty("scarecrowPole")
         fezzedTechVars.scarecrowPole = fezzedTechVars.scarecrowPoleRaw
-            or ((not math.__isParkourTech) and (fezzedTechVars.opTailStat or fezzedTechVars.ghostTailStat))
+            or ((not globals.isParkourTech) and (fezzedTechVars.opTailStat or fezzedTechVars.ghostTailStat))
             or fezzedTechVars.bouncyRaw
             or fezzedTechVars.largePotted
         fezzedTechVars.fireworks = (status.statPositive("fireworks") or status.statusProperty("fireworks"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.swimmingFlight = (
             status.statPositive("swimmingFlight") or status.statusProperty("swimmingFlight")
-        ) and math.__isParkourTech
+        ) and globals.isParkourTech
         fezzedTechVars.soarHop = (
             fezzedTechVars.opTail
             or status.statPositive("soarHop")
             or status.statusProperty("soarHop")
-        ) and math.__isParkourTech
+        ) and globals.isParkourTech
         fezzedTechVars.canHop = fezzedTechVars.soarHop
             or (fezzedTechVars.fireworks and status.statusProperty("legless") and not fezzedTechVars.isLegged)
             or status.statPositive("canHop")
@@ -345,10 +346,10 @@ function renoUpdate(dt)
         fezzedTechVars.potted = (fezzedTechVars.pottedRaw or fezzedTechVars.gettingOverIt) and not fezzedTechVars.bouncy
         fezzedTechVars.rawItemL = world.entityHandItem(entity.id(), "primary")
         fezzedTechVars.rawItemR = world.entityHandItem(entity.id(), "alt")
-        local itemL = fezzedTechVars.rawItemL and not math.__canFlyWithItem
-        local itemR = fezzedTechVars.rawItemR and not math.__canFlyWithItem
+        local itemL = fezzedTechVars.rawItemL and not globals.canFlyWithItem
+        local itemR = fezzedTechVars.rawItemR and not globals.canFlyWithItem
         fezzedTechVars.shadowRun = (status.statPositive("shadowRun") or status.statusProperty("shadowRun"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.mertail = status.statPositive("mertail") or status.statusProperty("mertail")
         fezzedTechVars.fastSwimming = (status.statPositive("fastSwimming") or status.statusProperty("fastSwimming")) -- or fezzedTechVars.mertail
         fezzedTechVars.hasSwimTail = fezzedTechVars.scarecrowPole
@@ -358,18 +359,18 @@ function renoUpdate(dt)
         fezzedTechVars.swimTail = fezzedTechVars.hasSwimTail and mcontroller.liquidMovement()
         fezzedTechVars.avosiWingedArms = (
             status.statPositive("avosiWingedArms") or status.statusProperty("avosiWingedArms")
-        ) and math.__isParkourTech
+        ) and globals.isParkourTech
         fezzedTechVars.avosiWings = (status.statPositive("avosiWings") or status.statusProperty("avosiWings"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.avolitePack = (status.statPositive("avolitePack") or status.statusProperty("avolitePack"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.rawAvosiJetpack = (
             status.statPositive("avosiJetpack")
             or status.statusProperty("avosiJetpack")
             or fezzedTechVars.avolitePack
-        ) and math.__isParkourTech
+        ) and globals.isParkourTech
         fezzedTechVars.rawAvosiFlight = (status.statPositive("avosiFlight") or status.statusProperty("avosiFlight"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.avosiFlight = fezzedTechVars.rawAvosiFlight
             or (fezzedTechVars.avosiWingedArms and not (itemL or itemR))
         fezzedTechVars.grandfatheredLeglessChar = status.statPositive("leglessSmallColBox")
@@ -385,11 +386,11 @@ function renoUpdate(dt)
             or fezzedTechVars.mertail -- or fezzedTechVars.scarecrowPole
         fezzedTechVars.paramotor = (
             (status.statPositive("paramotor") or status.statusProperty("paramotor")) and fezzedTechVars.highGrav
-        ) and math.__isParkourTech
+        ) and globals.isParkourTech
         fezzedTechVars.basicParkour = (status.statPositive("basicParkour") or status.statusProperty("basicParkour"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.parkourRaw = (status.statPositive("parkour") or status.statusProperty("parkour"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.parkour = fezzedTechVars.parkourRaw or fezzedTechVars.basicParkour
         fezzedTechVars.paragliderPack = (
             status.statPositive("paragliderPack") or status.statusProperty("paragliderPack")
@@ -400,7 +401,7 @@ function renoUpdate(dt)
         fezzedTechVars.parkourThrustersStat = (
             (status.statPositive("parkourThrusters") or status.statusProperty("parkourThrusters"))
             and fezzedTechVars.highGrav
-        ) and math.__isParkourTech
+        ) and globals.isParkourTech
         self.parkourThrusters = fezzedTechVars.parkourThrustersStat
         fezzedTechVars.parkourThrusters = fezzedTechVars.parkourThrustersStat
             and self.thrustersActive
@@ -412,38 +413,38 @@ function renoUpdate(dt)
         )
         fezzedTechVars.shadowVision = (status.statPositive("shadowVision") or status.statusProperty("shadowVision"))
         fezzedTechVars.skates = (status.statPositive("skates") or status.statusProperty("skates"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.fezTech = (status.statPositive("fezTech") or status.statusProperty("fezTech"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.garyTech = (status.statPositive("garyTech") or status.statusProperty("garyTech"))
-            and math.__isParkourTech
+            and globals.isParkourTech
             and (fezzedTechVars.noLegs or fezzedTechVars.leglessSmallColBox)
         fezzedTechVars.upgradedThrusters = (
             status.statPositive("upgradedThrusters") or status.statusProperty("upgradedThrusters")
-        ) and math.__isParkourTech
+        ) and globals.isParkourTech
         fezzedTechVars.flyboard = (status.statPositive("flyboard") or status.statusProperty("flyboard"))
-            and math.__isParkourTech
+            and globals.isParkourTech
         fezzedTechVars.avosiGlider = (status.statPositive("avosiGlider") or status.statusProperty("avosiGlider"))
         fezzedTechVars.tailless = (
             ((status.statPositive("legged") or status.statusProperty("legged")) and fezzedTechVars.isLeglessCharRaw)
             or (status.statPositive("tailless") or status.statusProperty("tailless"))
-        ) and math.__isParkourTech
+        ) and globals.isParkourTech
         fezzedTechVars.runSpeedMult = status.stat("runSpeedAdder") + 1
         fezzedTechVars.checkDist = status.stat("checkGroundDist")
         fezzedTechVars.jumpSpeedMult = status.stat("jumpAdder") + (fezzedTechVars.bouncy and 1.5 or 1)
         fezzedTechVars.safetyFlight = status.statPositive("safetyFlight")
-        local flightTime = (math.__isParkourTech and status.stat("flightTime")) or 0
-        fezzedTechVars.slowRecharge = status.statPositive("slowRecharge") and math.__isParkourTech
+        local flightTime = (globals.isParkourTech and status.stat("flightTime")) or 0
+        fezzedTechVars.slowRecharge = status.statPositive("slowRecharge") and globals.isParkourTech
         fezzedTechVars.isLame = status.statPositive("isLame")
         local activeMovementAbilities = status.statPositive("activeMovementAbilities")
         fezzedTechVars.charScale = status.stat("charHeight") ~= 0 and (status.stat("charHeight") / 187.5)
             or (
                 status.stat("bodysize") ~= 0 and status.stat("bodysize")
-                or (type(math.__scale == "number") and math.__scale or 1.0)
+                or (type(globals.scale == "number") and globals.scale or 1.0)
             )
         fezzedTechVars.rulerEnabled = status.statusProperty("roleplayRuler")
         fezzedTechVars.windSailing = status.statPositive("windSail") or status.statusProperty("windSail")
-        fezzedTechVars.gravityModifier = math.__isParkourTech and (status.stat("gravityModifier") + 1) or 1
+        fezzedTechVars.gravityModifier = globals.isParkourTech and (status.stat("gravityModifier") + 1) or 1
         fezzedTechVars.collisionMatch = false
 
         local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
@@ -468,7 +469,7 @@ function renoUpdate(dt)
 
         local defaultColBoxParams = {}
 
-        if math.__isParkourTech and (fezzedTechVars.charScale ~= 1) then
+        if globals.isParkourTech and (fezzedTechVars.charScale ~= 1) then
             local defStandingPoly = {
                 { -0.75, -2.0 },
                 { -0.35, -2.5 },
@@ -494,7 +495,7 @@ function renoUpdate(dt)
             mcontroller.controlParameters(defaultColBoxParams)
         end
 
-        if math.__isParkourTech and tech then
+        if globals.isParkourTech and tech then
             if self.oldCharScale ~= fezzedTechVars.charScale then
                 if fezzedTechVars.charScale ~= 1 then
                     tech.setParentDirectives("?scalenearest=" .. tostring(fezzedTechVars.charScale))
@@ -584,11 +585,11 @@ function renoUpdate(dt)
         end
 
         if not tech then self.isSitting = false end
-
+        
         if self.isSitting then mcontroller.controlApproachVelocity({ 0, 0 }, 1000000, true, true) end
-
-        local lounging = (tech and tech.parentLounging()) or self.isSitting or math.__sitting or math.__isSitting
-
+        
+        local lounging = (tech and tech.parentLounging()) or self.isSitting or globals.sitting or globals.isSitting
+        
         self.oldCharScale = fezzedTechVars.charScale
 
         fezzedTechVars.jumpSpeedMult = fezzedTechVars.scarecrowPole and fezzedTechVars.jumpSpeedMult
@@ -599,11 +600,11 @@ function renoUpdate(dt)
         fezzedTechVars.liqCheckPosUp = { math.floor(mPos[1] + 0.5), math.floor(mPos[2] - 1) }
         local inLiquid = world.liquidAt(fezzedTechVars.liqCheckPosDown)
 
-        math.__jumpFiring = self.moves[1]
+        globals.jumpFiring = self.moves[1]
 
         local usingFlightPack = (
-            (self.moves[1] and not (math.__gliderActive and fezzedTechVars.avosiGlider and fezzedTechVars.avolitePack))
-            or ((self.moves[2] or self.moves[3]) and self.running and not (math.__gliderActive or fezzedTechVars.rawAvosiFlight))
+            (self.moves[1] and not (globals.gliderActive and fezzedTechVars.avosiGlider and fezzedTechVars.avolitePack))
+            or ((self.moves[2] or self.moves[3]) and self.running and not (globals.gliderActive or fezzedTechVars.rawAvosiFlight))
             or (
                 (
                     ((itemL or itemR) and not fezzedTechVars.rawAvosiFlight)
@@ -611,7 +612,7 @@ function renoUpdate(dt)
                         fezzedTechVars.rawAvosiJetpack
                         and not (fezzedTechVars.avosiWingedArms or fezzedTechVars.rawAvosiFlight)
                     )
-                ) and not math.__gliderActive
+                ) and not globals.gliderActive
             )
         )
             and (
@@ -620,8 +621,8 @@ function renoUpdate(dt)
                 or (fezzedTechVars.avosiWingedArms and not (itemL or itemR))
             )
         local flightPackBoosting = (
-            (self.moves[1] and not (math.__gliderActive and fezzedTechVars.avosiGlider and fezzedTechVars.avolitePack))
-            or ((self.moves[2] or self.moves[3]) and self.running and not math.__gliderActive)
+            (self.moves[1] and not (globals.gliderActive and fezzedTechVars.avosiGlider and fezzedTechVars.avolitePack))
+            or ((self.moves[2] or self.moves[3]) and self.running and not globals.gliderActive)
         )
         -- local flightRecharging = false
         local rechargeRate = 1 / 3
@@ -636,8 +637,8 @@ function renoUpdate(dt)
                 usingFlightPack
                 and not (
                     lounging
-                    or math.__onWall
-                    or math.__sphereActive
+                    or globals.onWall
+                    or globals.sphereActive
                     or (fezzedTechVars.bouncy and inLiquid)
                     or mcontroller.liquidMovement()
                     or mcontroller.groundMovement()
@@ -648,11 +649,11 @@ function renoUpdate(dt)
                 if fezzedTechVars.slowRecharge then
                     self.flightTimer = math.min(self.flightTimer + dt * rechargeRate, flightTime)
                 elseif
-                    math.__onWall
+                    globals.onWall
                     or mcontroller.groundMovement()
                     or mcontroller.liquidMovement()
                     or lounging
-                    or math.__grappled
+                    or globals.grappled
                 then
                     self.flightTimer = flightTime
                 end
@@ -676,12 +677,12 @@ function renoUpdate(dt)
 
         if self.tapKeyDir then
             if
-                (fezzedTechVars.avosiFlight or fezzedTechVars.avosiWingedArms or math.__gliderActive)
+                (fezzedTechVars.avosiFlight or fezzedTechVars.avosiWingedArms or globals.gliderActive)
                 and not (
                     mcontroller.groundMovement()
                     or mcontroller.liquidMovement()
-                    or math.__sphereActive
-                    or math.__onWall
+                    or globals.sphereActive
+                    or globals.onWall
                     or lounging
                 )
             then
@@ -730,28 +731,28 @@ function renoUpdate(dt)
             or fezzedTechVars.garyTech
             or (fezzedTechVars.shadowRun and self.thrustersActive)
         fezzedTechVars.parkourThrustersStat = fezzedTechVars.parkourThrustersStat or fezzedTechVars.shadowRun
-        fezzedTechVars.potted = fezzedTechVars.potted and not (math.__gliderActive or math.__holdingGlider)
+        fezzedTechVars.potted = fezzedTechVars.potted and not (globals.gliderActive or globals.holdingGlider)
 
-        math.__jumpDisabled = math.__flyboardActive or not fezzedTechVars.parkour
-        math.__parkour = fezzedTechVars.parkour
-        math.__basicParkour = fezzedTechVars.basicParkour and not fezzedTechVars.parkourRaw
-        math.__doThrusterAnims = false
-        math.__paramotor = fezzedTechVars.paramotor
-        math.__parkourThrusters = fezzedTechVars.parkourThrusters
-        math.__noLegs = fezzedTechVars.noLegs
+        globals.jumpDisabled = globals.flyboardActive or not fezzedTechVars.parkour
+        globals.parkour = fezzedTechVars.parkour
+        globals.basicParkour = fezzedTechVars.basicParkour and not fezzedTechVars.parkourRaw
+        globals.doThrusterAnims = false
+        globals.paramotor = fezzedTechVars.paramotor
+        globals.parkourThrusters = fezzedTechVars.parkourThrusters
+        globals.noLegs = fezzedTechVars.noLegs
             or fezzedTechVars.leglessSmallColBox
             or fezzedTechVars.scarecrowPole
             or fezzedTechVars.isLame
-        math.__fezTech = fezzedTechVars.fezTech or fezzedTechVars.shadowRun
-        math.__shadowRun = fezzedTechVars.shadowRun
-        math.__garyTech = fezzedTechVars.garyTech
-        math.__winged = fezzedTechVars.avosiWings
-        math.__runBoost = self.running
-        math.__infJumps = status.statPositive("infJumps") or status.statusProperty("infJumps")
-        math.__upgradedThrusters = fezzedTechVars.upgradedThrusters
-        math.__shadowFlight = self.shadowFlight
-        math.__bouncy = fezzedTechVars.bouncy
-        math.__avosiWings = fezzedTechVars.avosiWingedArms or fezzedTechVars.avosiJetpack
+        globals.fezTech = fezzedTechVars.fezTech or fezzedTechVars.shadowRun
+        globals.shadowRun = fezzedTechVars.shadowRun
+        globals.garyTech = fezzedTechVars.garyTech
+        globals.winged = fezzedTechVars.avosiWings
+        globals.runBoost = self.running
+        globals.infJumps = status.statPositive("infJumps") or status.statusProperty("infJumps")
+        globals.upgradedThrusters = fezzedTechVars.upgradedThrusters
+        globals.shadowFlight = self.shadowFlight
+        globals.bouncy = fezzedTechVars.bouncy
+        globals.avosiWings = fezzedTechVars.avosiWingedArms or fezzedTechVars.avosiJetpack
 
         if tech then
             local swimming = fezzedTechVars.swimTail and math.abs(vec2.mag(mcontroller.velocity())) > 4 and not lounging
@@ -773,7 +774,7 @@ function renoUpdate(dt)
                     or mcontroller.liquidMovement()
                     or itemL
                     or itemR
-                    or math.__onWall
+                    or globals.onWall
                     or lounging
                 )
             if avosiFlying then
@@ -821,7 +822,7 @@ function renoUpdate(dt)
         end
 
         local groundJump = false
-        if mcontroller.groundMovement() or mcontroller.liquidMovement() or math.__onWall then
+        if mcontroller.groundMovement() or mcontroller.liquidMovement() or globals.onWall then
             self.groundTimer = 0.25
         else
             self.groundTimer = math.max(self.groundTimer - dt, 0)
@@ -912,9 +913,9 @@ function renoUpdate(dt)
         --     -- end
         -- end
 
-        -- math.__canGrabWall = (not wallGroundDist) or (not self.moves[7]) or (not (noLegs or scarecrowPole))
+        -- globals.canGrabWall = (not wallGroundDist) or (not self.moves[7]) or (not (noLegs or scarecrowPole))
 
-        -- if math.__gliderActive then
+        -- if globals.gliderActive then
         --     sb.logInfo("Glider active.")
         -- end
 
@@ -926,22 +927,22 @@ function renoUpdate(dt)
                 or mcontroller.groundMovement()
                 or mcontroller.liquidMovement()
                 or (fezzedTechVars.bouncy and inLiquid)
-                or math.__sphereActive
-                or math.__onWall
-                or math.__flyboardActive
+                or globals.sphereActive
+                or globals.onWall
+                or globals.flyboardActive
                 or lounging
             )
         then
-            if checkDistRaw == -2 then math.__doThrusterAnims = true end
+            if checkDistRaw == -2 then globals.doThrusterAnims = true end
         end
 
         if
-            (player or math.__player)
+            (player or globals.player)
             and (fezzedTechVars.paragliderPack or fezzedTechVars.parkourThrusters or fezzedTechVars.invisibleFlyer)
-            and not (math.__sphereActive or math.__flyboardActive)
+            and not (globals.sphereActive or globals.flyboardActive)
         then
             if not mcontroller.zeroG() then
-                -- local player = math.__player
+                -- local player = globals.player
                 if fezzedTechVars.paragliderPack then
                     local backItem = player.equippedItem and player.equippedItem("back") or nil
 
@@ -1043,7 +1044,7 @@ function renoUpdate(dt)
                             }) -- airJumpModifier = 1.75
                         end
                         if not (mcontroller.groundMovement() or mcontroller.liquidMovement()) then
-                            math.__doThrusterAnims = true
+                            globals.doThrusterAnims = true
                         end
                     end
                     if
@@ -1058,20 +1059,20 @@ function renoUpdate(dt)
                     end
                     if self.isRunBoosting then
                         if not (mcontroller.groundMovement() or mcontroller.liquidMovement()) then
-                            math.__doThrusterAnims = true
+                            globals.doThrusterAnims = true
                         end
                     end
                 end
 
-                if fezzedTechVars.shadowRun and math.__gliderActive then math.__doThrusterAnims = true end
+                if fezzedTechVars.shadowRun and globals.gliderActive then globals.doThrusterAnims = true end
 
                 self.usingItemTimer = math.max(0, self.usingItemTimer - dt)
 
                 if
-                    math.__firingGrapple
-                    or math.__gliderFiring
-                    or math.__weaponFiring
-                    or (math.__onWall and self.moves[5])
+                    globals.firingGrapple
+                    or globals.gliderFiring
+                    or globals.weaponFiring
+                    or (globals.onWall and self.moves[5])
                 then
                     self.usingItemTimer = 0.35
                 end
@@ -1083,11 +1084,11 @@ function renoUpdate(dt)
                 then
                     local swapItem = player.swapSlotItem and player.swapSlotItem() or nil
                     if not swapItem then
-                        math.__gliderActive = true
+                        globals.gliderActive = true
                         player.setSwapSlotItem(
-                            (math.__fezTech and not math.__shadowRun) and self.phantomGravShield
+                            (globals.fezTech and not globals.shadowRun) and self.phantomGravShield
                                 or (
-                                    (math.__shadowRun or math.__garyTech) and self.phantomGravShield
+                                    (globals.shadowRun or globals.garyTech) and self.phantomGravShield
                                     or (
                                         fezzedTechVars.invisibleFlyer and self.invisibleFlyer
                                         or (fezzedTechVars.avosiGlider and self.phantomSoarGlider or self.phantomGlider)
@@ -1107,8 +1108,8 @@ function renoUpdate(dt)
                                 self.isFalling
                                 and not (
                                     (self.moves[5] and (self.moves[6] or not self.moves[7]))
-                                    or math.__firingGrapple
-                                    or (fezzedTechVars.invisibleFlyer and math.__grappled)
+                                    or globals.firingGrapple
+                                    or (fezzedTechVars.invisibleFlyer and globals.grappled)
                                 )
                             )
                             or (
@@ -1116,7 +1117,7 @@ function renoUpdate(dt)
                                 and self.moves[7]
                                 and not (
                                     self.oldJump
-                                    or math.__onWall
+                                    or globals.onWall
                                     or (fezzedTechVars.paragliderPack and not fezzedTechVars.parkourThrusters)
                                 )
                             )
@@ -1140,11 +1141,11 @@ function renoUpdate(dt)
                     if
                         player.setSwapSlotItem
                         and (fezzedTechVars.fezTech or fezzedTechVars.garyTech or (self.shadowFlight and not fezzedTechVars.parkourThrusters))
-                        and (self.isFalling and not ((self.moves[5] and (self.moves[6] or not self.moves[7])) or math.__firingGrapple))
+                        and (self.isFalling and not ((self.moves[5] and (self.moves[6] or not self.moves[7])) or globals.firingGrapple))
                         and not swapItem
                     then
                         player.setSwapSlotItem(
-                            (math.__shadowRun or math.__garyTech) and self.phantomGravShield or self.phantomGravShield
+                            (globals.shadowRun or globals.garyTech) and self.phantomGravShield or self.phantomGravShield
                         )
                         self.fallDanger = true
                         self.useParawing = true
@@ -1155,7 +1156,7 @@ function renoUpdate(dt)
                         and (fezzedTechVars.garyTech or self.shadowFlight)
                         and self.moves[1]
                         and (self.running or fezzedTechVars.parkourThrusters)
-                        and not (math.__onWall or self.lastJump or mcontroller.jumping() or mcontroller.liquidMovement() or mcontroller.groundMovement())
+                        and not (globals.onWall or self.lastJump or mcontroller.jumping() or mcontroller.liquidMovement() or mcontroller.groundMovement())
                         and not swapItem
                     then
                         player.setSwapSlotItem(self.phantomGravShield)
@@ -1167,7 +1168,7 @@ function renoUpdate(dt)
 
                     if
                         fezzedTechVars.parkourThrusters
-                        or (fezzedTechVars.parkourThrustersStat and math.__gliderActive and not math.__isGlider)
+                        or (fezzedTechVars.parkourThrustersStat and globals.gliderActive and not globals.isGlider)
                             and not (self.moves[5] and (self.moves[6] or not self.moves[7]))
                     then
                         mcontroller.controlParameters({
@@ -1176,102 +1177,102 @@ function renoUpdate(dt)
                             airFriction = 3.5,
                         })
                         if mcontroller.yVelocity() <= 0 and not (fezTech or garyTech) then
-                            math.__doThrusterAnims = true
+                            globals.doThrusterAnims = true
                         end
                     end
 
                     if self.fallDanger and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech) then
-                        math.__gliderActive = true
+                        globals.gliderActive = true
                     end
 
                     if
                         (
-                            math.__onWall
+                            globals.onWall
                             and not (
                                 (fezzedTechVars.paragliderPack or fezzedTechVars.invisibleFlyer)
                                 and not fezzedTechVars.parkourThrusters
                             )
                         )
-                        or math.__firingGrapple
-                        or math.__gliderFiring
+                        or globals.firingGrapple
+                        or globals.gliderFiring
                         or (self.moves[5] and (self.moves[6] or not self.moves[7]))
                     then
-                        math.__gliderActive = false
+                        globals.gliderActive = false
                         self.fallDanger = false
                         self.useParawing = false
                     end
 
-                    if fezzedTechVars.shadowRun and (math.__onWall or not self.shadowFlight) then
-                        math.__gliderActive = false
+                    if fezzedTechVars.shadowRun and (globals.onWall or not self.shadowFlight) then
+                        globals.gliderActive = false
                         self.fallDanger = false
                         self.useParawing = false
                     end
 
-                    if math.__onWall or (self.moves[5] and (self.moves[6] or not self.moves[7])) then
-                        math.__doThrusterAnims = false
+                    if globals.onWall or (self.moves[5] and (self.moves[6] or not self.moves[7])) then
+                        globals.doThrusterAnims = false
                     end
 
-                    if math.__gliderActive and (math.__isGlider ~= nil) then
+                    if globals.gliderActive and (globals.isGlider ~= nil) then
                         if not self.moves[1] then
                             if
                                 fezzedTechVars.parkourThrusters
                                 and fezzedTechVars.paragliderPack
                                 and self.useParawing
                             then
-                                math.__doThrusterAnims = false
+                                globals.doThrusterAnims = false
                             end
                         else
-                            if fezzedTechVars.paramotor and self.fallDanger then math.__doThrusterAnims = true end
+                            if fezzedTechVars.paramotor and self.fallDanger then globals.doThrusterAnims = true end
                         end
                         if self.hovering then
                             if
                                 not (self.moves[5] and not self.thrustersActive)
                                 and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech)
                             then
-                                math.__doThrusterAnims = true
+                                globals.doThrusterAnims = true
                             end
                         end
                     end
 
                     if
                         (fezzedTechVars.paramotor or fezzedTechVars.fezTech or fezzedTechVars.garyTech)
-                        and not math.__isGlider
+                        and not globals.isGlider
                     then
-                        math.__doThrusterAnims = false
+                        globals.doThrusterAnims = false
                     end
 
                     if
                         (fezzedTechVars.noLegs or fezzedTechVars.leglessSmallColBox)
                         and (fezzedTechVars.parkourThrusters or (fezzedTechVars.paragliderPack and fezzedTechVars.paramotor))
                         and not (
-                            math.__onWall
-                            or math.__firingGrapple
+                            globals.onWall
+                            or globals.firingGrapple
                             or fezzedTechVars.fezTech
                             or fezzedTechVars.garyTech
                         )
                     then
-                        math.__doThrusterAnims = true
+                        globals.doThrusterAnims = true
                     end
 
-                    if (fezzedTechVars.fezTech or fezzedTechVars.garyTech) and math.__isGlider then
-                        math.__doThrusterAnims = true
+                    if (fezzedTechVars.fezTech or fezzedTechVars.garyTech) and globals.isGlider then
+                        globals.doThrusterAnims = true
                     end
                 else
-                    if not math.__isGlider then
+                    if not globals.isGlider then
                         self.fallDanger = false
                     else
                         self.fallDanger = true
                     end
-                    if math.__firingGrapple or math.__gliderFiring or math.__weaponFiring then
-                        math.__gliderActive = false
+                    if globals.firingGrapple or globals.gliderFiring or globals.weaponFiring then
+                        globals.gliderActive = false
                     end
-                    if math.__isGlider and not (fezzedTechVars.paragliderPack or fezzedTechVars.invisibleFlyer) then
-                        math.__gliderActive = false
+                    if globals.isGlider and not (fezzedTechVars.paragliderPack or fezzedTechVars.invisibleFlyer) then
+                        globals.gliderActive = false
                     end
-                    -- if self.moves[5] then math.__gliderActive = false end
-                    if (not math.__isGlider) and not self.useParawing then math.__gliderActive = false end
+                    -- if self.moves[5] then globals.gliderActive = false end
+                    if (not globals.isGlider) and not self.useParawing then globals.gliderActive = false end
                     if fezzedTechVars.shadowRun or fezzedTechVars.garyTech or fezzedTechVars.invisibleFlyer then
-                        math.__gliderActive = false
+                        globals.gliderActive = false
                         self.useParawing = false
                         self.fallDanger = false
                     end
@@ -1286,7 +1287,7 @@ function renoUpdate(dt)
                 -- if math.abs(mcontroller.xVelocity()) <= 2 or (not self.moves[7]) then self.isRunBoosting = false end
                 self.oldJump = self.moves[1]
             else
-                math.__gliderActive = false
+                globals.gliderActive = false
                 self.hovering = false
                 self.useParawing = false
             end
@@ -1301,7 +1302,7 @@ function renoUpdate(dt)
                 or fezzedTechVars.garyTech
             )
         then
-            math.__gliderActive = false
+            globals.gliderActive = false
         end
 
         -- if status.statusProperty("isLegless") and mcontroller.groundMovement() and (not (self.moves[2] or self.moves[3])) and (mcontroller.crouching() ~= self.lastCrouching) then
@@ -1442,8 +1443,8 @@ function renoUpdate(dt)
                     if self.jumpTimer == jumpInterval then
                         -- sb.logInfo("potted = %s", fezzedTechVars.potted)
                         -- sb.logInfo("largePotted = %s", largePotted)
-                        -- sb.logInfo("math.__gliderActive = %s", math.__gliderActive)
-                        -- sb.logInfo("math.__holdingGlider = %s", math.__holdingGlider)
+                        -- sb.logInfo("globals.gliderActive = %s", globals.gliderActive)
+                        -- sb.logInfo("globals.holdingGlider = %s", globals.holdingGlider)
                         local wingHop = fezzedTechVars.avosiWings and not (itemL or itemR)
                         local dirJump = (self.moves[2] or self.moves[3]) and 1 or 0
                         if self.moves[5] then
@@ -1517,8 +1518,8 @@ function renoUpdate(dt)
                     or fezzedTechVars.mertail
                     or potCrawling
                     or fezzedTechVars.windSailing
-                    or math.__gliderActive
-                ) and not (lounging or math.__sphereActive)
+                    or globals.gliderActive
+                ) and not (lounging or globals.sphereActive)
             then
                 local vars = {}
                 vars.rocketAngling = mcontroller.jumping() and self.moves[7] and (not mcontroller.liquidMovement())
@@ -1545,7 +1546,7 @@ function renoUpdate(dt)
                     or vars.bouncing
                     or vars.flopping
                     or fezzedTechVars.swimTail
-                    or math.__gliderActive
+                    or globals.gliderActive
                 then
                     local angleDiv = (fezzedTechVars.avosiFlight or fezzedTechVars.windSailing) and 1 or 2
                     local angleLag = (fezzedTechVars.avosiFlight or fezzedTechVars.windSailing) and 0.5 or 0.15
@@ -1560,8 +1561,8 @@ function renoUpdate(dt)
                         )
                     ) or (fezzedTechVars.avosiWingedArms and (itemL or itemR))
                     local yVel = vars.yVel
-                    if (math.__gliderActive and not (colliding or fezzedTechVars.invisibleFlyer)) or onJetpack then
-                        yVel = math.__gliderActive and 75 or 10
+                    if (globals.gliderActive and not (colliding or fezzedTechVars.invisibleFlyer)) or onJetpack then
+                        yVel = globals.gliderActive and 75 or 10
                     end
                     if mcontroller.liquidMovement() then yVel = yVel + 2.5 end
                     local rawTAng = (vec2.angle({ vars.xVel / angleDiv, yVel }) - math.pi / 2)
@@ -1649,7 +1650,7 @@ function renoUpdate(dt)
                                         },
                                     },
                                 }
-                                if not math.__onWall then
+                                if not globals.onWall then
                                     world.spawnProjectile(
                                         "flamethrower",
                                         { mPos[1] + 0.0625, mPos[2] },
@@ -1714,7 +1715,7 @@ function renoUpdate(dt)
                                         },
                                     },
                                 }
-                                if not math.__onWall then
+                                if not globals.onWall then
                                     world.spawnProjectile(
                                         "invisibleprojectile",
                                         { mPos[1] + 0.0625, mPos[2] },
@@ -1736,10 +1737,10 @@ function renoUpdate(dt)
                     and not (mcontroller.zeroG() or mcontroller.liquidMovement() or vars.flopping)
 
                 if
-                    math.__sphereActive
+                    globals.sphereActive
                     or lounging
-                    or math.__onWall
-                    or (fezzedTechVars.flyboard and math.__flyboardActive)
+                    or globals.onWall
+                    or (fezzedTechVars.flyboard and globals.flyboardActive)
                     or (self.collisionTimer ~= 0 and not vars.flopping)
                     or keepUpward
                 then
@@ -1747,7 +1748,7 @@ function renoUpdate(dt)
                     if
                         fezzedTechVars.bouncy
                         and (mcontroller.groundMovement() or world.liquidAt(liqCheckPosDown))
-                        and not (math.__isStable or lounging or math.__sphereActive)
+                        and not (globals.isStable or lounging or globals.sphereActive)
                     then
                         if vars.xVel == 0 then
                             self.targetAngle = 0
@@ -1766,18 +1767,18 @@ function renoUpdate(dt)
             end
 
             local angle = angleLerp(self.currentAngle, self.targetAngle, 0.08, math.pi * 0.002)
-            local flyerOverride = math.__garyTech or math.__shadowRun or math.__fezTech
+            local flyerOverride = globals.garyTech or globals.shadowRun or globals.fezTech
             local holdingNonFlyerItem = (itemL or itemR)
                 and not (
-                    math.__gliderActive
-                    and math.__holdingGlider
+                    globals.gliderActive
+                    and globals.holdingGlider
                     and fezzedTechVars.invisibleFlyer
                     and not flyerOverride
                 )
             if
                 (fezzedTechVars.avosiFlight or fezzedTechVars.windSailing)
                 and wingAngling
-                and not (holdingNonFlyerItem or lounging or math.__sphereActive)
+                and not (holdingNonFlyerItem or lounging or globals.sphereActive)
             then
                 if angle > 0 and angle < math.pi then
                     mcontroller.controlFace(-1)
@@ -1785,12 +1786,12 @@ function renoUpdate(dt)
                     mcontroller.controlFace(1)
                 end
             end
-            local flipping = math.__holdingGlider and not math.__gliderActive
+            local flipping = globals.holdingGlider and not globals.gliderActive
             if (not (angle == 0 and self.currentAngle == 0)) and not flipping then mcontroller.setRotation(angle) end
             self.currentAngle = angle
         end
 
-        if lounging and not math.__sphereActive then
+        if lounging and not globals.sphereActive then
             local adj = 0
             local sitParameters = {
                 standingPoly = {
@@ -1826,7 +1827,7 @@ function renoUpdate(dt)
                 or fezzedTechVars.leglessSmallColBox
                 or fezzedTechVars.tailed
                 or fezzedTechVars.largePotted
-            ) and not math.__sphereActive
+            ) and not globals.sphereActive
         then
             status.setStatusProperty("isLegless", true)
             do
@@ -2034,10 +2035,10 @@ function renoUpdate(dt)
                 mcontroller.controlParameters(potParameters)
             end
 
-            if not math.__sphereActive then self.crouchingTap:update(dt, self.moves) end
+            if not globals.sphereActive then self.crouchingTap:update(dt, self.moves) end
         else
             status.setStatusProperty("isLegless", nil)
-            if self.crouching and not math.__sphereActive then mcontroller.controlCrouch() end
+            if self.crouching and not globals.sphereActive then mcontroller.controlCrouch() end
             local movementParameters = {
                 airJumpProfile = {
                     multiJump = fezzedTechVars.flightEnabled or fezzedTechVars.fireworks,
@@ -2049,7 +2050,7 @@ function renoUpdate(dt)
                 },
             }
 
-            if fezzedTechVars.scarecrowPole and not (math.__sphereActive or fezzedTechVars.ghostTail) then
+            if fezzedTechVars.scarecrowPole and not (globals.sphereActive or fezzedTechVars.ghostTail) then
                 -- mcontroller.controlModifiers({movementSuppressed = mcontroller.groundMovement() and not self.moves[6]})
                 -- mcontroller.controlModifiers({movementSuppressed = true})
                 if not mcontroller.onGround() then
@@ -2101,7 +2102,7 @@ function renoUpdate(dt)
                     or fezzedTechVars.avosiWings
                     or fezzedTechVars.ghostTail
                     or fezzedTechVars.swimTail
-                ) and not math.__sphereActive
+                ) and not globals.sphereActive
             then
                 if mcontroller.jumping() then
                     self.soarDt = math.max(self.soarDt - dt, 0)
@@ -2204,25 +2205,25 @@ function renoUpdate(dt)
                     mcontroller.controlModifiers({ speedModifier = 0.35 })
                 end
             end
-            if fezzedTechVars.flightEnabled and (not mcontroller.groundMovement()) and not math.__sphereActive then
+            if fezzedTechVars.flightEnabled and (not mcontroller.groundMovement()) and not globals.sphereActive then
                 movementParameters.walkSpeed = 20
                 movementParameters.runSpeed = 50
                 movementParameters.airForce = 250
                 movementParameters.airFriction = 5
             end
 
-            if not math.__sphereActive then mcontroller.controlParameters(movementParameters) end
+            if not globals.sphereActive then mcontroller.controlParameters(movementParameters) end
 
-            if not math.__sphereActive then self.crouchingTap:update(dt, self.moves) end
+            if not globals.sphereActive then self.crouchingTap:update(dt, self.moves) end
         end
 
-        local gliding = math.__gliderActive and math.__isGlider ~= nil
-        local usingGlider = math.__gliderActive and math.__isGlider == true
+        local gliding = globals.gliderActive and globals.isGlider ~= nil
+        local usingGlider = globals.gliderActive and globals.isGlider == true
 
         local thermalSoaring = false
 
         if
-            math.__gliderActive and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech or fezzedTechVars.shadowRun)
+            globals.gliderActive and not (fezzedTechVars.fezTech or fezzedTechVars.garyTech or fezzedTechVars.shadowRun)
         then
             local vars = {}
             vars.x, vars.y = table.unpack(mcontroller.position())
@@ -2247,7 +2248,7 @@ function renoUpdate(dt)
                 and not self.moves[5]
             -- or vars.background
             if colliding then
-                math.__gliderActive = false
+                globals.gliderActive = false
                 self.fallDanger = false
                 self.useParawing = false
             end
@@ -2264,10 +2265,10 @@ function renoUpdate(dt)
                     or gliding
                     or (fezzedTechVars.upgradedThrusters and fezzedTechVars.parkourThrusters)
                     or (fezzedTechVars.avosiWings and (not mcontroller.liquidMovement()))
-                    or (fezzedTechVars.flyboard and math.__flyboardActive and (not mcontroller.liquidMovement()))
+                    or (fezzedTechVars.flyboard and globals.flyboardActive and (not mcontroller.liquidMovement()))
                 )
                 or (fezzedTechVars.shadowRun and self.thrustersActive and mcontroller.liquidMovement())
-            ) and not (math.__sphereActive or lounging or mcontroller.zeroG())
+            ) and not (globals.sphereActive or lounging or mcontroller.zeroG())
         then
             local movementParameters = {}
 
@@ -2281,16 +2282,16 @@ function renoUpdate(dt)
             }
             if not (mcontroller.onGround()) then
                 movementParameters.walkSpeed = (
-                    math.__flyboardActive
+                    globals.flyboardActive
                     or fezzedTechVars.shadowRun
-                    or (fezzedTechVars.avosiFlight and not (fezzedTechVars.safetyFlight or math.__gliderActive))
+                    or (fezzedTechVars.avosiFlight and not (fezzedTechVars.safetyFlight or globals.gliderActive))
                 )
                         and 20
                     or 10
                 movementParameters.runSpeed = (
-                    math.__flyboardActive
+                    globals.flyboardActive
                     or fezzedTechVars.shadowRun
-                    or (fezzedTechVars.avosiFlight and not (fezzedTechVars.safetyFlight or math.__gliderActive))
+                    or (fezzedTechVars.avosiFlight and not (fezzedTechVars.safetyFlight or globals.gliderActive))
                 )
                         and (fezzedTechVars.avosiWingedArms and 75 or 50)
                     or 25
@@ -2298,7 +2299,7 @@ function renoUpdate(dt)
             if fezzedTechVars.swimmingFlight or gliding then
                 local flying = (
                     (
-                        (fezzedTechVars.paramotor and math.__gliderActive)
+                        (fezzedTechVars.paramotor and globals.gliderActive)
                         or fezzedTechVars.parkourThrusters
                         or fezzedTechVars.avosiFlight
                     ) and (math.abs(mcontroller.xVelocity() / 22.5) >= 1)
@@ -2348,7 +2349,7 @@ function renoUpdate(dt)
                     collisionCancelled = false,
                 }
             end
-            if math.__flyboardActive then
+            if globals.flyboardActive then
                 movementParameters.airJumpProfile = {
                     jumpSpeed = 25,
                     jumpHoldTime = 0.25,
@@ -2357,22 +2358,22 @@ function renoUpdate(dt)
                     collisionCancelled = false,
                 }
             end
-            local wind = (windTileOcc or math.__grappled or world.underground(mcontroller.position())) and 0
+            local wind = (windTileOcc or globals.grappled or world.underground(mcontroller.position())) and 0
                 or world.windLevel(mcontroller.position())
-            if fezzedTechVars.fezTech or math.__onWall or lounging then wind = 0 end
+            if fezzedTechVars.fezTech or globals.onWall or lounging then wind = 0 end
             if not (mcontroller.groundMovement()) then
                 local windDiv = (self.moves[2] or self.moves[3]) and 10 or 7.5
                 local xVel = math.abs(mcontroller.xVelocity())
                 local windV = math.abs(wind)
                 local airMovement = (
-                    math.__flyboardActive
+                    globals.flyboardActive
                     or (usingGlider and (fezzedTechVars.parkourThrusters or fezzedTechVars.avosiGlider or fezzedTechVars.shadowRun))
                     or (fezzedTechVars.parkourThrusters and fezzedTechVars.upgradedThrusters)
                 )
                 if self.moves[5] then
                     mcontroller.controlAcceleration({
                         wind / windDiv,
-                        math.__flyboardActive and -6
+                        globals.flyboardActive and -6
                             or (fezzedTechVars.shadowRun and (mcontroller.liquidMovement() and -60 or -30) or -1),
                     })
                 elseif self.moves[1] and airMovement or (fezzedTechVars.shadowRun and self.upgradedThrusters) then
@@ -2387,13 +2388,13 @@ function renoUpdate(dt)
                     })
                 elseif self.moves[4] and airMovement or (fezzedTechVars.shadowRun and self.upgradedThrusters) then
                     mcontroller.controlAcceleration({ wind / windDiv, (windV / 25) + (xVel / 25) + 10 })
-                elseif self.moves[1] and fezzedTechVars.windSailing and not (gliding or math.__flyboardActive) then
+                elseif self.moves[1] and fezzedTechVars.windSailing and not (gliding or globals.flyboardActive) then
                     mcontroller.controlAcceleration({ wind / windDiv, (windV / 25) + (xVel / 40) + 25 })
                 else
-                    if math.__flyboardActive or (gliding and self.hovering) then
+                    if globals.flyboardActive or (gliding and self.hovering) then
                         mcontroller.controlAcceleration({ wind / windDiv, (xVel / 25) + 4.75 })
                     else
-                        local velDiv = (fezzedTechVars.avosiFlight and not math.__gliderActive)
+                        local velDiv = (fezzedTechVars.avosiFlight and not globals.gliderActive)
                                 and ((groundDist and self.running) and 15 or 20)
                             or 10
                         mcontroller.controlAcceleration({ wind / windDiv, (windV / 25) + (xVel / velDiv) })
@@ -2410,7 +2411,7 @@ function renoUpdate(dt)
             local avosiGliding = fezzedTechVars.avosiFlight
                 and (fezzedTechVars.jumpSpeedMult <= 0 or not self.running or not groundDist)
                 and not self.collision
-            local usingAvosiGlider = fezzedTechVars.avosiGlider and math.__gliderActive
+            local usingAvosiGlider = fezzedTechVars.avosiGlider and globals.gliderActive
             if
                 not (mcontroller.groundMovement())
                 and (
@@ -2419,7 +2420,7 @@ function renoUpdate(dt)
                     or usingGlider
                     or fezzedTechVars.windSailing
                     or (fezzedTechVars.parkourThrusters and fezzedTechVars.upgradedThrusters)
-                    or math.__flyboardActive
+                    or globals.flyboardActive
                     or not (itemL or itemR)
                 )
             then
@@ -2434,14 +2435,14 @@ function renoUpdate(dt)
                 )
                         and math.max(vars.gravMod * 0.05 * glideVel, 0.01)
                     or (
-                        math.__flyboardActive and (vars.gravMod * 0.04)
+                        globals.flyboardActive and (vars.gravMod * 0.04)
                         or math.min(math.max(vars.gravMod * 0.75 * glideVel, gravMin), gravMax)
                     )
                 movementParameters.gravityMultiplier = gravMult * fezzedTechVars.gravityModifier
             end
             if
                 fezzedTechVars.swimmingFlight
-                or (fezzedTechVars.flyboard and math.__flyboardActive)
+                or (fezzedTechVars.flyboard and globals.flyboardActive)
                 or (fezzedTechVars.shadowRun and self.thrustersActive)
                 or fezzedTechVars.bouncy
             then
@@ -2457,7 +2458,7 @@ function renoUpdate(dt)
 
             mcontroller.controlParameters(movementParameters)
 
-            if math.__flyboardActive and (tech and not lounging) then
+            if globals.flyboardActive and (tech and not lounging) then
                 self.flyboardTimer = math.max(0, self.flyboardTimer - dt)
                 local scale = fezzedTechVars.charScale or 1
                 if self.flyboardTimer == 0 then
@@ -2467,7 +2468,7 @@ function renoUpdate(dt)
                         mOffset = {
                             0,
                             (
-                                ((math.__noLegs and not fezzedTechVars.largePotted) and (-1.625 + adj / 8) or -2.5)
+                                ((globals.noLegs and not fezzedTechVars.largePotted) and (-1.625 + adj / 8) or -2.5)
                                 * scale
                             )
                                 + -1.6785
@@ -2503,7 +2504,7 @@ function renoUpdate(dt)
                 end
                 local nearGround = getClosestBlockYDistance(
                     mPos,
-                    vec2.add(mPos, { 0, ((math.__noLegs and -3 or -3.5) * scale) }),
+                    vec2.add(mPos, { 0, ((globals.noLegs and -3 or -3.5) * scale) }),
                     self.moves[5]
                 )
                 local yVel = mcontroller.yVelocity()
@@ -2523,10 +2524,10 @@ function renoUpdate(dt)
 
         if
             not fezzedTechVars.flyboard
-            or not math.__flyboardActive
+            or not globals.flyboardActive
             or lounging
             or mcontroller.zeroG()
-            or math.__sphereActive
+            or globals.sphereActive
         then
             if self.flyboardProjectileId then
                 if world.entityExists(self.flyboardProjectileId) then
@@ -2535,7 +2536,7 @@ function renoUpdate(dt)
                 self.flyboardProjectileId = nil
                 if tech and not (xsb and player.setOverrideState) then tech.setParentState() end
             end
-            math.__flyboardActive = false
+            globals.flyboardActive = false
         end
 
         if fezzedTechVars.flyboard then self.flyboardTap:update(dt, self.moves) end
@@ -2589,11 +2590,11 @@ function renoUpdate(dt)
 
         if
             (fezzedTechVars.avosiWings and not (mcontroller.liquidMovement() or mcontroller.groundMovement()))
-            and not math.__sphereActive
+            and not globals.sphereActive
         then
             local jumping = mcontroller.jumping()
             if jumping and not self.lastJumping then -- self.moves[1] and not self.lastJump
-                math.__wingFlap = true
+                globals.wingFlap = true
             end
             -- self.lastJump = self.moves[1]
             self.lastJumping = jumping
@@ -2619,12 +2620,12 @@ function renoUpdate(dt)
                 or fezzedTechVars.potted
                 or fezzedTechVars.largePotted
                 or fezzedTechVars.avosiWings
-                or math.__gliderActive
+                or globals.gliderActive
                 or (fezzedTechVars.parkourThrusters and not mcontroller.groundMovement())
                 or fezzedTechVars.fezTech
                 or fezzedTechVars.garyTech
-                or (fezzedTechVars.flyboard and math.__flyboardActive)
-                or math.__sphereActive
+                or (fezzedTechVars.flyboard and globals.flyboardActive)
+                or globals.sphereActive
             )
             local baseRunSpeed = mcontroller.baseParameters().runSpeed
             local runMul = (self.running or fezzedTechVars.runSpeedMult == 0) and fezzedTechVars.runSpeedMult
@@ -2635,10 +2636,10 @@ function renoUpdate(dt)
             ) and not (mcontroller.groundMovement() or mcontroller.liquidMovement())
             local wingedArmFlying = (fezzedTechVars.avosiWingedArms or fezzedTechVars.avosiFlight)
                 and not (
-                    math.__gliderActive
+                    globals.gliderActive
                     or mcontroller.groundMovement()
                     or mcontroller.liquidMovement()
-                    or math.__onWall
+                    or globals.onWall
                     or (itemL or itemR)
                 )
             local slowAir = (fezzedTechVars.avosiWingedArms or fezzedTechVars.avosiJetpack)
@@ -2646,7 +2647,7 @@ function renoUpdate(dt)
                     wingedArmFlying
                     or mcontroller.groundMovement()
                     or mcontroller.liquidMovement()
-                    or math.__onWall
+                    or globals.onWall
                 )
             local runningSpeed = (slowAir and fezzedTechVars.avosiJetpack) and 0.45 or 1
             local joggingSpeed = (slowAir and fezzedTechVars.avosiJetpack) and 0.45 or 0.6
@@ -2666,12 +2667,12 @@ function renoUpdate(dt)
                 or fezzedTechVars.canHop
                 or fezzedTechVars.noLegs
                 or fezzedTechVars.leglessSmallColBox
-                or (fezzedTechVars.flyboard and math.__flyboardActive)
-                or math.__sphereActive
+                or (fezzedTechVars.flyboard and globals.flyboardActive)
+                or globals.sphereActive
             )
             if
                 canWalk
-                and (mcontroller.groundMovement() or not (math.__gliderActive or fezzedTechVars.parkourThrusters))
+                and (mcontroller.groundMovement() or not (globals.gliderActive or fezzedTechVars.parkourThrusters))
             then
                 mcontroller.controlParameters(walkParameters)
             end
@@ -2679,13 +2680,13 @@ function renoUpdate(dt)
 
         if
             fezzedTechVars.shadowRun
-            and not (mcontroller.groundMovement() or mcontroller.liquidMovement() or math.__gliderActive)
+            and not (mcontroller.groundMovement() or mcontroller.liquidMovement() or globals.gliderActive)
         then
             local airParameters = { runSpeed = 35 }
             mcontroller.controlParameters(airParameters)
         end
 
-        math.__rpMovement = rpMovement
+        globals.rpMovement = rpMovement
 
         if fezzedTechVars.roleplayMode then
             self.collision = nil
@@ -2759,7 +2760,7 @@ function renoUpdate(dt)
                 (fezzedTechVars.avosiWingedArms and not fezzedTechVars.avosiJetpack)
                 and checkDistRaw == -2
                 and ((fezzedTechVars.avosiJetpack or itemL or itemR) and self.moves[7])
-                and not (mcontroller.liquidMovement() or math.__sphereActive or math.__gliderActive)
+                and not (mcontroller.liquidMovement() or globals.sphereActive or globals.gliderActive)
             then
                 vars.groundJumpSpeed = 13
             end
@@ -2768,8 +2769,8 @@ function renoUpdate(dt)
             vars.jetpackGliding = (fezzedTechVars.avosiWingedArms or fezzedTechVars.avosiJetpack)
                 and checkDistRaw == -2
                 and fezzedTechVars.paragliderPack
-                and math.__gliderActive
-                and not (mcontroller.liquidMovement() or math.__sphereActive or lounging)
+                and globals.gliderActive
+                and not (mcontroller.liquidMovement() or globals.sphereActive or lounging)
             local jumpParameters = {
                 airJumpProfile = {
                     jumpSpeed = (
@@ -2794,7 +2795,7 @@ function renoUpdate(dt)
                         or 0.5,
                 },
             }
-            if fezzedTechVars.avosiWingedArms and checkDistRaw ~= -2 and not (vars.isColliding or math.__isGlider) then
+            if fezzedTechVars.avosiWingedArms and checkDistRaw ~= -2 and not (vars.isColliding or globals.isGlider) then
                 jumpParameters.airJumpProfile.multiJump = false
                 jumpParameters.airJumpProfile.autoJump = fezzedTechVars.scarecrowPole
             end
@@ -2803,7 +2804,7 @@ function renoUpdate(dt)
             if not self.collisionTimer then self.collisionTimer = 0 end
             if not self.collision then self.collisionTimer = math.max(self.collisionTimer - dt, 0) end
             if not self.onGroundTimer then self.onGroundTimer = 0 end
-            if not (mcontroller.groundMovement() or math.__onWall) then
+            if not (mcontroller.groundMovement() or globals.onWall) then
                 self.onGroundTimer = math.max(self.onGroundTimer - dt, 0)
             else
                 self.onGroundTimer = 0.1
@@ -2817,8 +2818,8 @@ function renoUpdate(dt)
             local jetpackGliding = (fezzedTechVars.avosiWingedArms or fezzedTechVars.avosiJetpack)
                 and checkDistRaw == -2
                 and fezzedTechVars.paragliderPack
-                and math.__gliderActive
-                and not (mcontroller.liquidMovement() or math.__sphereActive or lounging)
+                and globals.gliderActive
+                and not (mcontroller.liquidMovement() or globals.sphereActive or lounging)
             local jumpParameters = {
                 airJumpProfile = {
                     multiJump = (fezzedTechVars.avosiFlight and tileOcc)
@@ -2845,7 +2846,7 @@ function renoUpdate(dt)
             if fezzedTechVars.bouncy and inLiquid and self.moves[5] then
                 mcontroller.controlApproachYVelocity(-10, 150)
             end
-            if fezzedTechVars.avosiWingedArms and checkDistRaw ~= -2 and not math.__isGlider then
+            if fezzedTechVars.avosiWingedArms and checkDistRaw ~= -2 and not globals.isGlider then
                 jumpParameters.airJumpProfile.multiJump = false
                 jumpParameters.airJumpProfile.autoJump = fezzedTechVars.scarecrowPole
             end
@@ -2860,7 +2861,7 @@ function renoUpdate(dt)
                     or fezzedTechVars.avosiFlight
                     or fezzedTechVars.noLegs
                     or fezzedTechVars.scarecrowPole
-                ) and not math.__gliderActive
+                ) and not globals.gliderActive
             then
                 mcontroller.controlParameters(jumpParameters)
             end
@@ -2871,9 +2872,9 @@ function renoUpdate(dt)
             or fezzedTechVars.swimmingFlight
             or fezzedTechVars.fezTech
             or fezzedTechVars.garyTech
-            or (fezzedTechVars.flyboard and math.__flyboardActive)
-            or math.__gliderActive
-            or math.__sphereActive
+            or (fezzedTechVars.flyboard and globals.flyboardActive)
+            or globals.gliderActive
+            or globals.sphereActive
             or lounging
 
         if fezzedTechVars.isLame and (mcontroller.groundMovement() or not flight) then
@@ -2899,10 +2900,10 @@ function renoUpdate(dt)
             -- self.bobTimer = math.min(self.bobTimer + dt, bobTime)
             local bouncyParams = {
                 bounceFactor = bounceFactor, -- 0.8
-                normalGroundFriction = math.__isStable and 7 or 3.5,
-                ambulatingGroundFriction = math.__isStable and 2 or 1,
+                normalGroundFriction = globals.isStable and 7 or 3.5,
+                ambulatingGroundFriction = globals.isStable and 2 or 1,
                 liquidBuoyancy = self.moves[5] and 0.2 or 0.9,
-                slopeSlidingFactor = math.__isStable and 1 or 5,
+                slopeSlidingFactor = globals.isStable and 1 or 5,
             }
             if mcontroller.groundMovement() then
                 bouncyParams.walkSpeed = 0
@@ -2912,7 +2913,7 @@ function renoUpdate(dt)
 
             if
                 (mcontroller.groundMovement() or world.liquidAt(fezzedTechVars.liqCheckPosDown))
-                and not (lounging or math.__sphereActive or math.__isStable)
+                and not (lounging or globals.sphereActive or globals.isStable)
             then
                 -- local xVel = mcontroller.xVelocity()
                 -- if math.abs(xVel) <= 2.5 then
@@ -2950,7 +2951,7 @@ function renoUpdate(dt)
                 end
             end
 
-            if world.liquidAt(fezzedTechVars.liqCheckPos) and not (lounging or math.__sphereActive) then
+            if world.liquidAt(fezzedTechVars.liqCheckPos) and not (lounging or globals.sphereActive) then
                 mcontroller.controlAcceleration({ 0, self.moves[1] and 250 or 80 })
             end
 
@@ -2966,9 +2967,9 @@ function renoUpdate(dt)
                 or mcontroller.liquidMovement()
                 or mcontroller.zeroG()
                 or lounging
-                or math.__sphereActive
-                or math.__gliderActive
-                or math.__onWall
+                or globals.sphereActive
+                or globals.gliderActive
+                or globals.onWall
             )
         then
             local wind = (windTileOcc or world.underground(mcontroller.position())) and 0
@@ -3018,7 +3019,7 @@ function renoUpdate(dt)
             local bouncingOnLiquid = world.liquidAt(fezzedTechVars.liqCheckPosDown)
                 and not world.liquidAt(fezzedTechVars.liqCheckPosUp)
             bouncyOnGround = (mcontroller.groundMovement() or bouncingOnLiquid)
-                and not (lounging or math.__sphereActive)
+                and not (lounging or globals.sphereActive)
 
             if
                 mcontroller.groundMovement()
@@ -3026,7 +3027,7 @@ function renoUpdate(dt)
                 and fezzedTechVars.pottedRaw
                 and not (
                     mcontroller.liquidMovement()
-                    or math.__gliderActive
+                    or globals.gliderActive
                     or fezzedTechVars.avosiJetpack
                     or fezzedTechVars.avosiWings
                     or fezzedTechVars.avosiWingedArms
@@ -3054,7 +3055,7 @@ function renoUpdate(dt)
                 fezzedTechVars.avosiJetpack
                 or ((fezzedTechVars.garyTech or fezzedTechVars.fezTech or fezzedTechVars.upgradedThrusters) and self.thrustersActive)
                 or (fezzedTechVars.avosiWingedArms or (fezzedTechVars.avosiFlight and checkDistRaw == -2))
-                or math.__gliderActive
+                or globals.gliderActive
             )
             local standingPoly = mcontroller.baseParameters().standingPoly
             local crouchingPoly = mcontroller.baseParameters().crouchingPoly
@@ -3113,9 +3114,9 @@ function renoUpdate(dt)
 
         self.lastPoseOverriding = bouncyOnGround or fezzedTechVars.pottedClimbing or largePottedOnGround
 
-        math.__rpJumping = self.collisionTimer ~= 0
+        globals.rpJumping = self.collisionTimer ~= 0
 
-        math.__doSkateSound = false
+        globals.doSkateSound = false
 
         if thermalSoaring and not (mcontroller.groundMovement() or mcontroller.liquidMovement()) then
             local thermalParams = { gravityMultiplier = 0.1 * fezzedTechVars.gravityModifier }
@@ -3124,7 +3125,7 @@ function renoUpdate(dt)
         end
 
         if
-            math.__grappled
+            globals.grappled
             and (fezzedTechVars.avosiWings or fezzedTechVars.avosiFlight or fezzedTechVars.avosiWingedArms or fezzedTechVars.swimmingFlight)
             and not (mcontroller.groundMovement() or mcontroller.liquidMovement() or lounging or windTileOcc)
         then
@@ -3135,7 +3136,7 @@ function renoUpdate(dt)
             vars.maxUp = world.gravity(mPos) * 0.3
             local thermalParams = { gravityMultiplier = 0.3 * fezzedTechVars.gravityModifier }
             mcontroller.controlParameters(thermalParams)
-            if tonumber(math.__grappled) <= 1 then
+            if tonumber(globals.grappled) <= 1 then
                 mcontroller.controlAcceleration({
                     vars.wind / 20,
                     vars.kiting and 0 or math.min(vars.maxUp, (1 + vars.windAbs / 5)),
@@ -3156,7 +3157,7 @@ function renoUpdate(dt)
         if
             (fezzedTechVars.skates or fezzedTechVars.fezTech)
             and self.isSkating
-            and not (math.__sphereActive or lounging)
+            and not (globals.sphereActive or lounging)
         then
             if tech then
                 if mcontroller.groundMovement() and not mcontroller.liquidMovement() then
@@ -3177,7 +3178,7 @@ function renoUpdate(dt)
                             )
                         end
                     end
-                    if math.abs(mcontroller.xVelocity()) >= 2 then math.__doSkateSound = true end
+                    if math.abs(mcontroller.xVelocity()) >= 2 then globals.doSkateSound = true end
                     mcontroller.controlParameters(skatingParameters)
                 end
             else
@@ -3207,11 +3208,11 @@ function renoUpdate(dt)
                 (self.crouching and self.isSitting)
                 or ((fezzedTechVars.largePotted and scarecrowWalking) and fezzedTechVars.collisionMatch)
             )
-        ) or math.__upsideDown
+        ) or globals.upsideDown
         if xsb and player.setOverrideState then
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
-                    player.setOverrideState(math.__holdingGlider and "stand" or "swim")
+                    player.setOverrideState(globals.holdingGlider and "stand" or "swim")
                 else
                     if (self.moves[5] or self.crouching) and not self.isSitting then
                         mcontroller.controlCrouch()
@@ -3224,7 +3225,7 @@ function renoUpdate(dt)
                 if self.lastIsSitting ~= isSitting then player.setOverrideState() end
             end
             if tech and isOffset then
-                if math.__upsideDown then
+                if globals.upsideDown then
                     tech.setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
                 else
                     local potFlopping = isFlopping and fezzedTechVars.largePotted and fezzedTechVars.collisionMatch
@@ -3237,7 +3238,7 @@ function renoUpdate(dt)
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
                     tech.setToolUsageSuppressed(true)
-                    tech.setParentState(math.__holdingGlider and "Stand" or "Swim")
+                    tech.setParentState(globals.holdingGlider and "Stand" or "Swim")
                 else
                     tech.setToolUsageSuppressed()
                     if (self.moves[5] or self.crouching) and not self.isSitting then
@@ -3254,7 +3255,7 @@ function renoUpdate(dt)
                 end
             end
             if isOffset then
-                if math.__upsideDown then
+                if globals.upsideDown then
                     tech.setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
                 else
                     local potFlopping = isFlopping and fezzedTechVars.largePotted and fezzedTechVars.collisionMatch
@@ -3270,10 +3271,10 @@ function renoUpdate(dt)
 
         self.lastIsLame = fezzedTechVars.isLame
 
-        math.__isGlider = nil
-        math.__firingGrapple = nil
-        math.__weaponFiring = nil
-        math.__canGrabWall = nil
+        globals.isGlider = nil
+        globals.firingGrapple = nil
+        globals.weaponFiring = nil
+        globals.canGrabWall = nil
 
         status.setStatusProperty("isRunBoosting", self.isRunBoosting)
         status.setStatusProperty("shadowFlight", self.shadowFlight)
@@ -3288,9 +3289,9 @@ function renoUninit()
         world.resetShaderParameters()
     end
     if status.statusProperty("ignoreFezzedTech") then
-        math.__fezzedTechLoaded = true
+        globals.fezzedTechLoaded = true
     else
-        math.__fezzedTechLoaded = false
+        globals.fezzedTechLoaded = false
     end
     status.clearPersistentEffects("rpTech")
 end

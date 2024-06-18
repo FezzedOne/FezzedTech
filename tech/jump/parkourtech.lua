@@ -3,14 +3,16 @@ require "/scripts/vec2.lua"
 require "/scripts/poly.lua"
 
 function init()
+    require("/scripts/util/globals.lua")
+
     movementArray = {false, false, false, false, false, false, true}
     message.setHandler("checkJumping", function(_, sameClient) if sameClient then return movementArray end end)
 
-    math.__tech = tech
-    math.__tech.args = {moves = {}}
-    math.__status = status
+    globals.tech = tech
+    globals.tech.args = {moves = {}}
+    globals.status = status
 
-    math.__isParkourTech = true
+    globals.isParkourTech = true
 
     self.multiJumpCount = config.getParameter("multiJumpCount")
     self.multiJumpModifier = config.getParameter("multiJumpModifier")
@@ -35,9 +37,9 @@ function init()
     self.shiftHeld = false
     self.shiftLocked = false
 
-    math.__onWall = false
+    globals.onWall = false
 
-    math.__upsideDown = false
+    globals.upsideDown = false
     self.canCling = false
 
     self.jumpTimer = 0
@@ -51,12 +53,12 @@ end
 
 function uninit()
     releaseWall()
-    math.__isParkourTech = nil
+    globals.isParkourTech = nil
 end
 
 function update(args)
     if not status.statusProperty("ignoreFezzedTech") then -- Don't run the update loop here if FezzedTech is disabled by another script.
-        local lounging = tech.parentLounging() or math.__sitting
+        local lounging = tech.parentLounging() or globals.sitting
 
         local highXVel = math.abs(mcontroller.xVelocity()) >= 5 or (mcontroller.liquidMovement() and math.abs(mcontroller.yVelocity()) >= 5)
         if highXVel and args.moves.run then
@@ -66,18 +68,18 @@ function update(args)
         end
         local hXVel = self.highXVelTimer ~= 0
 
-        if math.__shadowRun and mcontroller.liquidMovement() and highXVel then
+        if globals.shadowRun and mcontroller.liquidMovement() and highXVel then
             tech.setParentState("Swim")
         else
             if self.prevHXVel then tech.setParentState() end
         end
 
-        self.prevHXVel = math.__shadowRun and mcontroller.liquidMovement() and highXVel
+        self.prevHXVel = globals.shadowRun and mcontroller.liquidMovement() and highXVel
 
-        local shadowed = math.__shadowRun and ((math.__shadowFlight and math.__runBoost and hXVel) or (math.__gliderActive))
-        local shadowJumping = math.__shadowRun and math.__parkourThrusters and
+        local shadowed = globals.shadowRun and ((globals.shadowFlight and globals.runBoost and hXVel) or (globals.gliderActive))
+        local shadowJumping = globals.shadowRun and globals.parkourThrusters and
                                 (mcontroller.jumping() or mcontroller.falling() or
-                                  (mcontroller.liquidMovement() and hXVel and (not mcontroller.groundMovement()))) and (not math.__rpJumping)
+                                  (mcontroller.liquidMovement() and hXVel and (not mcontroller.groundMovement()))) and (not globals.rpJumping)
 
         local newDirectives = ""
         if shadowed then
@@ -86,7 +88,7 @@ function update(args)
             newDirectives = "?border=2;00000020;00000010"
         end
 
-        if math.__upsideDown then newDirectives = newDirectives .. "?flipy" end
+        if globals.upsideDown then newDirectives = newDirectives .. "?flipy" end
 
         if newDirectives ~= self.directives then tech.setParentDirectives(newDirectives) end
 
@@ -134,17 +136,17 @@ function update(args)
         self.lastShadowed = shadowed
         self.lastShadowJumping = shadowJumping
 
-        self.multiJumpCount = math.__fezTech and 3 or config.getParameter("multiJumpCount")
+        self.multiJumpCount = globals.fezTech and 3 or config.getParameter("multiJumpCount")
 
-        math.__isParkourTech = true
+        globals.isParkourTech = true
 
-        math.__onWall = self.wall
+        globals.onWall = self.wall
 
-        math.__tech.args = args
+        globals.tech.args = args
         movementArray = {
             args.moves.jump and not args.moves.down, args.moves.left, args.moves.right, args.moves.up, args.moves.down, args.moves.jump, args.moves.run
         }
-        self.shiftHeld = math.__parkour and (not args.moves.run)
+        self.shiftHeld = globals.parkour and (not args.moves.run)
 
         local jumpActivated = args.moves["jump"] and not self.lastJump
         self.lastJump = args.moves["jump"]
@@ -158,12 +160,12 @@ function update(args)
             lrInput = "right"
         end
 
-        if math.__resetJumps then
-            math.__resetJumps = false
+        if globals.resetJumps then
+            globals.resetJumps = false
             refreshJumps()
         end
 
-        if math.__fezTech then
+        if globals.fezTech then
             if not (mcontroller.groundMovement() or mcontroller.liquidMovement() or self.wall) then
                 self.jumpTimer = self.jumpTimer + args.dt
             else
@@ -176,7 +178,7 @@ function update(args)
             end
         end
 
-        if math.__sphereActive then self.wall = nil end
+        if globals.sphereActive then self.wall = nil end
 
         local wallGrabKeys = (args.moves.up and not (args.moves.left or args.moves.right or (not args.moves.run)))
 
@@ -187,27 +189,27 @@ function update(args)
             local lockingKeys = self.shiftLocked or args.moves.up or args.moves.down
             local breakOut = false
 
-            if math.__fezTech then refreshJumps() end
+            if globals.fezTech then refreshJumps() end
 
-            if not math.__sitting then mcontroller.controlParameters(self.wallSlideParameters) end
+            if not globals.sitting then mcontroller.controlParameters(self.wallSlideParameters) end
 
-            if (math.__parkour and mcontroller.zeroG()) then self.wall = "background" end
+            if (globals.parkour and mcontroller.zeroG()) then self.wall = "background" end
 
-            if mcontroller.zeroG() and math.__basicParkour then
+            if mcontroller.zeroG() and globals.basicParkour then
                 releaseWall()
                 breakOut = true
             end
 
             if not breakOut then
-                if self.wall == "background" and ((math.__parkour and (not lockingKeys)) or math.bouncy) then
+                if self.wall == "background" and ((globals.parkour and (not lockingKeys)) or math.bouncy) then
                     doWallJump()
                     breakOut = true
                 end
             end
 
             if not breakOut then
-                if ((not checkWall(self.wall)) or status.statPositive("activeMovementAbilities")) or math.__jumpDisabled then
-                    if math.__parkour and checkWall("background") then
+                if ((not checkWall(self.wall)) or status.statPositive("activeMovementAbilities")) or globals.jumpDisabled then
+                    if globals.parkour and checkWall("background") then
                         self.wall = "background"
                     else
                         releaseWall()
@@ -215,16 +217,16 @@ function update(args)
                 elseif jumpActivated then
                     doWallJump()
                 else
-                    if (lrInput and lrInput ~= self.wall) and (not math.__parkour and (not math.__bouncy)) then
+                    if (lrInput and lrInput ~= self.wall) and (not globals.parkour and (not globals.bouncy)) then
                         self.wallReleaseTimer = self.wallReleaseTimer + args.dt
                     else
                         self.wallReleaseTimer = 0
                     end
 
-                    local wallReleaseTime = math.__bouncy and 0.05 or self.wallReleaseTime
-                    local grabbingWall = math.__parkour and (not math.__bouncy) and lockingKeys
-                    if (self.wallReleaseTimer > wallReleaseTime) or math.__sitting or math.__grappled or math.__flyboardActive then
-                        if (math.__bouncy or (not self.shiftLocked)) and args.moves.jump then
+                    local wallReleaseTime = globals.bouncy and 0.05 or self.wallReleaseTime
+                    local grabbingWall = globals.parkour and (not globals.bouncy) and lockingKeys
+                    if (self.wallReleaseTimer > wallReleaseTime) or globals.sitting or globals.grappled or globals.flyboardActive then
+                        if (globals.bouncy or (not self.shiftLocked)) and args.moves.jump then
                             doWallJump()
                         else
                             releaseWall()
@@ -242,28 +244,28 @@ function update(args)
                             releaseWall()
                             tech.setParentState()
                         end
-                        if math.__parkour and not args.moves.down then
+                        if globals.parkour and not args.moves.down then
                             if self.wall ~= "background" then mcontroller.controlFace(self.wall == "left" and -1 or 1) end
                         end
                         if self.wallGrabFreezeTimer > 0 or grabbingWall then
-                            if not math.__parkour then self.wallGrabFreezeTimer = math.max(0, self.wallGrabFreezeTimer - args.dt) end
-                            if (math.__parkour and (not math.__bouncy)) and not args.moves.down then
-                                local yVel = (math.__parkour and args.moves.up and ((not math.__basicParkour) or (not math.__noLegs))) and
-                                               (math.__basicParkour and 2.5 or 4.5) or 0
+                            if not globals.parkour then self.wallGrabFreezeTimer = math.max(0, self.wallGrabFreezeTimer - args.dt) end
+                            if (globals.parkour and (not globals.bouncy)) and not args.moves.down then
+                                local yVel = (globals.parkour and args.moves.up and ((not globals.basicParkour) or (not globals.noLegs))) and
+                                               (globals.basicParkour and 2.5 or 4.5) or 0
                                 local xVel = 0
                                 if ((args.moves.left or args.moves.right) and not (args.moves.left and args.moves.right)) then
                                     if ((self.wall == "left" and args.moves.right) or (self.wall == "right" and args.moves.left)) and checkWall("background") then
                                         self.wall = "background"
                                     end
-                                    local wallWalkVel = math.__noLegs and 0 or 8
+                                    local wallWalkVel = globals.noLegs and 0 or 8
                                     xVel = args.moves.left and -wallWalkVel or wallWalkVel
-                                    if not math.__sitting then
-                                        tech.setParentState((self.wall == "background" and not math.__noLegs) and "Walk" or "Fly")
+                                    if not globals.sitting then
+                                        tech.setParentState((self.wall == "background" and not globals.noLegs) and "Walk" or "Fly")
                                     else
                                         tech.setParentState("Sit")
                                     end
                                 else
-                                    if not math.__sitting then
+                                    if not globals.sitting then
                                         if mcontroller.zeroG() and self.canCling then
                                             tech.setParentState("Stand")
                                         else
@@ -273,23 +275,23 @@ function update(args)
                                         tech.setParentState("Sit")
                                     end
                                 end
-                                if math.__noLegs and (args.moves.left or args.moves.right) and not args.moves.jump then
+                                if globals.noLegs and (args.moves.left or args.moves.right) and not args.moves.jump then
                                     mcontroller.controlModifiers({movementSuppressed = true})
                                 end
-                                if not math.__sitting then mcontroller.controlApproachVelocity({xVel, yVel}, 1000) end
+                                if not globals.sitting then mcontroller.controlApproachVelocity({xVel, yVel}, 1000) end
                             else
-                                if math.__parkour and mcontroller.zeroG() then
-                                    local yVel = math.__basicParkour and -2.5 or -4.5
+                                if globals.parkour and mcontroller.zeroG() then
+                                    local yVel = globals.basicParkour and -2.5 or -4.5
                                     local xVel = 0
-                                    if not math.__sitting then mcontroller.controlApproachVelocity({xVel, yVel}, 1000) end
+                                    if not globals.sitting then mcontroller.controlApproachVelocity({xVel, yVel}, 1000) end
                                 end
-                                if not math.__sitting then
+                                if not globals.sitting then
                                     tech.setParentState("Fly")
                                 else
                                     tech.setParentState("Sit")
                                 end
                             end
-                            if self.wallGrabFreezeTimer == 0 or (math.__parkour and args.moves.down and (not (math.__sitting or mcontroller.zeroG()))) then
+                            if self.wallGrabFreezeTimer == 0 or (globals.parkour and args.moves.down and (not (globals.sitting or mcontroller.zeroG()))) then
                                 if self.wall == "background" then
                                     animator.setParticleEmitterActive("wallSlide.left", true)
                                     animator.setParticleEmitterActive("wallSlide.right", true)
@@ -300,7 +302,7 @@ function update(args)
                                 animator.setSoundPitch("wallSlideLoop", 1)
                                 animator.playSound("wallSlideLoop", -1)
                             end
-                            if math.__parkour and (mcontroller.zeroG() or math.__sitting or (not args.moves.down)) then
+                            if globals.parkour and (mcontroller.zeroG() or globals.sitting or (not args.moves.down)) then
                                 animator.setParticleEmitterActive("wallSlide.left", false)
                                 animator.setParticleEmitterActive("wallSlide.right", false)
                                 animator.stopAllSounds("wallSlideLoop")
@@ -309,25 +311,25 @@ function update(args)
                     end
                 end
             end
-        elseif not (status.statPositive("activeMovementAbilities") or math.__jumpDisabled or math.__sitting) then
+        elseif not (status.statPositive("activeMovementAbilities") or globals.jumpDisabled or globals.sitting) then
             if lrInput and not mcontroller.jumping() and checkWall(lrInput) then
                 grabWall(lrInput, args.moves)
-            elseif math.__parkour and (jumpActivated or wallGrabKeys or (self.lastSitting and not math.__sitting)) and checkWall("background") and
-              (not (math.__isGlider or ((math.__shadowFlight --[[ or math.__noLegs ]] ) and args.moves.run))) then
-                if ((not mcontroller.groundMovement()) or wallGrabKeys) and not (math.__firingGrapple or math.__grappled) then
+            elseif globals.parkour and (jumpActivated or wallGrabKeys or (self.lastSitting and not globals.sitting)) and checkWall("background") and
+              (not (globals.isGlider or ((globals.shadowFlight --[[ or globals.noLegs ]] ) and args.moves.run))) then
+                if ((not mcontroller.groundMovement()) or wallGrabKeys) and not (globals.firingGrapple or globals.grappled) then
                     grabWall("background", args.moves)
                 end
-            elseif jumpActivated and canMultiJump() and (not (math.__parkour and not math.__fezTech)) and (not (math.__fezTech and args.moves.down)) and
-              (not math.__winged) and (not math.__shadowRun) then
+            elseif jumpActivated and canMultiJump() and (not (globals.parkour and not globals.fezTech)) and (not (globals.fezTech and args.moves.down)) and
+              (not globals.winged) and (not globals.shadowRun) then
                 doMultiJump()
-                if math.__fezTech then
+                if globals.fezTech then
                     animator.burstParticleEmitter("wallSlide.left")
                     animator.burstParticleEmitter("wallSlide.right")
                 end
             end
         end
 
-        math.__upsideDown = false
+        globals.upsideDown = false
         self.canCling = false
         if self.wall == "background" and mcontroller.zeroG() then
             local pos = mcontroller.position()
@@ -337,7 +339,7 @@ function update(args)
                 local offsetPos = vec2.add(pos, offset)
                 local tilePos = {math.floor(offsetPos[1]), math.floor(offsetPos[2])}
                 if world.pointCollision(offsetPos, self.wallCollisionSet) or world.tileIsOccupied(tilePos, true, false) then
-                    math.__upsideDown = true
+                    globals.upsideDown = true
                     self.canCling = true
                 end
             end
@@ -346,7 +348,7 @@ function update(args)
                 local offsetPos = vec2.add(pos, offset)
                 local tilePos = {math.floor(offsetPos[1]), math.floor(offsetPos[2])}
                 if world.pointCollision(offsetPos, self.wallCollisionSet) or world.tileIsOccupied(tilePos, true, false) then
-                    math.__upsideDown = false
+                    globals.upsideDown = false
                     self.canCling = false
                 end
             end
@@ -355,7 +357,7 @@ function update(args)
                 local offsetPos = vec2.add(pos, offset)
                 local tilePos = {math.floor(offsetPos[1]), math.floor(offsetPos[2])}
                 if world.pointCollision(offsetPos, self.wallCollisionSet) or world.tileIsOccupied(tilePos, true, false) then
-                    math.__upsideDown = false
+                    globals.upsideDown = false
                     self.canCling = true
                 end
             end
@@ -364,35 +366,35 @@ function update(args)
                 local offsetPos = vec2.add(pos, offset)
                 local tilePos = {math.floor(offsetPos[1]), math.floor(offsetPos[2])}
                 if world.pointCollision(offsetPos, self.wallCollisionSet) or world.tileIsOccupied(tilePos, true, false) then
-                    math.__upsideDown = false
+                    globals.upsideDown = false
                     self.canCling = false
                 end
             end
         end
 
-        self.lastSitting = math.__sitting
+        self.lastSitting = globals.sitting
 
-        if (math.__doThrusterAnims or shadowed) and (not lounging) and (not math.__flyboardActive) then
-            if not (math.__paramotor or math.__fezTech or math.__garyTech or math.__avosiWings) then
+        if (globals.doThrusterAnims or shadowed) and (not lounging) and (not globals.flyboardActive) then
+            if not (globals.paramotor or globals.fezTech or globals.garyTech or globals.avosiWings) then
                 animator.setParticleEmitterActive("wallSlide.left", true)
                 animator.setParticleEmitterActive("wallSlide.right", true)
             end
             if not self.thrusterSoundPlaying then
                 animator.setSoundPool(
                   "wallSlideLoop", {
-                      math.__shadowRun and "/sfx/weather/blizzard.ogg" or (math.__fezTech and "/sfx/tech/tech_hoverloop.ogg" or
-                        (math.__garyTech and "/sfx/weather/sandstorm.ogg" or
-                          (math.__paramotor and "/sfx/objects/propeller.ogg" or "/sfx/tech/tech_rocketboots.ogg")))
+                      globals.shadowRun and "/sfx/weather/blizzard.ogg" or (globals.fezTech and "/sfx/tech/tech_hoverloop.ogg" or
+                        (globals.garyTech and "/sfx/weather/sandstorm.ogg" or
+                          (globals.paramotor and "/sfx/objects/propeller.ogg" or "/sfx/tech/tech_rocketboots.ogg")))
                   }
                 )
-                animator.setSoundVolume("wallSlideLoop", (math.__paramotor and not (math.__fezTech or math.__garyTech)) and 2.5 or 1)
-                animator.setSoundPitch("wallSlideLoop", (math.__fezTech or math.__garyTech) and 1.5 or 1)
+                animator.setSoundVolume("wallSlideLoop", (globals.paramotor and not (globals.fezTech or globals.garyTech)) and 2.5 or 1)
+                animator.setSoundPitch("wallSlideLoop", (globals.fezTech or globals.garyTech) and 1.5 or 1)
                 animator.playSound("wallSlideLoop", -1)
                 self.thrusterSoundPlaying = true
             end
         else
             if self.lastDoAnims then
-                if not math.__paramotor then
+                if not globals.paramotor then
                     animator.setParticleEmitterActive("wallSlide.left", false)
                     animator.setParticleEmitterActive("wallSlide.right", false)
                 end
@@ -409,22 +411,22 @@ function update(args)
             self.resetSounds = false
         end
 
-        if math.__wingFlap then
+        if globals.wingFlap then
             animator.setSoundPool("wallSlideLoop", {"/sfx/npc/monsters/batong_flap4.ogg"})
             animator.setSoundVolume("wallSlideLoop", 2)
             animator.setSoundPitch("wallSlideLoop", 0.5 + (math.random() / 2))
             animator.playSound("wallSlideLoop", 0)
             self.resetSounds = true
-            math.__wingFlap = false
+            globals.wingFlap = false
         end
 
-        if math.__doSkateSound and mcontroller.groundMovement() and not lounging then
+        if globals.doSkateSound and mcontroller.groundMovement() and not lounging then
             if not self.lastDoSkateSound then
-                animator.setSoundPool("wallSlideLoop", {math.__fezTech and "/sfx/tech/tech_sprint_loop1.ogg" or "/sfx/projectiles/iceorb_loop.ogg"})
-                animator.setSoundVolume("wallSlideLoop", math.__fezTech and 2 or 1)
+                animator.setSoundPool("wallSlideLoop", {globals.fezTech and "/sfx/tech/tech_sprint_loop1.ogg" or "/sfx/projectiles/iceorb_loop.ogg"})
+                animator.setSoundVolume("wallSlideLoop", globals.fezTech and 2 or 1)
                 animator.setSoundPitch("wallSlideLoop", 0.8)
                 animator.playSound("wallSlideLoop", -1)
-                if math.__fezTech then
+                if globals.fezTech then
                     animator.setParticleEmitterActive("wallSlide.left", true)
                     animator.setParticleEmitterActive("wallSlide.right", true)
                 end
@@ -440,7 +442,7 @@ function update(args)
             end
         end
 
-        if math.__flyboardActive and not (lounging or mcontroller.liquidMovement() or mcontroller.zeroG()) then
+        if globals.flyboardActive and not (lounging or mcontroller.liquidMovement() or mcontroller.zeroG()) then
             if not self.lastFlyboardActive then
                 animator.setSoundPool("wallSlideLoop", {"/sfx/tools/chainsaw_idle.ogg"})
                 animator.setSoundVolume("wallSlideLoop", 1)
@@ -458,9 +460,9 @@ function update(args)
             end
         end
 
-        self.lastDoAnims = (math.__doThrusterAnims or shadowed) and (not lounging) and (not math.__flyboardActive)
-        self.lastDoSkateSound = math.__doSkateSound and mcontroller.groundMovement() and not lounging
-        self.lastFlyboardActive = math.__flyboardActive and not (lounging or mcontroller.liquidMovement() or mcontroller.zeroG())
+        self.lastDoAnims = (globals.doThrusterAnims or shadowed) and (not lounging) and (not globals.flyboardActive)
+        self.lastDoSkateSound = globals.doSkateSound and mcontroller.groundMovement() and not lounging
+        self.lastFlyboardActive = globals.flyboardActive and not (lounging or mcontroller.liquidMovement() or mcontroller.zeroG())
         self.previousJump = args.moves.jump
     end
 end
@@ -487,7 +489,7 @@ function checkWall(wall)
     if wall then
         local pos = mcontroller.position()
         local wallCheck = 0
-        local wallSensors = (math.__parkour and mcontroller.zeroG()) and self.zeroGWallSensors or self.wallSensors
+        local wallSensors = (globals.parkour and mcontroller.zeroG()) and self.zeroGWallSensors or self.wallSensors
         -- local wallSensorCount = #wallSensors.background
         for n, offset in pairs(wallSensors[wall]) do
             -- world.debugPoint(
@@ -517,7 +519,7 @@ end
 
 function doWallJump()
     mcontroller.controlJump(true)
-    if math.__shadowRun or math.__parkourThrusters or math.__fezTech then
+    if globals.shadowRun or globals.parkourThrusters or globals.fezTech then
         local jumpSpeedMult = status.stat("jumpAdder") + 1
         mcontroller.setYVelocity(30 * jumpSpeedMult)
     end
@@ -528,22 +530,22 @@ function doWallJump()
     else
         animator.burstParticleEmitter("wallJump." .. self.wall)
     end
-    if not (math.__parkour and (not math.__parkourThrusters)) then
+    if not (globals.parkour and (not globals.parkourThrusters)) then
         if self.wall ~= "background" then mcontroller.setXVelocity(self.wall == "left" and self.wallJumpXVelocity or -self.wallJumpXVelocity) end
     end
     releaseWall()
 end
 
 function grabWall(wall, moves)
-    if (not math.__sphereActive) then
+    if (not globals.sphereActive) then
         local wallGrabKeys = self.shiftHeld or moves.up or moves.down
         self.wall = wall
-        self.wallGrabFreezeTimer = (math.__bouncy or (not wallGrabKeys)) and 0.05 or self.wallGrabFreezeTime
+        self.wallGrabFreezeTimer = (globals.bouncy or (not wallGrabKeys)) and 0.05 or self.wallGrabFreezeTime
         self.shiftLocked = self.shiftHeld
         self.wallReleaseTimer = 0
         mcontroller.setVelocity({0, 0})
-        if not math.__parkour then tech.setToolUsageSuppressed(true) end
-        tech.setParentState(math.__sitting and "sit" or "fly")
+        if not globals.parkour then tech.setToolUsageSuppressed(true) end
+        tech.setParentState(globals.sitting and "sit" or "fly")
         animator.playSound("wallGrab")
     end
 end

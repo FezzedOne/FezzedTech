@@ -2,6 +2,8 @@ require "/tech/distortionsphere/distortionsphere.lua"
 require "/scripts/util.lua"
 
 function init()
+  require("/scripts/util/globals.lua")
+
   initCommonParameters()
 
   self.chargePitchAdjust = config.getParameter("chargePitchAdjust")
@@ -26,7 +28,7 @@ function uninit()
 end
 
 function update(args)
-  math.__sphereActive = self.active
+  globals.sphereActive = self.active
 
   restoreStoredPosition()
 
@@ -114,5 +116,5 @@ function stopChargeEffects()
 end
 
 function uninit()
-  math.__sphereActive = nil
+  globals.sphereActive = nil
 end

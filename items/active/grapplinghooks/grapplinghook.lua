@@ -3,6 +3,8 @@ require "/scripts/vec2.lua"
 require "/scripts/rope.lua"
 
 function init()
+    require("/scripts/util/globals.lua")
+
     self.fireOffset = config.getParameter("fireOffset")
     self.ropeOffset = config.getParameter("ropeOffset")
     self.ropeVisualOffset = config.getParameter("ropeVisualOffset")
@@ -38,8 +40,8 @@ function init()
     self.previousFireMode = nil
     self.relProjPos = nil
 
-    math.__firingGrapple = false
-    math.__grappled = nil
+    globals.firingGrapple = false
+    globals.grappled = nil
 end
 
 function angleDiff(a, b)
@@ -51,13 +53,13 @@ end
 
 function uninit()
     cancel()
-    math.__grappled = nil
+    globals.grappled = nil
 end
 
 function update(dt, fireMode, shiftHeld, moves)
-    if math.__jumpFiring and self.jumpFireMode then fireMode = self.jumpFireMode end
+    if globals.jumpFiring and self.jumpFireMode then fireMode = self.jumpFireMode end
 
-    if fireMode == "primary" or self.projectileId then math.__firingGrapple = true end
+    if fireMode == "primary" or self.projectileId then globals.firingGrapple = true end
 
     if self.autoFireTime and fireMode == "primary" then -- Autofire mode for grappling hooks.
         local autoFireTime = tonumber(self.autoFireTime) or 0.5
@@ -116,10 +118,10 @@ function update(dt, fireMode, shiftHeld, moves)
 
     if self.anchored then
         local reelOutLength = self.reelOutLength and math.max(self.reelOutLength, 1) or 1
-        math.__grappled = self.ropeLength / reelOutLength
+        globals.grappled = self.ropeLength / reelOutLength
         swing(moves)
     else
-        math.__grappled = nil
+        globals.grappled = nil
         activeItem.setArmAngle(self.aimAngle)
     end
 end
@@ -175,7 +177,7 @@ function fire()
 
     if self.projectileId then
         animator.playSound("fire")
-        if not math.__parkour then status.setPersistentEffects("grapplingHook" .. activeItem.hand(), {{stat = "activeMovementAbilities", amount = 0.5}}) end
+        if not globals.parkour then status.setPersistentEffects("grapplingHook" .. activeItem.hand(), {{stat = "activeMovementAbilities", amount = 0.5}}) end
     end
 end
 
@@ -186,7 +188,7 @@ function cancel()
     self.projectilePosition = nil
     self.anchored = false
     self.relProjPos = nil
-    math.__firingGrapple = false
+    globals.firingGrapple = false
     updateRope({})
     status.clearPersistentEffects("grapplingHook" .. activeItem.hand())
 end
@@ -239,7 +241,7 @@ function swing(moves)
             mcontroller.controlApproachVelocityAlongAngle(vec2.angle(pullDirection), 0, self.controlForce, true)
         end
 
-        if math.__parkour and (mcontroller.yVelocity() <= -35) then mcontroller.controlApproachVelocity({0, -35}, 200) end
+        if globals.parkour and (mcontroller.yVelocity() <= -35) then mcontroller.controlApproachVelocity({0, -35}, 200) end
 
         if not status.statusProperty("roleplayMode") then
             if moves.jump and not (self.previousMoves.jump) then
