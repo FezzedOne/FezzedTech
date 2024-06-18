@@ -68,7 +68,6 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
 end
 
 function init()
-    if xsb and not entity then sb.logWarn("[FIXME] Add entity callbacks here!") end
     require("/scripts/util/globals.lua")
 
     if xsb or starExtensions then
