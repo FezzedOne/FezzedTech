@@ -3,12 +3,14 @@ require "/scripts/vec2.lua"
 require "/scripts/poly.lua"
 
 function init()
+    require("/scripts/util/globals.lua")
+
     movementArray = {false, false, false, false, false, false, true}
     message.setHandler("checkJumping", function(_, sameClient) if sameClient then return movementArray end end)
 
-    math.__tech = tech
-    math.__tech.args = {moves = {}}
-    math.__status = status
+    globals.tech = tech
+    globals.tech.args = {moves = {}}
+    globals.status = status
 
     self.multiJumpCount = config.getParameter("multiJumpCount")
     self.multiJumpModifier = config.getParameter("multiJumpModifier")
@@ -31,7 +33,7 @@ end
 function uninit() releaseWall() end
 
 function update(args)
-    math.__tech.args = args
+    globals.tech.args = args
     movementArray = {
         args.moves.jump and not args.moves.down, args.moves.left, args.moves.right, args.moves.up, args.moves.down, args.moves.jump, args.moves.run
     }
