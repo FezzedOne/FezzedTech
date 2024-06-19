@@ -1,17 +1,37 @@
 -- FezzedTech loading script --
 
-if xsb then
-    sb.logInfo("[FezzedTech] Detected xSB-2 v" .. xsb.version() .. ".")
-else
-    sb.logInfo("[FezzedTech] Detected OpenStarbound or similar.")
+-- No logged errors on xSB-2.
+if xsb and assets.exists then 
+    if not assets.exists("/sipCustomItems.json") then
+        goto skipSip
+    end
 end
 
+-- Will log an error on OpenStarbound. Annoying.
 local sipFound, sipCustomItems = pcall(assets.json, "/sipCustomItems.json")
 if sipFound then
-    if pcall(assets.bytes, "/xSIP.lua") then
-        sb.logInfo("[FezzedTech] Detected xSIP; adding FezzedTech items...")
+    if xsb and assets.exists then
+        if assets.exists("/xSIP.lua") then
+            local xSipVersion = (function()
+                for _, path in ipairs(assets.loadedSources()) do
+                    local metadata = assets.sourceMetadata(path)
+                    if metadata and metadata.name == "xSIP" then
+                        return metadata.version or "[unknown version]"
+                    end
+                end
+                return "[unknown version]"
+            end) ()
+            sb.logInfo("[FezzedTech] Detected xSB-2 v%s and xSIP %s; adding FezzedTech items...", xsb.version(), xSipVersion)
+        else
+            goto skipSip
+        end
     else
-        goto skipSip
+        if pcall(assets.bytes, "/xSIP.lua") then
+            local detectedEngineMod = xsb and ("xSB-2 v" .. xsb.version()) or "OpenStarbound (or fork)"
+            sb.logInfo("[FezzedTech] Detected %s and xSIP; adding FezzedTech items...", detectedEngineMod)
+        else
+            goto skipSip
+        end
     end
 
     local function getPath(itemName)
