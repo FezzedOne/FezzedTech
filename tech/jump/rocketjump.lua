@@ -29,7 +29,7 @@ function uninit()
 end
 
 function update(args)
-  local techTable = globals.tech
+  local techTable = globals.tech or jobject{}
   techTable.args = args
   globals.tech = techTable
   movementArray = {args.moves.jump and not args.moves.down, args.moves.left, args.moves.right, args.moves.up, args.moves.down, args.moves.jump, args.moves.run}

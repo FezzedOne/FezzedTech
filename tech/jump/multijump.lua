@@ -13,7 +13,7 @@ function init()
 end
 
 function update(args)
-    local techTable = globals.tech
+    local techTable = globals.tech or jobject{}
     techTable.args = args
     globals.tech = techTable
     movementArray = {

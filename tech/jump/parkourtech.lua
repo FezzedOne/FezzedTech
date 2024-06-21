@@ -156,7 +156,7 @@ function update(args)
 
         globals.onWall = self.wall
 
-        local techTable = globals.tech
+        local techTable = globals.tech or jobject{}
         techTable.args = args
         globals.tech = techTable
         movementArray = {
