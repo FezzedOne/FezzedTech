@@ -12,9 +12,7 @@ function init()
     end
   )
 
-  globals.tech = jobject{}
-  globals.tech.args = { moves = {} }
-  globals.status = status
+  globals.tech = jobject({ args = jobject({ moves = jarray({}) }) })
 
   self.chargeTime = config.getParameter("chargeTime")
   self.boostTime = config.getParameter("boostTime")

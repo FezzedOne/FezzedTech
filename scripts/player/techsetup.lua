@@ -651,8 +651,6 @@ function init()
     self.humanEmotes = humanLeglessConfig.emoteDirectives2
     self.humanHairDirs = humanLeglessConfig.hairDirectives
     self.humanHairEnd = humanLeglessConfig.hairDirectivesEnd
-
-    globals.player = player
 end
 
 function update()

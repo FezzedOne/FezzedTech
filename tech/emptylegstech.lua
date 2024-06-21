@@ -6,9 +6,7 @@ function init()
         if sameClient then return movementArray end
     end)
 
-    globals.tech = jobject{}
-    globals.tech.args = { moves = {} }
-    globals.status = status
+    globals.tech = jobject({ args = jobject({ moves = jarray({}) }) })
 end
 function uninit() end
 function update(args)
