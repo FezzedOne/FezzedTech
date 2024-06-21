@@ -231,8 +231,6 @@ function renoInit()
     globals.bouncy = false
     globals.avosiWings = false
 
-    globals.playerMController = mcontroller
-
     if status.statusProperty("roleplayMode") and (not status.statusProperty("ignoreFezzedTech")) then
         local rpStatusEffects = {
             { effectiveMultiplier = 0, stat = "fallDamageMultiplier" },
