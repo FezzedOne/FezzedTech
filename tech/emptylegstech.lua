@@ -10,7 +10,9 @@ function init()
 end
 function uninit() end
 function update(args)
-    globals.tech.args = args
+    local techTable = globals.tech
+    techTable.args = args
+    globals.tech = techTable
 
     -- jumpMove = (status.statusProperty("flight") and (not (mcontroller.groundMovement() or mcontroller.liquidMovement())) and
     --              (args.moves.left or args.moves.right or args.moves.up or args.moves.down)) or args.moves["jump"]

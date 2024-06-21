@@ -13,7 +13,9 @@ function init()
 end
 
 function update(args)
-    globals.tech.args = args
+    local techTable = globals.tech
+    techTable.args = args
+    globals.tech = techTable
     movementArray = {
         args.moves.jump and not args.moves.down, args.moves.left, args.moves.right, args.moves.up, args.moves.down, args.moves.jump, args.moves.run
     }
