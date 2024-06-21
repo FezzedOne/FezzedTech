@@ -1,3 +1,12 @@
+if tech then
+	message.setHandler({
+		name = "setParentOffset",
+		passName = false,
+		localOnly = true
+	}, function(_, offset)
+		tech.setParentOffset(offset);
+	end);
+end;
 if not (entity or player or projectile) then
 	globals = {};
 	goto endGlobals;
@@ -18,15 +27,15 @@ goto endGlobals;
 local newGlobalTable = {};
 local newGlobalMetatable = {
 	__index = function(_, key)
-		local globals = world.getGlobal("fezzedTech") or jobject{};
-		globals[uuid] = globals[uuid] or jobject{};
-		return globals[uuid][key];
+		local xSBglobals = world.getGlobal("fezzedTech") or jobject({});
+		xSBglobals[uuid] = xSBglobals[uuid] or jobject({});
+		return xSBglobals[uuid][key];
 	end,
 	__newindex = function(_, key, value)
-		local globals = world.getGlobal("fezzedTech") or jobject{};
-		globals[uuid] = globals[uuid] or jobject{};
-		globals[uuid][key] = value;
-		world.setGlobal("fezzedTech", globals);
+		local xSBglobals = world.getGlobal("fezzedTech") or jobject({});
+		xSBglobals[uuid] = xSBglobals[uuid] or jobject({});
+		xSBglobals[uuid][key] = value;
+		world.setGlobal("fezzedTech", xSBglobals);
 	end
 };
 setmetatable(newGlobalTable, newGlobalMetatable);

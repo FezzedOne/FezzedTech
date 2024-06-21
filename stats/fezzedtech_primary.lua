@@ -63,6 +63,10 @@ local function backgroundExists(position, ignoreObjects, ignoreForeground)
     return tileOccupied
 end
 
+local function setParentOffset(offset)
+    world.sendEntityMessage(entity.id(), "setParentOffset", offset)
+end
+
 function renoInit()
     require("/scripts/util/globals.lua")
     -- Communicate the presence of FezzedTech to other mods and allow a way to disable it in scripts.
@@ -3226,15 +3230,15 @@ function renoUpdate(dt)
             end
             if tech and isOffset then
                 if globals.upsideDown then
-                    tech.setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
+                    setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
                 else
                     local potFlopping = isFlopping and fezzedTechVars.largePotted and fezzedTechVars.collisionMatch
-                    tech.setParentOffset({ 0, (potFlopping and -0.3 or -1) * fezzedTechVars.charScale })
+                    setParentOffset({ 0, (potFlopping and -0.3 or -1) * fezzedTechVars.charScale })
                 end
             elseif tech then
-                if self.lastIsOffset ~= isOffset then tech.setParentOffset({ 0, 0 }) end
+                if self.lastIsOffset ~= isOffset then setParentOffset({ 0, 0 }) end
             end
-        elseif tech then
+        elseif tech and not xsb then
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
                     tech.setToolUsageSuppressed(true)
