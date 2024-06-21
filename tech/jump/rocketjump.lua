@@ -12,7 +12,7 @@ function init()
     end
   )
 
-  globals.tech = tech
+  globals.tech = jobject{}
   globals.tech.args = { moves = {} }
   globals.status = status
 

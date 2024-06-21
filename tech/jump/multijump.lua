@@ -4,7 +4,7 @@ function init()
     movementArray = {false, false, false, false, false, false, true}
     message.setHandler("checkJumping", function(_, sameClient) if sameClient then return movementArray end end)
 
-    globals.tech = tech
+    globals.tech = jobject{}
     globals.tech.args = {moves = {}}
     globals.status = status
 

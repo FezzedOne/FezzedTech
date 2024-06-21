@@ -18,13 +18,13 @@ goto endGlobals;
 local newGlobalTable = {};
 local newGlobalMetatable = {
 	__index = function(_, key)
-		local globals = world.getGlobal("fezzedTech");
-		globals[uuid] = globals[uuid] or jobject({});
+		local globals = world.getGlobal("fezzedTech") or jobject{};
+		globals[uuid] = globals[uuid] or jobject{};
 		return globals[uuid][key];
 	end,
 	__newindex = function(_, key, value)
-		local globals = world.getGlobal("fezzedTech");
-		globals[uuid] = globals[uuid] or jobject({});
+		local globals = world.getGlobal("fezzedTech") or jobject{};
+		globals[uuid] = globals[uuid] or jobject{};
 		globals[uuid][key] = value;
 		world.setGlobal("fezzedTech", globals);
 	end

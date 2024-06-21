@@ -550,7 +550,7 @@ function renoUpdate(dt)
         if interface and tech and fezzedTechVars.rulerEnabled and (starExtensions or xsb) then
             local vars = {}
             vars.pP = mcontroller.position()
-            vars.aP = tech.aimPosition()
+            vars.aP = tech.aimPosition and tech.aimPosition() or player.aimPosition()
             vars.dist = world.distance(vars.pP, vars.aP)
             vars.distMag = math.sqrt(vars.dist[1] ^ 2 + vars.dist[2] ^ 2) / 2
             vars.roundedDist = math.floor(vars.distMag + 0.5)
@@ -588,7 +588,7 @@ function renoUpdate(dt)
         
         if self.isSitting then mcontroller.controlApproachVelocity({ 0, 0 }, 1000000, true, true) end
         
-        local lounging = (tech and tech.parentLounging()) or self.isSitting or globals.sitting or globals.isSitting
+        local lounging = (tech and tech.parentLounging and tech.parentLounging()) or (player.isLounging and player.isLounging()) or self.isSitting or globals.sitting or globals.isSitting
         
         self.oldCharScale = fezzedTechVars.charScale
 
