@@ -14,8 +14,6 @@ function update(args)
     techTable.args = args
     globals.tech = techTable
 
-    -- jumpMove = (status.statusProperty("flight") and (not (mcontroller.groundMovement() or mcontroller.liquidMovement())) and
-    --              (args.moves.left or args.moves.right or args.moves.up or args.moves.down)) or args.moves["jump"]
     movementArray = {
         [1] = args.moves.jump and not args.moves.down,
         [2] = args.moves.left,

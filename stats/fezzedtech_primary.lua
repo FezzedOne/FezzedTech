@@ -64,6 +64,7 @@ local function backgroundExists(position, ignoreObjects, ignoreForeground)
 end
 
 local function setParentOffset(offset)
+    if offset == nil then sb.logWarn("Passed nil to setParentOffset!") end
     world.sendEntityMessage(entity.id(), "setParentOffset", offset)
 end
 
@@ -509,7 +510,7 @@ function renoUpdate(dt)
 
         if not (starExtensions or xsb) then status.setStatusProperty("roleplayRuler", nil) end
 
-        if input then -- Check if xSB-2, OpenStarbound or StarExtensions is loaded.
+        if input then -- Check if xStarbound, OpenStarbound or StarExtensions is loaded.
             if input.bindUp("fezzedTechs", "sitBind") then self.isSitting = not self.isSitting end
             if input.bindUp("fezzedTechs", "roleplayModeBind") then
                 local roleplayModeStatus = status.statusProperty("roleplayMode")

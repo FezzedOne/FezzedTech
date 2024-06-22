@@ -1,6 +1,6 @@
 -- FezzedTech loading script --
 
--- No logged errors on xSB-2.
+-- No logged errors on xStarbound.
 if xsb and assets.exists then 
     if not assets.exists("/sipCustomItems.json") then
         goto skipSip
@@ -21,13 +21,13 @@ if sipFound then
                 end
                 return "[unknown version]"
             end) ()
-            sb.logInfo("[FezzedTech] Detected xSB-2 v%s and xSIP %s; adding FezzedTech items...", xsb.version(), xSipVersion)
+            sb.logInfo("[FezzedTech] Detected xStarbound v%s and xSIP %s; adding FezzedTech items...", xsb.version(), xSipVersion)
         else
             goto skipSip
         end
     else
         if pcall(assets.bytes, "/xSIP.lua") then
-            local detectedEngineMod = xsb and ("xSB-2 v" .. xsb.version()) or "OpenStarbound (or fork)"
+            local detectedEngineMod = xsb and ("xStarbound v" .. xsb.version()) or "OpenStarbound (or fork)"
             sb.logInfo("[FezzedTech] Detected %s and xSIP; adding FezzedTech items...", detectedEngineMod)
         else
             goto skipSip

@@ -4,13 +4,13 @@ This mod includes scripts and tech that allow the use of my custom items as inte
 
 ## Requirements
 
-Some features of this mod require xSB-2 xClient, StarExtensions 1.9.11+, or `starlight` v1.0+:
+Some features of this mod require xStarbound xClient, StarExtensions 1.9.11+, or `starlight` v1.0+:
 
-- xSB-2 is available [here](https://github.com/FezzedOne/xSB-2/releases).
+- xStarbound is available [here](https://github.com/FezzedOne/xStarbound/releases).
 - StarExtensions is available [here](https://github.com/StarExtensions/StarExtensions/releases).
 - `starlight` is available [here](https://gitee.com/erodeesfleurs/starlight/releases).
 
-If you're not on Windows, use xSB-2 or use WINE to play `starlight` or Starbound with StarExtensions.
+If you're not on Windows, use xStarbound or use WINE to play `starlight` or Starbound with StarExtensions.
 
 **Note:** FezzedTech is *NOT* compatible with OpenStarbound and will cause it to crash on startup.
 
@@ -22,7 +22,7 @@ FezzedTech comes with the following keybinds:
 - **Roleplay mode:** Press `Z` (by default) to activate roleplay mode. In this mode, your character has a more "realistic" jump height, but can still climb onto platforms, blocks and objects just above him if next to them.
 - **Roleplay ruler:** Press `X` by default to activate the roleplay ruler. This ruler gives distances from your character in metres and feet, and also gives a GURPS range modifier. Currently doesn't work on OpenStarbound.
 
-These keybinds require xSB-2, OpenStarbound or StarExtensions. If using xSB-2 or OpenStarbound, you can rebind them in the **Mod Binds** dialogue. StarExtensions users must type in `/binds` while in game to access the dialogue.
+These keybinds require xStarbound, OpenStarbound or StarExtensions. If using xStarbound or OpenStarbound, you can rebind them in the **Mod Binds** dialogue. StarExtensions users must type in `/binds` while in game to access the dialogue.
 
 ## Built-in commands
 

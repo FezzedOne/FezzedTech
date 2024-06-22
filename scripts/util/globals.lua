@@ -3,7 +3,7 @@ if tech then
 		name = "setParentOffset",
 		passName = false,
 		localOnly = true
-	}, function(_, offset)
+	}, function(offset)
 		tech.setParentOffset(offset);
 	end);
 end;
