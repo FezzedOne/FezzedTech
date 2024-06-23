@@ -11,7 +11,7 @@ if not (entity or player or projectile) then
 	globals = {};
 	goto endGlobals;
 end;
-local uuid = player and player.uniqueId() or ((projectile and world.entityUniqueId(projectile.sourceEntity()) or entity.uniqueId());
+local uuid = player and player.uniqueId() or (projectile and world.entityUniqueId(projectile.sourceEntity()) or entity.uniqueId());
 if not uuid then
 	globals = {};
 	goto endGlobals;
