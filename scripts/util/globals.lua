@@ -1,10 +1,8 @@
 if tech then
-	message.setHandler({
-		name = "setParentOffset",
-		passName = false,
-		localOnly = true
-	}, function(offset)
-		tech.setParentOffset(offset);
+	message.setHandler("setParentOffset", function(_, isLocal, offset)
+		if isLocal then
+			tech.setParentOffset(offset);
+		end
 	end);
 end;
 if not (entity or player or projectile) then
