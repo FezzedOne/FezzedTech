@@ -510,7 +510,7 @@ function renoUpdate(dt)
 
         if not (starExtensions or xsb) then status.setStatusProperty("roleplayRuler", nil) end
 
-        if input then -- Check if xStarbound, OpenStarbound or StarExtensions is loaded.
+        if input then -- Check if xClient, OpenStarbound or StarExtensions is loaded.
             if input.bindUp("fezzedTechs", "sitBind") then self.isSitting = not self.isSitting end
             if input.bindUp("fezzedTechs", "roleplayModeBind") then
                 local roleplayModeStatus = status.statusProperty("roleplayMode")
@@ -524,7 +524,7 @@ function renoUpdate(dt)
                 interface.queueMessage(statusMessage, 5, 1)
             end
             if input.bindUp("fezzedTechs", "roleplayRulerBind") and (starExtensions or xsb) then
-                -- The ruler tooltip requires StarExtensions.
+                -- The ruler tooltip requires xClient or StarExtensions.
                 local roleplayModeStatus = status.statusProperty("roleplayRuler")
                 status.setStatusProperty("roleplayRuler", not roleplayModeStatus)
                 local statusMessage
@@ -588,11 +588,15 @@ function renoUpdate(dt)
         end
 
         if not tech then self.isSitting = false end
-        
+
         if self.isSitting then mcontroller.controlApproachVelocity({ 0, 0 }, 1000000, true, true) end
-        
-        local lounging = (tech and tech.parentLounging and tech.parentLounging()) or (player.isLounging and player.isLounging()) or self.isSitting or globals.sitting or globals.isSitting
-        
+
+        local lounging = (tech and tech.parentLounging and tech.parentLounging())
+            or (player.isLounging and player.isLounging())
+            or self.isSitting
+            or globals.sitting
+            or globals.isSitting
+
         self.oldCharScale = fezzedTechVars.charScale
 
         fezzedTechVars.jumpSpeedMult = fezzedTechVars.scarecrowPole and fezzedTechVars.jumpSpeedMult
@@ -3221,7 +3225,9 @@ function renoUpdate(dt)
                         mcontroller.controlCrouch()
                         player.setOverrideState("duck")
                     else
-                        player.setOverrideState(fezzedTechVars.collisionMatch and "sit" or "stand")
+                        player.setOverrideState(
+                            fezzedTechVars.collisionMatch and "sit" or (self.isSitting and "sit" or "stand")
+                        )
                     end
                 end
             else
@@ -3248,7 +3254,9 @@ function renoUpdate(dt)
                         mcontroller.controlCrouch()
                         tech.setParentState("Duck")
                     else
-                        tech.setParentState(fezzedTechVars.collisionMatch and "Sit" or "Stand")
+                        tech.setParentState(
+                            fezzedTechVars.collisionMatch and "Sit" or (self.isSitting and "sit" or "Stand")
+                        )
                     end
                 end
             else

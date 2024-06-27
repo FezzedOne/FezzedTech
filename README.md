@@ -4,15 +4,15 @@ This mod includes scripts and tech that allow the use of my custom items as inte
 
 ## Requirements
 
-Some features of this mod require xStarbound xClient, StarExtensions 1.9.11+, or `starlight` v1.0+:
+Some features of this mod require xClient 3.0+, StarExtensions 1.9.11+, or `starlight` v1.0+:
 
-- xStarbound is available [here](https://github.com/FezzedOne/xStarbound/releases).
+- xClient is available [here](https://github.com/xStarbound/xStarbound/releases).
 - StarExtensions is available [here](https://github.com/StarExtensions/StarExtensions/releases).
 - `starlight` is available [here](https://gitee.com/erodeesfleurs/starlight/releases).
 
-If you're not on Windows, use xStarbound or use WINE to play `starlight` or Starbound with StarExtensions.
+If you're not on Windows, use xClient or use WINE to play `starlight` or Starbound with StarExtensions.
 
-**Note:** FezzedTech is *NOT* compatible with OpenStarbound and will cause it to crash on startup.
+**Note:** FezzedTech is *NOT* compatible with OpenStarbound and will cause it to crash on startup!
 
 ## Keybinds
 
@@ -22,7 +22,7 @@ FezzedTech comes with the following keybinds:
 - **Roleplay mode:** Press `Z` (by default) to activate roleplay mode. In this mode, your character has a more "realistic" jump height, but can still climb onto platforms, blocks and objects just above him if next to them.
 - **Roleplay ruler:** Press `X` by default to activate the roleplay ruler. This ruler gives distances from your character in metres and feet, and also gives a GURPS range modifier. Currently doesn't work on OpenStarbound.
 
-These keybinds require xStarbound, OpenStarbound or StarExtensions. If using xStarbound or OpenStarbound, you can rebind them in the **Mod Binds** dialogue. StarExtensions users must type in `/binds` while in game to access the dialogue.
+These keybinds require xClient or StarExtensions. If using xStarbound or OpenStarbound, you can rebind them in the **Mod Binds** dialogue. StarExtensions users must type in `/binds` while in game to access the dialogue.
 
 ## Built-in commands
 
@@ -38,7 +38,7 @@ The last two *optional* arguments to all the above commands are explained below:
 - `<is public>:` Takes any of the following values: `local`, `global`, `party`, `no`. If any other value is specified, this argument is skipped (defaulting to `no`) and the value is parsed as a `<comment>` instead (see below). If `no`, only you see the results of the dice roll. If `local`, the roll is automatically posted in local chat. If `global`, it's posted in global chat. If `party`, it's posted in party chat.
 - `<comment>:` An optional comment for the roll which shows up in the roll message. If you're using StarExtensions, surround the argument with quotes if the comment has spaces in it. If using xSB, no quotes are required (and in fact they'll show up in the message).
 
-The commands require xSB v2.0.0+ or StarExtensions to work.
+The commands require xClient or StarExtensions to work.
 
 ## Uninstallation
 
