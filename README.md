@@ -20,7 +20,7 @@ FezzedTech comes with the following keybinds:
 
 - **Sitting:** Press `G` (by default) to sit. Should be obvious what this one does.
 - **Roleplay mode:** Press `Z` (by default) to activate roleplay mode. In this mode, your character has a more "realistic" jump height, but can still climb onto platforms, blocks and objects just above him if next to them.
-- **Roleplay ruler:** Press `X` by default to activate the roleplay ruler. This ruler gives distances from your character in metres and feet, and also gives a GURPS range modifier.
+- **Roleplay ruler:** Press `X` by default to activate the roleplay ruler. This ruler gives distances from your character in metres and feet, and also gives a GURPS range modifier. Not supported on `starlight`.
 
 These keybinds require xClient or StarExtensions. If using xStarbound, you can rebind them in the **Mod Binds** dialogue. StarExtensions users must type in `/binds` while in game to access the dialogue.
 
