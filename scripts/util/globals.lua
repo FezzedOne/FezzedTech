@@ -1,7 +1,27 @@
 if tech then
+	message.setHandler("techAimPosition", function(_, isLocal)
+		if isLocal then
+			return tech.aimPosition();
+		end
+	end);
+	message.setHandler("techParentLounging", function(_, isLocal)
+		if isLocal then
+			return tech.parentLounging();
+		end
+	end);
 	message.setHandler("setParentOffset", function(_, isLocal, offset)
 		if isLocal then
 			tech.setParentOffset(offset);
+		end
+	end);
+	message.setHandler("setParentState", function(_, isLocal, state)
+		if isLocal then
+			tech.setParentState(state);
+		end
+	end);
+	message.setHandler("setParentDirectives", function(_, isLocal, directives)
+		if isLocal then
+			tech.setParentState(directives);
 		end
 	end);
 end;

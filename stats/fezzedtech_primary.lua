@@ -63,8 +63,23 @@ local function backgroundExists(position, ignoreObjects, ignoreForeground)
     return tileOccupied
 end
 
+local function parentLounging()
+    return world.sendEntityMessage(entity.id(), "techParentLounging"):result()
+end
+
+local function aimPosition()
+    return world.sendEntityMessage(entity.id(), "techAimPosition"):result()
+end
+
+local function setParentDirectives(directives)
+    world.sendEntityMessage(entity.id(), "setParentDirectives", directives)
+end
+
+local function setParentState(state)
+    world.sendEntityMessage(entity.id(), "setParentState", state)
+end
+
 local function setParentOffset(offset)
-    if offset == nil then sb.logWarn("Passed nil to setParentOffset!") end
     world.sendEntityMessage(entity.id(), "setParentOffset", offset)
 end
 
@@ -501,9 +516,9 @@ function renoUpdate(dt)
         if globals.isParkourTech and tech then
             if self.oldCharScale ~= fezzedTechVars.charScale then
                 if fezzedTechVars.charScale ~= 1 then
-                    tech.setParentDirectives("?scalenearest=" .. tostring(fezzedTechVars.charScale))
+                    setParentDirectives("?scalenearest=" .. tostring(fezzedTechVars.charScale))
                 else
-                    tech.setParentDirectives()
+                    setParentDirectives()
                 end
             end
         end
@@ -550,10 +565,10 @@ function renoUpdate(dt)
             status.clearPersistentEffects("rpTech")
         end
 
-        if interface and tech and fezzedTechVars.rulerEnabled and (starExtensions or xsb) then
+        if interface and fezzedTechVars.rulerEnabled and (starExtensions or xsb) then
             local vars = {}
             vars.pP = mcontroller.position()
-            vars.aP = tech.aimPosition and tech.aimPosition() or player.aimPosition()
+            vars.aP = player.aimPosition and player.aimPosition() or aimPosition()
             vars.dist = world.distance(vars.pP, vars.aP)
             vars.distMag = math.sqrt(vars.dist[1] ^ 2 + vars.dist[2] ^ 2) / 2
             vars.roundedDist = math.floor(vars.distMag + 0.5)
@@ -591,7 +606,7 @@ function renoUpdate(dt)
 
         if self.isSitting then mcontroller.controlApproachVelocity({ 0, 0 }, 1000000, true, true) end
 
-        local lounging = (tech and tech.parentLounging and tech.parentLounging())
+        local lounging = (parentLounging())
             or (player.isLounging and player.isLounging())
             or self.isSitting
             or globals.sitting
@@ -699,7 +714,7 @@ function renoUpdate(dt)
             self.tapKeyDir = false
         end
 
-        -- if interface and tech and rawAvosiJetpack and (flightTime > 0) then
+        -- if interface and rawAvosiJetpack and (flightTime > 0) then
         --     local roundedTimeFloat = math.floor(((self.flightTimer * 10 * (1 / timeMult)) + 0.5)) / 10
         --     local roundedTime = (flightPackBoosting and "^cyan;" or "^white;") .. tostring(roundedTimeFloat) .. " s^reset;"
         --     if self.flightTimer == 0 then roundedTime = "^red;OVERHEATING!^reset;" end
@@ -712,12 +727,10 @@ function renoUpdate(dt)
         --     interface.setCursorText(roundedTime)
         -- end
 
-        -- if tech then
-        --     local cPos = tech.aimPosition()
-        --     local tilePosDebug = {math.floor(cPos[1] + 0.5), math.floor(cPos[2] + 0.5)}
-        --     local tileOccupied = world.tileIsOccupied(tilePosDebug, false, false)
-        --     if tileOccupied then interface.setCursorText("Tile occupied.") end
-        -- end
+        -- local cPos = aimPosition()
+        -- local tilePosDebug = {math.floor(cPos[1] + 0.5), math.floor(cPos[2] + 0.5)}
+        -- local tileOccupied = world.tileIsOccupied(tilePosDebug, false, false)
+        -- if tileOccupied then interface.setCursorText("Tile occupied.") end
 
         local checkDistRaw = fezzedTechVars.checkDist
         fezzedTechVars.checkDist = self.moves[1] and fezzedTechVars.checkDist
@@ -767,11 +780,11 @@ function renoUpdate(dt)
                 if xsb and player.setOverrideState then
                     player.setOverrideState("swim")
                 else
-                    tech.setParentState("Swim")
+                    setParentState("Swim")
                 end
             else
                 if self.lastSwimming ~= swimming then
-                    if not (xsb and player.setOverrideState) then tech.setParentState() end
+                    if not (xsb and player.setOverrideState) then setParentState() end
                 end
             end
             self.lastSwimming = swimming
@@ -788,11 +801,11 @@ function renoUpdate(dt)
                 if xsb and player.setOverrideState then
                     player.setOverrideState("fall")
                 else
-                    tech.setParentState("Fall")
+                    setParentState("Fall")
                 end
             else
                 if self.lastAvosiFlying ~= avosiFlying then
-                    if not (xsb and player.setOverrideState) then tech.setParentState() end
+                    if not (xsb and player.setOverrideState) then setParentState() end
                 end
             end
             self.lastAvosiFlying = avosiFlying
@@ -2465,7 +2478,7 @@ function renoUpdate(dt)
 
             mcontroller.controlParameters(movementParameters)
 
-            if globals.flyboardActive and (tech and not lounging) then
+            if globals.flyboardActive and (not lounging) then
                 self.flyboardTimer = math.max(0, self.flyboardTimer - dt)
                 local scale = fezzedTechVars.charScale or 1
                 if self.flyboardTimer == 0 then
@@ -2524,7 +2537,7 @@ function renoUpdate(dt)
                 if xsb and player.setOverrideState then
                     player.setOverrideState("idle")
                 elseif tech then
-                    tech.setParentState("Stand")
+                    setParentState("Stand")
                 end
             end
         end
@@ -2541,7 +2554,7 @@ function renoUpdate(dt)
                     -- sb.logInfo("Projectile kill status: %s", world.sendEntityMessage(self.flyboardProjectileId, "kill"):succeeded())
                 end
                 self.flyboardProjectileId = nil
-                if tech and not (xsb and player.setOverrideState) then tech.setParentState() end
+                if not (xsb and player.setOverrideState) then setParentState() end
             end
             globals.flyboardActive = false
         end
@@ -2573,8 +2586,8 @@ function renoUpdate(dt)
                         { position = mPos, color = lightColour, pointLight = true }
                     )
                 end
-                if tech and not xsb and not fezzedTechVars.darkNightVision then
-                    local aimP = tech.aimPosition()
+                if not xsb and not fezzedTechVars.darkNightVision then
+                    local aimP = aimPosition()
                     aimP = world.lineCollision(mPos, aimP, { "Block", "Dynamic", "Slippery" }) or aimP
                     world.sendEntityMessage(entity.id(), "addLightSource", {
                         position = aimP,
@@ -2608,7 +2621,7 @@ function renoUpdate(dt)
         end
 
         if (not self.isSkating) and self.lastSkating then
-            if not (xsb and player.setOverrideState) then tech.setParentState() end
+            if not (xsb and player.setOverrideState) then setParentState() end
         end
 
         self.lastSkating = self.isSkating
@@ -3102,19 +3115,19 @@ function renoUpdate(dt)
                 end
             else
                 if bouncyOnGround then
-                    tech.setParentState(
+                    setParentState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "Duck"
                             or (aXVel > 1.5 and "Stand" or "Stand")
                     ) -- "Walk" or "Stand"
                 elseif largePottedOnGround and not fezzedTechVars.scarecrowPoleRaw then
-                    tech.setParentState("Stand")
+                    setParentState("Stand")
                 elseif fezzedTechVars.pottedClimbing then
-                    tech.setParentState("Fall")
+                    setParentState("Fall")
                 elseif
                     not (bouncyOnGround or fezzedTechVars.pottedClimbing or largePottedOnGround)
                     and self.lastPoseOverriding
                 then
-                    tech.setParentState()
+                    setParentState()
                 end
             end
         end
@@ -3178,7 +3191,7 @@ function renoUpdate(dt)
                                     or "idle"
                             )
                         else
-                            tech.setParentState(
+                            setParentState(
                                 (self.moves[5] or self.crouching) and "Duck"
                                     or (self.moves[2] or self.moves[3]) and "Walk"
                                     or "Stand"
@@ -3233,7 +3246,7 @@ function renoUpdate(dt)
             else
                 if self.lastIsSitting ~= isSitting then player.setOverrideState() end
             end
-            if tech and isOffset then
+            if isOffset then
                 if globals.upsideDown then
                     setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
                 else
@@ -3243,37 +3256,37 @@ function renoUpdate(dt)
             elseif tech then
                 if self.lastIsOffset ~= isOffset then setParentOffset({ 0, 0 }) end
             end
-        elseif tech and not xsb then
+        elseif not xsb then
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
-                    tech.setToolUsageSuppressed(true)
-                    tech.setParentState(globals.holdingGlider and "Stand" or "Swim")
+                    setToolUsageSuppressed(true)
+                    setParentState(globals.holdingGlider and "Stand" or "Swim")
                 else
-                    tech.setToolUsageSuppressed()
+                    setToolUsageSuppressed()
                     if (self.moves[5] or self.crouching) and not self.isSitting then
                         mcontroller.controlCrouch()
-                        tech.setParentState("Duck")
+                        setParentState("Duck")
                     else
-                        tech.setParentState(
+                        setParentState(
                             fezzedTechVars.collisionMatch and "Sit" or (self.isSitting and "sit" or "Stand")
                         )
                     end
                 end
             else
                 if self.lastIsSitting ~= isSitting then
-                    tech.setToolUsageSuppressed()
-                    tech.setParentState()
+                    setToolUsageSuppressed()
+                    setParentState()
                 end
             end
             if isOffset then
                 if globals.upsideDown then
-                    tech.setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
+                    setParentOffset({ 0, -1.275 * fezzedTechVars.charScale })
                 else
                     local potFlopping = isFlopping and fezzedTechVars.largePotted and fezzedTechVars.collisionMatch
-                    tech.setParentOffset({ 0, (potFlopping and -0.3 or -1) * fezzedTechVars.charScale })
+                    setParentOffset({ 0, (potFlopping and -0.3 or -1) * fezzedTechVars.charScale })
                 end
             else
-                if self.lastIsOffset ~= isOffset then tech.setParentOffset({ 0, 0 }) end
+                if self.lastIsOffset ~= isOffset then setParentOffset({ 0, 0 }) end
             end
         end
 
