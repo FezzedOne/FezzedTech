@@ -9,6 +9,11 @@ if tech then
 			return tech.parentLounging();
 		end
 	end);
+	message.setHandler("setToolUsageSuppressed", function(_, isLocal, suppressed)
+		if isLocal then
+			tech.setToolUsageSuppressed(suppressed);
+		end
+	end);
 	message.setHandler("setParentOffset", function(_, isLocal, offset)
 		if isLocal then
 			tech.setParentOffset(offset);

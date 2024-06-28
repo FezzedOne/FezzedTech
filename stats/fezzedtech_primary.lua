@@ -83,6 +83,10 @@ local function setParentOffset(offset)
     world.sendEntityMessage(entity.id(), "setParentOffset", offset)
 end
 
+local function setToolUsageSuppressed(suppressed)
+    world.sendEntityMessage(entity.id(), "setToolUsageSuppressed", suppressed)
+end
+
 function renoInit()
     require("/scripts/util/globals.lua")
     -- Communicate the presence of FezzedTech to other mods and allow a way to disable it in scripts.
