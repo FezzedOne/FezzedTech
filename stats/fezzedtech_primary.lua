@@ -63,25 +63,15 @@ local function backgroundExists(position, ignoreObjects, ignoreForeground)
     return tileOccupied
 end
 
-local function parentLounging()
-    return world.sendEntityMessage(entity.id(), "techParentLounging"):result()
-end
+local function parentLounging() return world.sendEntityMessage(entity.id(), "techParentLounging"):result() end
 
-local function aimPosition()
-    return world.sendEntityMessage(entity.id(), "techAimPosition"):result()
-end
+local function aimPosition() return world.sendEntityMessage(entity.id(), "techAimPosition"):result() end
 
-local function setParentDirectives(directives)
-    world.sendEntityMessage(entity.id(), "setParentDirectives", directives)
-end
+local function setParentDirectives(directives) world.sendEntityMessage(entity.id(), "setParentDirectives", directives) end
 
-local function setParentState(state)
-    world.sendEntityMessage(entity.id(), "setParentState", state)
-end
+local function setParentState(state) world.sendEntityMessage(entity.id(), "setParentState", state) end
 
-local function setParentOffset(offset)
-    world.sendEntityMessage(entity.id(), "setParentOffset", offset)
-end
+local function setParentOffset(offset) world.sendEntityMessage(entity.id(), "setParentOffset", offset) end
 
 local function setToolUsageSuppressed(suppressed)
     world.sendEntityMessage(entity.id(), "setToolUsageSuppressed", suppressed)
@@ -530,6 +520,10 @@ function renoUpdate(dt)
         if not (starExtensions or xsb) then status.setStatusProperty("roleplayRuler", nil) end
 
         if input then -- Check if xClient, OpenStarbound or StarExtensions is loaded.
+            if xsb and (player.uniqueId() ~= world.primaryPlayerUuid()) then
+                -- On xClient, only pass binds to the primary player.
+                goto skipBinds
+            end
             if input.bindUp("fezzedTechs", "sitBind") then self.isSitting = not self.isSitting end
             if input.bindUp("fezzedTechs", "roleplayModeBind") then
                 local roleplayModeStatus = status.statusProperty("roleplayMode")
@@ -554,6 +548,7 @@ function renoUpdate(dt)
                 end
                 interface.queueMessage(statusMessage, 5, 1)
             end
+            ::skipBinds::
         end
 
         if status.statusProperty("roleplayMode") then
@@ -2482,7 +2477,7 @@ function renoUpdate(dt)
 
             mcontroller.controlParameters(movementParameters)
 
-            if globals.flyboardActive and (not lounging) then
+            if globals.flyboardActive and not lounging then
                 self.flyboardTimer = math.max(0, self.flyboardTimer - dt)
                 local scale = fezzedTechVars.charScale or 1
                 if self.flyboardTimer == 0 then
@@ -3271,9 +3266,7 @@ function renoUpdate(dt)
                         mcontroller.controlCrouch()
                         setParentState("Duck")
                     else
-                        setParentState(
-                            fezzedTechVars.collisionMatch and "Sit" or (self.isSitting and "sit" or "Stand")
-                        )
+                        setParentState(fezzedTechVars.collisionMatch and "Sit" or (self.isSitting and "sit" or "Stand"))
                     end
                 end
             else
