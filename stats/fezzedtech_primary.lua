@@ -1535,6 +1535,7 @@ function renoUpdate(dt)
                     or fezzedTechVars.swimTail
                     or fezzedTechVars.bouncy
                     or fezzedTechVars.mertail
+                    or fezzedTechVars.ghostTail
                     or potCrawling
                     or fezzedTechVars.windSailing
                     or globals.gliderActive
@@ -1561,7 +1562,7 @@ function renoUpdate(dt)
 
                 if
                     (fezzedTechVars.fireworks and vars.rocketAngling)
-                    or ((fezzedTechVars.avosiFlight or fezzedTechVars.avosiWingedArms or fezzedTechVars.avosiJetpack or fezzedTechVars.windSailing) and wingAngling)
+                    or ((fezzedTechVars.avosiFlight or fezzedTechVars.avosiWingedArms or fezzedTechVars.ghostTail or fezzedTechVars.avosiJetpack or fezzedTechVars.windSailing) and wingAngling)
                     or vars.bouncing
                     or vars.flopping
                     or fezzedTechVars.swimTail
@@ -2030,7 +2031,7 @@ function renoUpdate(dt)
                     end
                     if not mcontroller.onGround() then
                         potParameters.walkSpeed = fezzedTechVars.ghostTail and 6 or 7.5
-                        potParameters.runSpeed = fezzedTechVars.ghostTail and 15 or 15
+                        potParameters.runSpeed = (fezzedTechVars.ghostTail and 15 or 15) * fezzedTechVars.runSpeedMult
                     end
                     if fezzedTechVars.swimTail then
                         potParameters.walkSpeed = fezzedTechVars.shadowRun and 15 or 10
@@ -2176,7 +2177,7 @@ function renoUpdate(dt)
                 end
                 if not mcontroller.onGround() then
                     movementParameters.walkSpeed = fezzedTechVars.ghostTail and 6 or 10
-                    movementParameters.runSpeed = fezzedTechVars.ghostTail and 15 or 15
+                    movementParameters.runSpeed = (fezzedTechVars.ghostTail and 15 or 15) * fezzedTechVars.runSpeedMult
                 else
                     if fezzedTechVars.ghostTail or fezzedTechVars.soarHop or fezzedTechVars.opTail then
                         if fezzedTechVars.legless then
@@ -3096,8 +3097,11 @@ function renoUpdate(dt)
 
         if tech then
             local aXVel = math.abs(mcontroller.xVelocity())
+            local aVel = vec2.mag(mcontroller.velocity())
             if xsb and player.setOverrideState then
-                if bouncyOnGround then
+                if fezzedTechVars.ghostTail then
+                    player.setOverrideState("idle")
+                elseif bouncyOnGround then
                     player.setOverrideState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "duck"
                             or (aXVel > 1.5 and "idle" or "idle")
@@ -3106,14 +3110,13 @@ function renoUpdate(dt)
                     player.setOverrideState("idle")
                 elseif fezzedTechVars.pottedClimbing then
                     player.setOverrideState("swimIdle")
-                elseif
-                    not (bouncyOnGround or fezzedTechVars.pottedClimbing or largePottedOnGround)
-                    and self.lastPoseOverriding
-                then
+                elseif self.lastPoseOverriding then
                     player.setOverrideState()
                 end
             else
-                if bouncyOnGround then
+                if fezzedTechVars.ghostTail then
+                    setParentState("Stand")
+                elseif bouncyOnGround then
                     setParentState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "Duck"
                             or (aXVel > 1.5 and "Stand" or "Stand")
@@ -3122,16 +3125,13 @@ function renoUpdate(dt)
                     setParentState("Stand")
                 elseif fezzedTechVars.pottedClimbing then
                     setParentState("Fall")
-                elseif
-                    not (bouncyOnGround or fezzedTechVars.pottedClimbing or largePottedOnGround)
-                    and self.lastPoseOverriding
-                then
+                elseif self.lastPoseOverriding then
                     setParentState()
                 end
             end
         end
 
-        self.lastPoseOverriding = bouncyOnGround or fezzedTechVars.pottedClimbing or largePottedOnGround
+        self.lastPoseOverriding = bouncyOnGround or fezzedTechVars.pottedClimbing or largePottedOnGround or fezzedTechVars.ghostTail
 
         globals.rpJumping = self.collisionTimer ~= 0
 
