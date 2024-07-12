@@ -3111,7 +3111,7 @@ function renoUpdate(dt)
             if xsb and player.setOverrideState then
                 if fezzedTechVars.ghostTail then
                     local crouchState = mcontroller.groundMovement() and "duck" or "swimIdle"
-                    player.setOverrideState((self.moves[5] or self.crouching) and "duck" or "idle")
+                    player.setOverrideState((self.moves[5] or self.crouching) and crouchState or "idle")
                 elseif bouncyOnGround then
                     player.setOverrideState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "duck"
