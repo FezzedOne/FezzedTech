@@ -2017,7 +2017,6 @@ function renoUpdate(dt)
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed[2]))
                             else
                                 local swimFloor = (mcontroller.groundMovement()) and 2 or 0
-                                sb.setLogMap("[FezzedTech]^000;", "Should be hovering.")
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
                             end
                             if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
