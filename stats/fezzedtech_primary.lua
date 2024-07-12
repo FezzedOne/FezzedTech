@@ -3110,7 +3110,7 @@ function renoUpdate(dt)
             local aVel = vec2.mag(mcontroller.velocity())
             if xsb and player.setOverrideState then
                 if fezzedTechVars.ghostTail then
-                    player.setOverrideState("idle")
+                    player.setOverrideState((self.moves[5] or self.crouching) and "duck" or "idle")
                 elseif bouncyOnGround then
                     player.setOverrideState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "duck"
@@ -3125,7 +3125,7 @@ function renoUpdate(dt)
                 end
             else
                 if fezzedTechVars.ghostTail then
-                    setParentState("Stand")
+                    setParentState((self.moves[5] or self.crouching) and "Duck" or "Stand")
                 elseif bouncyOnGround then
                     setParentState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "Duck"
