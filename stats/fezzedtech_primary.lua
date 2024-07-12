@@ -1990,6 +1990,7 @@ function renoUpdate(dt)
                         end
                     end
                     if fezzedTechVars.ghostTail or fezzedTechVars.swimTail then
+                        sb.setLogMap("[FezzedTech]^000;", "First code path running.")
                         potParameters.airFriction = 5
                         potParameters.minimumLiquidPercentage = 0.2
                         potParameters.airJumpProfile.jumpSpeed = 10
@@ -2001,7 +2002,7 @@ function renoUpdate(dt)
                             fezzedTechVars.swimTail and (self.moves[7] and 8 or 5) or 5,
                             fezzedTechVars.swimTail and (self.moves[7] and 8 or 5) or 5,
                         }
-                        if fezzedTechVars.ghostTail then vec2.mul(moveSpeed, fezzedTechVars.runSpeedMult) end
+                        if fezzedTechVars.ghostTail then moveSpeed = vec2.mul(moveSpeed, fezzedTechVars.runSpeedMult) end
                         if self.soarDt == 0 then
                             if self.moves[2] then
                                 mcontroller.setXVelocity(math.min(mcontroller.xVelocity(), -moveSpeed[1]))
@@ -2013,7 +2014,7 @@ function renoUpdate(dt)
                             elseif self.moves[4] then
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed[2]))
                             else
-                                local swimFloor = (mcontroller.groundMovement() and fezzedTechVars.swimTail) and 2 or 0
+                                local swimFloor = (mcontroller.groundMovement()) and 2 or 0
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
                             end
                             if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
@@ -2152,6 +2153,13 @@ function renoUpdate(dt)
                     local moveSpeed = fezzedTechVars.swimTail and (self.moves[7] and 25 or 10) or 10
                     if fezzedTechVars.ghostTail then moveSpeed = moveSpeed * fezzedTechVars.runSpeedMult end
                     if self.soarDt == 0 then
+                        if fezzedTechVars.ghostTail and (self.moves[2] or self.moves[3]) and not (self.moves[2] and self.moves[3]) then
+                            if self.moves[2] then
+                                mcontroller.setXVelocity(math.min(mcontroller.xVelocity(), -moveSpeed))
+                            else
+                                mcontroller.setXVelocity(math.max(mcontroller.xVelocity(), moveSpeed))
+                            end
+                        end
                         if self.moves[5] then
                             mcontroller.setYVelocity(
                                 math.min(
@@ -2162,7 +2170,7 @@ function renoUpdate(dt)
                         elseif self.moves[4] then
                             mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed))
                         else
-                            local swimFloor = (mcontroller.groundMovement() and fezzedTechVars.swimTail) and 2 or 0
+                            local swimFloor = (mcontroller.groundMovement()) and 2 or 0
                             mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
                         end
                         if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
