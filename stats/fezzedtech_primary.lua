@@ -2021,7 +2021,7 @@ function renoUpdate(dt)
                                 })
                             end
                         else
-                            mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), -moveSpeed))
+                            mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), -moveSpeed[2]))
                         end
                         potParameters.walkSpeed = 6
                         potParameters.runSpeed = 15
