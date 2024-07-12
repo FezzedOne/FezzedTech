@@ -1783,7 +1783,9 @@ function renoUpdate(dt)
 
                 if colliding and not (fezzedTechVars.bouncy or vars.flopping) then
                     -- Constrain the target angle instead of zeroing it.
-                    self.targetAngle = -(self.targetAngle >= math.pi * 0.5 and (-math.pi + self.targetAngle) or self.targetAngle)
+                    self.targetAngle = -(
+                        self.targetAngle >= math.pi * 0.5 and (-math.pi + self.targetAngle) or self.targetAngle
+                    )
                     self.targetAngle = math.min(math.max(self.targetAngle, -0.1 * math.pi), 0.1 * math.pi)
                 end
             else
@@ -2005,7 +2007,7 @@ function renoUpdate(dt)
                             fezzedTechVars.swimTail and (self.moves[7] and 8 or 5) or 5,
                             fezzedTechVars.swimTail and (self.moves[7] and 8 or 5) or 5,
                         }
-                        if fezzedTechVars.ghostTail then
+                        if fezzedTechVars.ghostTail and self.moves[7] then
                             moveSpeed = vec2.mul(moveSpeed, fezzedTechVars.runSpeedMult)
                         end
                         if self.soarDt == 0 or fezzedTechVars.ghostTail then
@@ -2158,7 +2160,9 @@ function renoUpdate(dt)
                     movementParameters.airJumpProfile.multiJump = true -- self.soarDt > 0
                     movementParameters.airJumpProfile.autoJump = self.moves[6] or self.soarDt == 0 -- true
                     local moveSpeed = fezzedTechVars.swimTail and (self.moves[7] and 25 or 10) or 10
-                    if fezzedTechVars.ghostTail then moveSpeed = moveSpeed * fezzedTechVars.runSpeedMult end
+                    if fezzedTechVars.ghostTail and self.moves[7] then
+                        moveSpeed = moveSpeed * fezzedTechVars.runSpeedMult
+                    end
                     if self.soarDt == 0 or fezzedTechVars.ghostTail then
                         if
                             fezzedTechVars.ghostTail
