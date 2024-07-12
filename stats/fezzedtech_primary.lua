@@ -2011,10 +2011,12 @@ function renoUpdate(dt)
                             moveSpeed = vec2.mul(moveSpeed, fezzedTechVars.runSpeedMult)
                         end
                         if self.soarDt == 0 or fezzedTechVars.ghostTail then
-                            if self.moves[2] then
-                                mcontroller.setXVelocity(math.min(mcontroller.xVelocity(), -moveSpeed[1]))
-                            elseif self.moves[3] then
-                                mcontroller.setXVelocity(math.max(mcontroller.xVelocity(), moveSpeed[1]))
+                            if not mcontroller.groundMovement() then
+                                if self.moves[2] then
+                                    mcontroller.setXVelocity(math.min(mcontroller.xVelocity(), -moveSpeed[1]))
+                                elseif self.moves[3] then
+                                    mcontroller.setXVelocity(math.max(mcontroller.xVelocity(), moveSpeed[1]))
+                                end
                             end
                             if self.moves[5] then
                                 mcontroller.setYVelocity(math.min(mcontroller.yVelocity(), -moveSpeed[2]))
@@ -2051,6 +2053,10 @@ function renoUpdate(dt)
                         if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
                             potParameters.liquidFriction = self.thrustersActive and 0 or 1.5
                         end
+                    end
+                    if fezzedTechVars.ghostTail and mcontroller.onGround() then
+                        potParameters.walkSpeed = 0
+                        potParameters.runSpeed = 0
                     end
                 else
                     if mcontroller.falling() or mcontroller.flying() then
@@ -2168,6 +2174,7 @@ function renoUpdate(dt)
                             fezzedTechVars.ghostTail
                             and (self.moves[2] or self.moves[3])
                             and not (self.moves[2] and self.moves[3])
+                            and not mcontroller.groundMovement()
                         then
                             if self.moves[2] then
                                 mcontroller.setXVelocity(math.min(mcontroller.xVelocity(), -moveSpeed))
@@ -2206,13 +2213,13 @@ function renoUpdate(dt)
                     movementParameters.runSpeed = (fezzedTechVars.ghostTail and 15 or 15) * fezzedTechVars.runSpeedMult
                 else
                     if fezzedTechVars.ghostTail or fezzedTechVars.soarHop or fezzedTechVars.opTail then
-                        if fezzedTechVars.legless then
+                        -- if fezzedTechVars.legless then
                             movementParameters.walkSpeed = 0
                             movementParameters.runSpeed = 0
-                        else
-                            movementParameters.walkSpeed = fezzedTechVars.ghostTail and 6 or 3
-                            movementParameters.runSpeed = fezzedTechVars.ghostTail and 15 or 6
-                        end
+                        -- else
+                        --     movementParameters.walkSpeed = fezzedTechVars.ghostTail and 6 or 3
+                        --     movementParameters.runSpeed = fezzedTechVars.ghostTail and 15 or 6
+                        -- end
                     end
                 end
                 if fezzedTechVars.swimTail then
