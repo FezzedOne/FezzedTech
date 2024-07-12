@@ -1781,7 +1781,10 @@ function renoUpdate(dt)
                     end
                 end
 
-                if colliding and not (fezzedTechVars.bouncy or vars.flopping) then self.targetAngle = 0 end
+                if colliding and not (fezzedTechVars.bouncy or vars.flopping) then
+                    -- Constrain the target angle instead of zeroing it.
+                    self.targetAngle = math.min(math.max(self.targetAngle, -0.1 * math.pi), 0.1 * math.pi)
+                end
             else
                 self.targetAngle = 0
             end
