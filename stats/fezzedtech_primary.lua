@@ -3110,6 +3110,7 @@ function renoUpdate(dt)
             local aVel = vec2.mag(mcontroller.velocity())
             if xsb and player.setOverrideState then
                 if fezzedTechVars.ghostTail then
+                    local crouchState = mcontroller.groundMovement() and "duck" or "swimIdle"
                     player.setOverrideState((self.moves[5] or self.crouching) and "duck" or "idle")
                 elseif bouncyOnGround then
                     player.setOverrideState(
