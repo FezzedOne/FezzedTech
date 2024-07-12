@@ -2001,6 +2001,7 @@ function renoUpdate(dt)
                             fezzedTechVars.swimTail and (self.moves[7] and 8 or 5) or 5,
                             fezzedTechVars.swimTail and (self.moves[7] and 8 or 5) or 5,
                         }
+                        if fezzedTechVars.ghostTail then vec2.mul(moveSpeed, fezzedTechVars.runSpeedMult) end
                         if self.soarDt == 0 then
                             if self.moves[2] then
                                 mcontroller.setXVelocity(math.min(mcontroller.xVelocity(), -moveSpeed[1]))
@@ -2149,6 +2150,7 @@ function renoUpdate(dt)
                     movementParameters.airJumpProfile.multiJump = true -- self.soarDt > 0
                     movementParameters.airJumpProfile.autoJump = self.moves[6] or self.soarDt == 0 -- true
                     local moveSpeed = fezzedTechVars.swimTail and (self.moves[7] and 25 or 10) or 10
+                    if fezzedTechVars.ghostTail then moveSpeed = moveSpeed * fezzedTechVars.runSpeedMult end
                     if self.soarDt == 0 then
                         if self.moves[5] then
                             mcontroller.setYVelocity(
