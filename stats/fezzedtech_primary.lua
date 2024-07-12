@@ -1783,6 +1783,7 @@ function renoUpdate(dt)
 
                 if colliding and not (fezzedTechVars.bouncy or vars.flopping) then
                     -- Constrain the target angle instead of zeroing it.
+                    self.targetAngle = -(self.targetAngle >= math.pi * 0.5 and (-math.pi + self.targetAngle) or self.targetAngle)
                     self.targetAngle = math.min(math.max(self.targetAngle, -0.1 * math.pi), 0.1 * math.pi)
                 end
             else
@@ -1993,7 +1994,6 @@ function renoUpdate(dt)
                         end
                     end
                     if fezzedTechVars.ghostTail or fezzedTechVars.swimTail then
-                        sb.setLogMap("[FezzedTech]^000;", "First code path running.")
                         potParameters.airFriction = 5
                         potParameters.minimumLiquidPercentage = 0.2
                         potParameters.airJumpProfile.jumpSpeed = 10
