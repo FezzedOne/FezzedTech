@@ -26,7 +26,7 @@ if tech then
 	end);
 	message.setHandler("setParentDirectives", function(_, isLocal, directives)
 		if isLocal then
-			tech.setParentState(directives);
+			tech.setParentDirectives(directives);
 		end
 	end);
 end;
