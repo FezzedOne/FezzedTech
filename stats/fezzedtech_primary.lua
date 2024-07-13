@@ -3134,7 +3134,8 @@ function renoUpdate(dt)
             if xsb and player.setOverrideState then
                 if fezzedTechVars.ghostTail then
                     local crouchState = mcontroller.groundMovement() and "duck" or "swimIdle"
-                    player.setOverrideState((self.moves[5] or self.crouching) and crouchState or "idle")
+                    local destState = (self.moves[5] or self.crouching) and crouchState or "idle"
+                    player.setOverrideState(self.isSitting and "sit" or destState)
                 elseif bouncyOnGround then
                     player.setOverrideState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "duck"
@@ -3149,7 +3150,8 @@ function renoUpdate(dt)
                 end
             else
                 if fezzedTechVars.ghostTail then
-                    setParentState((self.moves[5] or self.crouching) and "Duck" or "Stand")
+                    local destState = (self.moves[5] or self.crouching) and "Duck" or "Stand"
+                    setParentState(self.isSitting and "Sit" or destState)
                 elseif bouncyOnGround then
                     setParentState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "Duck"
