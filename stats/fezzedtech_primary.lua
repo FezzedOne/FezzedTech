@@ -922,17 +922,6 @@ function renoUpdate(dt)
             ghostHover = false
         end
 
-        sb.setLogMap(
-            "[FezzedTech::Debug]^000;",
-            "groundDist = %s",
-            groundDist and "^green;true^reset;" or "^red;false^reset;"
-        )
-        sb.setLogMap(
-            "[FezzedTech::Debug]^001;",
-            "ghostHover = %s",
-            ghostHover and "^green;true^reset;" or "^red;false^reset;"
-        )
-
         local tileOcc = false
         local windTileOcc = false
         do
