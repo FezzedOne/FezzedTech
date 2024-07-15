@@ -268,9 +268,6 @@ function renoUpdate(dt)
         self.firstTick = false
     end
 
-    sb.setLogMap("[FezzedTech]^000;", "flightTimer = %s", tostring(self.flightTimer))
-    sb.setLogMap("[FezzedTech]^001;", "groundMovement = %s", tostring(mcontroller.groundMovement()))
-
     if status.statusProperty("ignoreFezzedTech") then
         globals.fezzedTechLoaded = false
 
