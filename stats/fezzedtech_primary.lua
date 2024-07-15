@@ -733,8 +733,7 @@ function renoUpdate(dt)
         -- if tileOccupied then interface.setCursorText("Tile occupied.") end
 
         local checkDistRaw = fezzedTechVars.checkDist
-        fezzedTechVars.checkDist = self.moves[1] and fezzedTechVars.checkDist
-            or (fezzedTechVars.checkDist <= 0 and 3 or math.min(fezzedTechVars.checkDist, 3))
+        fezzedTechVars.checkDist = self.moves[1] and checkDistRaw or (checkDistRaw <= 0 and 3 or checkDistRaw)
         checkDistRaw = fezzedTechVars.avosiJetpack and -2 or checkDistRaw
 
         fezzedTechVars.parkour = fezzedTechVars.parkour or fezzedTechVars.fezTech or fezzedTechVars.shadowRun
@@ -915,13 +914,24 @@ function renoUpdate(dt)
             vars.rightDist = vars.rightDist and vars.rightDist >= 1
             ghostHover = not not (vars.leftDist or vars.rightDist)
             -- if vars.leftDist and vars.rightDist then
-            --     groundDist = (vars.leftDist + vars.rightDist) / 2
+            --     ghostHover = (vars.leftDist + vars.rightDist) / 2
             -- else
-            --     groundDist = (vars.leftDist or vars.rightDist)
+            --     ghostHover = (vars.leftDist or vars.rightDist)
             -- end
         else
             ghostHover = true
         end
+
+        sb.setLogMap(
+            "[FezzedTech::Debug]^000;",
+            "groundDist = %s",
+            groundDist and "^green;true^reset;" or "^red;false^reset;"
+        )
+        sb.setLogMap(
+            "[FezzedTech::Debug]^001;",
+            "ghostHover = %s",
+            ghostHover and "^green;true^reset;" or "^red;false^reset;"
+        )
 
         local tileOcc = false
         local windTileOcc = false
@@ -2046,7 +2056,11 @@ function renoUpdate(dt)
                                 end
                             end
                             if self.moves[5] then
-                                mcontroller.setYVelocity(math.min(mcontroller.yVelocity(), -moveSpeed[2]))
+                                if (not fezzedTechVars.ghostTail) or not ghostHover then
+                                    mcontroller.setYVelocity(math.min(mcontroller.yVelocity(), -moveSpeed[2]))
+                                else
+                                    mcontroller.setYVelocity(0)
+                                end
                             elseif self.moves[4] then
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed[2]))
                             else
@@ -2216,12 +2230,16 @@ function renoUpdate(dt)
                             end
                         end
                         if self.moves[5] then
-                            mcontroller.setYVelocity(
-                                math.min(
-                                    mcontroller.yVelocity(),
-                                    -moveSpeed * ((fezzedTechVars.shadowRun and self.thrustersActive) and 3 or 1)
+                            if (not fezzedTechVars.ghostTail) or not ghostHover then
+                                mcontroller.setYVelocity(
+                                    math.min(
+                                        mcontroller.yVelocity(),
+                                        -moveSpeed * ((fezzedTechVars.shadowRun and self.thrustersActive) and 3 or 1)
+                                    )
                                 )
-                            )
+                            else
+                                mcontroller.setYVelocity(0)
+                            end
                         elseif self.moves[4] then
                             mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed))
                         else
