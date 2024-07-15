@@ -327,6 +327,7 @@ function renoUpdate(dt)
         fezzedTechVars.opTailStat = status.statPositive("opTail") or status.statusProperty("opTail")
         fezzedTechVars.opTail = fezzedTechVars.opTailStat and globals.isParkourTech
         fezzedTechVars.ghostTailStat = status.statPositive("ghostTail") or status.statusProperty("ghostTail")
+        fezzedTechVars.ghostTailHoverDist = status.stat("ghostTail") >= 2.0 and status.stat("ghostTail") or 2.0
         fezzedTechVars.ghostTail = fezzedTechVars.ghostTailStat and globals.isParkourTech
         fezzedTechVars.bouncyCrouch = status.statPositive("bouncy2")
         fezzedTechVars.bouncyRaw = status.statPositive("bouncy") or fezzedTechVars.bouncyCrouch
@@ -894,6 +895,32 @@ function renoUpdate(dt)
             -- end
         else
             groundDist = true
+        end
+
+        local ghostHover
+
+        if fezzedTechVars.ghostTail then
+            local vars = {}
+            vars.x, vars.y = table.unpack(mcontroller.position())
+            vars.checkWidth = 1.5
+            vars.left1, vars.left2 =
+                { vars.x - vars.checkWidth, vars.y },
+                { vars.x - vars.checkWidth, vars.y - fezzedTechVars.ghostTailHoverDist }
+            vars.right1, vars.right2 =
+                { vars.x + vars.checkWidth, vars.y },
+                { vars.x + vars.checkWidth, vars.y - fezzedTechVars.ghostTailHoverDist }
+            vars.leftDist = getClosestBlockYDistance(vars.left1, vars.left2, false)
+            vars.rightDist = getClosestBlockYDistance(vars.right1, vars.right2, false)
+            vars.leftDist = vars.leftDist and vars.leftDist >= 1
+            vars.rightDist = vars.rightDist and vars.rightDist >= 1
+            ghostHover = not not (vars.leftDist or vars.rightDist)
+            -- if vars.leftDist and vars.rightDist then
+            --     groundDist = (vars.leftDist + vars.rightDist) / 2
+            -- else
+            --     groundDist = (vars.leftDist or vars.rightDist)
+            -- end
+        else
+            ghostHover = true
         end
 
         local tileOcc = false
@@ -2023,13 +2050,16 @@ function renoUpdate(dt)
                             elseif self.moves[4] then
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed[2]))
                             else
-                                local nearGroundVelocity = groundDist and 0 or -10
-                                local swimFloor = (mcontroller.groundMovement())
-                                        and (fezzedTechVars.swimTail and 5 or 0)
-                                    or (mcontroller.liquidMovement() and 0 or nearGroundVelocity)
-                                if (not mcontroller.groundMovement()) or (not fezzedTechVars.ghostTail) then
-                                    mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
+                                local nearGround
+                                if fezzedTechVars.ghostTail then
+                                    nearGround = ghostHover
+                                else
+                                    nearGround = mcontroller.groundMovement()
                                 end
+                                local fallVelocity = groundDist and 0 or -10
+                                local floorVelocity = nearGround and 5
+                                    or (mcontroller.liquidMovement() and 0 or fallVelocity)
+                                mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), floorVelocity))
                             end
                             if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
                                 mcontroller.controlAcceleration({
@@ -2195,12 +2225,16 @@ function renoUpdate(dt)
                         elseif self.moves[4] then
                             mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed))
                         else
-                            local nearGroundVelocity = groundDist and 0 or -10
-                            local swimFloor = (mcontroller.groundMovement()) and (fezzedTechVars.swimTail and 5 or 0)
-                                or (mcontroller.liquidMovement() and 0 or nearGroundVelocity)
-                            if (not mcontroller.groundMovement()) or (not fezzedTechVars.ghostTail) then
-                                mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
+                            local nearGround
+                            if fezzedTechVars.ghostTail then
+                                nearGround = ghostHover
+                            else
+                                nearGround = mcontroller.groundMovement()
                             end
+                            local fallVelocity = groundDist and 0 or -10
+                            local floorVelocity = nearGround and 5
+                                or (mcontroller.liquidMovement() and 0 or fallVelocity)
+                            mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), floorVelocity))
                         end
                         if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
                             mcontroller.controlAcceleration({
