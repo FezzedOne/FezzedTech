@@ -268,6 +268,9 @@ function renoUpdate(dt)
         self.firstTick = false
     end
 
+    sb.setLogMap("[FezzedTech]^000;", "flightTimer = %s", tostring(self.flightTimer))
+    sb.setLogMap("[FezzedTech]^001;", "groundMovement = %s", tostring(mcontroller.groundMovement()))
+
     if status.statusProperty("ignoreFezzedTech") then
         globals.fezzedTechLoaded = false
 
@@ -2026,7 +2029,9 @@ function renoUpdate(dt)
                                 local swimFloor = (mcontroller.groundMovement())
                                         and (fezzedTechVars.swimTail and 5 or 0)
                                     or (mcontroller.liquidMovement() and 0 or -10)
-                                mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
+                                if (not mcontroller.groundMovement()) or (not fezzedTechVars.ghostTail) then
+                                    mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
+                                end
                             end
                             if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
                                 mcontroller.controlAcceleration({
@@ -2194,7 +2199,9 @@ function renoUpdate(dt)
                         else
                             local swimFloor = (mcontroller.groundMovement()) and (fezzedTechVars.swimTail and 5 or 0)
                                 or (mcontroller.liquidMovement() and 0 or -10)
-                            mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
+                            if (not mcontroller.groundMovement()) or (not fezzedTechVars.ghostTail) then
+                                mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
+                            end
                         end
                         if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
                             mcontroller.controlAcceleration({
