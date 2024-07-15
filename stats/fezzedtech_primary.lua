@@ -898,7 +898,7 @@ function renoUpdate(dt)
 
         local ghostHover
 
-        if fezzedTechVars.ghostTail then
+        if fezzedTechVars.ghostTail and fezzedTechVars.ghostTailHoverDist > 2 then
             local vars = {}
             vars.x, vars.y = table.unpack(mcontroller.position())
             vars.checkWidth = 1.5
@@ -919,7 +919,7 @@ function renoUpdate(dt)
             --     ghostHover = (vars.leftDist or vars.rightDist)
             -- end
         else
-            ghostHover = true
+            ghostHover = false
         end
 
         sb.setLogMap(
