@@ -2025,7 +2025,7 @@ function renoUpdate(dt)
                             else
                                 local swimFloor = (mcontroller.groundMovement())
                                         and (fezzedTechVars.swimTail and 5 or 2)
-                                    or 0
+                                    or -10
                                 mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
                             end
                             if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
@@ -2193,7 +2193,7 @@ function renoUpdate(dt)
                             mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), moveSpeed))
                         else
                             local swimFloor = (mcontroller.groundMovement()) and (fezzedTechVars.swimTail and 5 or 2)
-                                or 0
+                                or -10
                             mcontroller.setYVelocity(math.max(mcontroller.yVelocity(), swimFloor))
                         end
                         if fezzedTechVars.shadowRun and (self.moves[2] or self.moves[3]) then
