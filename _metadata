@@ -7,8 +7,10 @@
   "name" : "FezzedTech",
   "priority" : 99999,
   "requires" : [],
-  "scripts": {"postLoad": ["/fezzedtech-load.lua"]},
+  "scripts" : {
+    "postLoad" : ["/fezzedtech-load.lua"]
+  },
   "steamContentId" : "2962923060",
   "tags" : "Miscellaneous|Character Improvements",
-  "version" : "1.3"
+  "version" : "1.3.1"
 }
