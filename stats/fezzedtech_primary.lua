@@ -268,7 +268,7 @@ function renoUpdate(dt)
         self.firstTick = false
     end
 
-    if status.statusProperty("ignoreFezzedTech") then
+    if status.statusProperty("ignoreFezzedTech") or (not player) then -- An FU status script sets `player` to `nil` for no good reason.
         globals.fezzedTechLoaded = false
 
         if not status.statusProperty("ignoreFezzedTechAppearance") then
@@ -298,8 +298,6 @@ function renoUpdate(dt)
             status.setStatusProperty("legless", (noLegs or scarecrowPole) and not grandfatheredLeglessChar)
         end
     else
-        if not player then return end
-
         if xsb and player.setOverrideState then player.setOverrideState() end
 
         local mPos = mcontroller.position()
