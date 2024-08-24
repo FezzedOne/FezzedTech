@@ -268,7 +268,7 @@ function renoUpdate(dt)
         self.firstTick = false
     end
 
-    if status.statusProperty("ignoreFezzedTech") or (not player) then -- An FU status script sets `player` to `nil` for no good reason.
+    if (not player) or status.statusProperty("ignoreFezzedTech") then -- An FU status script sets `player` to `nil` for no good reason.
         globals.fezzedTechLoaded = false
 
         if not status.statusProperty("ignoreFezzedTechAppearance") then
