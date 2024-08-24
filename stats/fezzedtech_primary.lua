@@ -298,7 +298,7 @@ function renoUpdate(dt)
             status.setStatusProperty("legless", (noLegs or scarecrowPole) and not grandfatheredLeglessChar)
         end
     else
-        if not player then player = globals.player or {} end
+        if not player then return end
 
         if xsb and player.setOverrideState then player.setOverrideState() end
 
