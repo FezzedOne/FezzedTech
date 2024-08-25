@@ -298,6 +298,8 @@ function renoUpdate(dt)
             status.setStatusProperty("legless", (noLegs or scarecrowPole) and not grandfatheredLeglessChar)
         end
     else
+        player = player or {}
+
         if xsb and player.setOverrideState then player.setOverrideState() end
 
         local mPos = mcontroller.position()
