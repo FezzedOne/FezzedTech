@@ -3376,6 +3376,14 @@ function renoUpdate(dt)
             end
         end
 
+        if fezzedTechVars.gettingOverIt then
+            mcontroller.controlModifiers({
+                movementSuppressed = mcontroller.groundMovement()
+                    and not (mcontroller.liquidMovement() or mcontroller.zeroG())
+                    and fezzedTechVars.collisionMatch,
+            })
+        end
+
         self.lastIsSitting = isSitting
         self.lastIsOffset = isOffset
 
