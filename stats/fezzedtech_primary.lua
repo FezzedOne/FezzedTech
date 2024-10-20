@@ -1978,11 +1978,7 @@ function renoUpdate(dt)
                         and (not mcontroller.liquidMovement())
                         and fezzedTechVars.collisionMatch
                     then
-                        if
-                            self.jumpDt <= 0
-                            and not (fezzedTechVars.mertail or fezzedTechVars.largePotted)
-                            and not largeCollisionMatch
-                        then
+                        if self.jumpDt <= 0 and not (fezzedTechVars.mertail or fezzedTechVars.largePotted) then
                             mcontroller.controlJump()
                             -- if soarHop then
                             --     local dir = mcontroller.facingDirection()
@@ -2152,7 +2148,7 @@ function renoUpdate(dt)
                             or 0.4
                         )
                     then
-                        if not (fezzedTechVars.bouncy or fezzedTechVars.largePotted or largeCollisionMatch) then
+                        if largeCollisionMatch and not (fezzedTechVars.bouncy or fezzedTechVars.largePotted) then
                             mcontroller.controlJump()
                         end --  and (not self.running)
                         -- if soarHop then
