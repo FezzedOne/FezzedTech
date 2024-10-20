@@ -1484,6 +1484,7 @@ function renoUpdate(dt)
                     (self.moves[2] or self.moves[3] or self.moves[1])
                     and mcontroller.groundMovement()
                     and not activeMovementAbilities
+                    and collisionMatch
                 then
                     if self.jumpTimer == jumpInterval then
                         -- sb.logInfo("potted = %s", fezzedTechVars.potted)
@@ -1975,7 +1976,7 @@ function renoUpdate(dt)
                         (mcontroller.walking() or mcontroller.running())
                         and (mcontroller.groundMovement() or (not mcontroller.canJump()))
                         and (not mcontroller.liquidMovement())
-                        and not fezzedTechVars.collisionMatch
+                        and fezzedTechVars.collisionMatch
                     then
                         if
                             self.jumpDt <= 0
