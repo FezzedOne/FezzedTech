@@ -511,9 +511,9 @@ function renoUpdate(dt)
         if globals.isParkourTech and tech then
             if self.oldCharScale ~= fezzedTechVars.charScale then
                 if fezzedTechVars.charScale ~= 1 then
-                    setParentDirectives("?scalenearest=" .. tostring(fezzedTechVars.charScale))
+                    globals.characterScale = fezzedTechVars.charScale or 1
                 else
-                    setParentDirectives()
+                    globals.characterScale = 1
                 end
             end
         end

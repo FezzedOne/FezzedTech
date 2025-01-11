@@ -85,10 +85,13 @@ function update(args)
             and not globals.rpJumping
 
         local newDirectives = ""
+        if globals.characterScale then
+            newDirectives = "?scalenearest=" .. tostring(globals.characterScale)
+        end
         if shadowed then
-            newDirectives = "?border=3;00000060;00000020?multiply=303030a0"
+            newDirectives = newDirectives .. "?border=3;00000060;00000020?multiply=303030a0"
         elseif shadowJumping then
-            newDirectives = "?border=2;00000020;00000010"
+            newDirectives = newDirectives .. "?border=2;00000020;00000010"
         end
 
         if globals.upsideDown then newDirectives = newDirectives .. "?flipy" end
