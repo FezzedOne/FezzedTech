@@ -40,7 +40,7 @@ function rollDice(die) -- From https://github.com/brianherbert/dice/, with modif
         if not modifier then return nil end
 
         -- Make sure dice are properly random.
-        math.randomseed(os.clock() * 100000000000)
+        math.randomseed(math.floor(os.clock() * 100000000000))
 
         local roll, total = 0, 0
         while roll < rolls do
@@ -109,6 +109,9 @@ function init()
 
                 if die then
                     local noErr, total = pcall(rollDice, die)
+                    if not noErr then
+                        sb.logWarn("[FezzedTech] Error while processing dice roll: %s", sb.print(total))
+                    end
                     if die == "d" then die = "d6" end
 
                     if noErr and total then
@@ -206,6 +209,9 @@ function init()
                     local nilTotal = false
                     for _ = 1, rolls do
                         local noErr, dieRoll = pcall(rollDice, die)
+                        if not noErr then
+                            sb.logWarn("[FezzedTech] Error while processing dice roll: %s", sb.print(dieRoll))
+                        end
                         if noErr and dieRoll then
                             totalStr = totalStr .. "^orange;" .. tostring(dieRoll) .. "^reset;, "
                             sumTotal = sumTotal + dieRoll
@@ -311,6 +317,9 @@ function init()
 
                 if targetValue then
                     local noErr, dieRoll = pcall(rollDice, "3d6")
+                    if not noErr then
+                        sb.logWarn("[FezzedTech] Error while processing dice roll: %s", sb.print(dieRoll))
+                    end
 
                     if noErr and dieRoll then
                         local margin = -(dieRoll - targetValue)
@@ -455,6 +464,9 @@ function init()
                     local nilMargin = false
                     for _ = 1, rolls do
                         local noErr, dieRoll = pcall(rollDice, "3d6")
+                        if not noErr then
+                            sb.logWarn("[FezzedTech] Error while processing dice roll: %s", sb.print(dieRoll))
+                        end
                         if noErr and dieRoll then
                             local margin = -(dieRoll - targetValue)
                             if dieRoll >= critFailureThreshold then
