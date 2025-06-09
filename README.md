@@ -4,15 +4,14 @@ This mod includes scripts and tech that allow the use of my custom items as inte
 
 ## Requirements
 
-Some features of this mod require xClient 3.0+, StarExtensions 1.9.11+, or `starlight` v1.0+:
+Some features of this mod require xClient 3.0+, OpenStarbound, StarExtensions 1.9.11+, or `starlight` v1.0+:
 
 - xClient is available [here](https://github.com/xStarbound/xStarbound/releases).
+- OpenStarbound is available [here](https://github.com/OpenStarbound/OpenStarbound/releases).
 - StarExtensions is available [here](https://github.com/StarExtensions/StarExtensions/releases).
 - `starlight` is available [here](https://gitee.com/erodeesfleurs/starlight/releases).
 
-If you're not on Windows, use xClient or use WINE to play `starlight` or Starbound with StarExtensions.
-
-**Note:** FezzedTech is *NOT* compatible with OpenStarbound and will cause it to crash on startup!
+If you're not on Windows, use xClient (Linux/Windows only) or OpenStarbound (has a macOS build), or use WINE to play `starlight` or Starbound with StarExtensions.
 
 ## Keybinds
 
@@ -33,7 +32,7 @@ This mod adds four built-in commands for in-game dice rolling:
 - `/ra:` Makes a GURPS skill or stat roll. Takes the following arguments: `[skill or stat value] <is public> <comment>`. The skill or stat value is a simple integer; no arithmetic is currently supported. Critical failures and successes are handled as per standard GURPS rules.
 - `/raba:` Makes multiple GURPS skill or stat rolls. Takes the following arguments: `[number of rolls] [skill or stat value] <is public> <comment>`. See above.
 
-The last two *optional* arguments to all the above commands are explained below:
+The last two _optional_ arguments to all the above commands are explained below:
 
 - `<is public>:` Takes any of the following values: `local`, `global`, `party`, `no`. If any other value is specified, this argument is skipped (defaulting to `no`) and the value is parsed as a `<comment>` instead (see below). If `no`, only you see the results of the dice roll. If `local`, the roll is automatically posted in local chat. If `global`, it's posted in global chat. If `party`, it's posted in party chat.
 - `<comment>:` An optional comment for the roll which shows up in the roll message. If you're using StarExtensions, surround the argument with quotes if the comment has spaces in it. If using xSB, no quotes are required (and in fact they'll show up in the message).

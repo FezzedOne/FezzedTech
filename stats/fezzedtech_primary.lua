@@ -858,7 +858,7 @@ function renoUpdate(dt)
 
             local yPosChange = curYPosition - self.lastYPosition
 
-            self.isFalling = self.fallDistance > minFallDist
+            self.isFalling = (self.fallDistance or 0) > minFallDist
                 and self.lastYVelocity <= -minFallVel
                 and not mcontroller.liquidMovement()
 
