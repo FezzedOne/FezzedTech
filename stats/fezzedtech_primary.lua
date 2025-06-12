@@ -460,7 +460,7 @@ function renoUpdate(dt)
         fezzedTechVars.gravityModifier = globals.isParkourTech and (status.stat("gravityModifier") + 1) or 1
         fezzedTechVars.collisionMatch = false
 
-        local scarecrowWalking = (not fezzedTechVars.scarecrowPoleRaw) or not self.moves[7]
+        local scarecrowWalking = not fezzedTechVars.scarecrowPoleRaw
 
         if not tech then fezzedTechVars.charScale = 1 end
 
