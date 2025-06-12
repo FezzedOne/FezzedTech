@@ -1552,7 +1552,6 @@ function renoUpdate(dt)
             local wingAngling = false
             local potCrawling = (fezzedTechVars.potted or fezzedTechVars.largePotted)
                 and not fezzedTechVars.gettingOverIt
-                and scarecrowWalking
             if
                 (
                     fezzedTechVars.avosiFlight
