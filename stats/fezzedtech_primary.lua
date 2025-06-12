@@ -1580,7 +1580,7 @@ function renoUpdate(dt)
                     vars.nearGround = getClosestBlockYDistance(mPos, vec2.add(mPos, { 0, (-4 * scale) }), false)
                 end
                 vars.flopping = (fezzedTechVars.mertail or potCrawling)
-                    and (smallColBox or fezzedTechVars.largePotted or fezzedTechVars.mertail)
+                    and (smallColBox or fezzedTechVars.largePotted or fezzedTechVars.potted or fezzedTechVars.mertail)
                     and (self.moves[2] or self.moves[3])
                     and (mcontroller.groundMovement() or vars.nearGround)
                     and (not mcontroller.liquidMovement())
