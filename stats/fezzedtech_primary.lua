@@ -3090,7 +3090,7 @@ function renoUpdate(dt)
             (
                 fezzedTechVars.mertail
                 or ((fezzedTechVars.potted or fezzedTechVars.largePotted) and not fezzedTechVars.gettingOverIt)
-            ) and (smallColBox or fezzedTechVars.largePotted)
+            ) and (smallColBox or fezzedTechVars.potted or fezzedTechVars.largePotted)
         then
             local isMoving = (self.moves[2] or self.moves[3]) and mcontroller.groundMovement()
             if isMoving then
@@ -3135,14 +3135,14 @@ function renoUpdate(dt)
             end
         end
 
-        local pottedClimbing = (fezzedTechVars.potted or largePotted)
-            and self.collision
-            and not (
-                lounging
-                or mcontroller.groundMovement()
-                or mcontroller.liquidMovement()
-                or activeMovementAbilities
-            )
+        -- local pottedClimbing = (fezzedTechVars.potted or largePotted)
+        --     and self.collision
+        --     and not (
+        --         lounging
+        --         or mcontroller.groundMovement()
+        --         or mcontroller.liquidMovement()
+        --         or activeMovementAbilities
+        --     )
 
         local largePottedOnGround = fezzedTechVars.largePotted and scarecrowWalking and mcontroller.groundMovement()
 
