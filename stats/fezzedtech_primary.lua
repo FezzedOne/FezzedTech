@@ -3295,7 +3295,7 @@ function renoUpdate(dt)
         local isSitting = self.isSitting
             or (
                 mcontroller.groundMovement()
-                and (fezzedTechVars.mertail or fezzedTechVars.largePotted)
+                and (fezzedTechVars.mertail or fezzedTechVars.potted or fezzedTechVars.largePotted)
                 and (
                     fezzedTechVars.mertail
                     or (
