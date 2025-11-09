@@ -71,6 +71,10 @@ local function setParentDirectives(directives) world.sendEntityMessage(entity.id
 
 local function setParentState(state) world.sendEntityMessage(entity.id(), "setParentState", state) end
 
+local function setOverrideState(state)
+    setOverrideState(world.getGlobal("FezzedTech::stateOverride") or state)
+end
+
 local function setParentOffset(offset) world.sendEntityMessage(entity.id(), "setParentOffset", offset) end
 
 local function setToolUsageSuppressed(suppressed)
@@ -300,7 +304,7 @@ function renoUpdate(dt)
     else
         player = player or {}
 
-        if xsb and player.setOverrideState then player.setOverrideState() end
+        if xsb and player.setOverrideState then setOverrideState() end
 
         local mPos = mcontroller.position()
 
@@ -472,7 +476,7 @@ function renoUpdate(dt)
         )
 
         if fezzedTechVars.legless and mcontroller.groundMovement() and xsb and player.setOverrideState then
-            player.setOverrideState((self.moves[5] or self.crouching) and "duck" or "idle")
+            setOverrideState((self.moves[5] or self.crouching) and "duck" or "idle")
         end
 
         if fezzedTechVars.gravityModifier ~= 1 then
@@ -777,7 +781,7 @@ function renoUpdate(dt)
             local swimming = fezzedTechVars.swimTail and math.abs(vec2.mag(mcontroller.velocity())) > 4 and not lounging
             if swimming then
                 if xsb and player.setOverrideState then
-                    player.setOverrideState("swim")
+                    setOverrideState("swim")
                 else
                     setParentState("Swim")
                 end
@@ -798,7 +802,7 @@ function renoUpdate(dt)
                 )
             if avosiFlying then
                 if xsb and player.setOverrideState then
-                    player.setOverrideState("fall")
+                    setOverrideState("fall")
                 else
                     setParentState("Fall")
                 end
@@ -2611,7 +2615,7 @@ function renoUpdate(dt)
                 end
                 if mcontroller.groundMovement() then mcontroller.setYVelocity(2.5) end
                 if xsb and player.setOverrideState then
-                    player.setOverrideState("idle")
+                    setOverrideState("idle")
                 elseif tech then
                     setParentState("Stand")
                 end
@@ -3180,18 +3184,18 @@ function renoUpdate(dt)
                     local destState = ((self.moves[5] or self.crouching) and mcontroller.groundMovement())
                             and crouchState
                         or "idle"
-                    player.setOverrideState(self.isSitting and "sit" or destState)
+                    setOverrideState(self.isSitting and "sit" or destState)
                 elseif bouncyOnGround then
-                    player.setOverrideState(
+                    setOverrideState(
                         (fezzedTechVars.bouncyCrouch and (self.moves[5] or self.crouching)) and "duck"
                             or (aXVel > 1.5 and "idle" or "idle")
                     )
                 elseif largePottedOnGround and not fezzedTechVars.scarecrowPoleRaw then
-                    player.setOverrideState("idle")
+                    setOverrideState("idle")
                 elseif fezzedTechVars.pottedClimbing then
-                    player.setOverrideState("swimIdle")
+                    setOverrideState("swimIdle")
                 elseif self.lastPoseOverriding then
-                    player.setOverrideState()
+                    setOverrideState()
                 end
             else
                 if fezzedTechVars.ghostTail then
@@ -3269,7 +3273,7 @@ function renoUpdate(dt)
                         or { walkSpeed = 10, runSpeed = 25, normalGroundFriction = 1, slopeSlidingFactor = 0.6 }
                     if fezzedTechVars.skates then
                         if xsb and player.setOverrideState then
-                            player.setOverrideState(
+                            setOverrideState(
                                 (self.moves[5] or self.crouching) and "duck"
                                     or (self.moves[2] or self.moves[3]) and "walk"
                                     or "idle"
@@ -3316,19 +3320,19 @@ function renoUpdate(dt)
         if xsb and player.setOverrideState then
             if isSitting then
                 if (not self.isSitting) and (self.moves[2] or self.moves[3]) then
-                    player.setOverrideState(globals.holdingGlider and "stand" or "swim")
+                    setOverrideState(globals.holdingGlider and "stand" or "swim")
                 else
                     if (self.moves[5] or self.crouching) and not self.isSitting then
                         mcontroller.controlCrouch()
-                        player.setOverrideState("duck")
+                        setOverrideState("duck")
                     else
-                        player.setOverrideState(
+                        setOverrideState(
                             fezzedTechVars.collisionMatch and "sit" or (self.isSitting and "sit" or "stand")
                         )
                     end
                 end
             else
-                if self.lastIsSitting ~= isSitting then player.setOverrideState() end
+                if self.lastIsSitting ~= isSitting then setOverrideState() end
             end
             if isOffset then
                 if globals.upsideDown then
