@@ -72,7 +72,7 @@ local function setParentDirectives(directives) world.sendEntityMessage(entity.id
 local function setParentState(state) world.sendEntityMessage(entity.id(), "setParentState", state) end
 
 local function setOverrideState(state)
-    setOverrideState(world.getGlobal("FezzedTech::stateOverride") or state)
+    player.setOverrideState(world.getGlobal("FezzedTech::stateOverride") or state)
 end
 
 local function setParentOffset(offset) world.sendEntityMessage(entity.id(), "setParentOffset", offset) end
@@ -1843,7 +1843,9 @@ function renoUpdate(dt)
                 end
             end
             local flipping = globals.holdingGlider and not globals.gliderActive
-            if (not (angle == 0 and self.currentAngle == 0)) and not flipping then mcontroller.setRotation(angle) end
+            if (not (angle == 0 and self.currentAngle == 0)) and (not flipping) and not world.getGlobal("FezzedTech::stateOverride") then
+                mcontroller.setRotation(angle)
+            end
             self.currentAngle = angle
         end
 
