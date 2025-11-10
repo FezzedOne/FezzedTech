@@ -47,8 +47,22 @@ function init()
     self.highXVelTimer = 0
     self.prevHXVel = false
 
+    self.parentStateReset = false
+
     refreshJumps()
     releaseWall()
+end
+
+local function setParentState(state)
+    if state then
+        tech.setParentState(state)
+        self.parentStateReset = false
+    else
+        if not self.parentStateReset then
+            tech.setParentState()
+            self.parentStateReset = true
+        end
+    end
 end
 
 function uninit()
@@ -70,9 +84,9 @@ function update(args)
         local hXVel = self.highXVelTimer ~= 0
 
         if globals.shadowRun and mcontroller.liquidMovement() and highXVel then
-            tech.setParentState("Swim")
+            setParentState("Swim")
         else
-            if self.prevHXVel then tech.setParentState() end
+            if self.prevHXVel then setParentState() end
         end
 
         self.prevHXVel = globals.shadowRun and mcontroller.liquidMovement() and highXVel
@@ -264,18 +278,18 @@ function update(args)
                         else
                             releaseWall()
                         end
-                        tech.setParentState()
+                        setParentState()
                     else
                         if self.wall ~= "background" then
                             if mcontroller.groundMovement() and not wallGrabKeys then
                                 releaseWall()
-                                tech.setParentState()
+                                setParentState()
                             else
                                 mcontroller.controlFace(self.wall == "left" and 1 or -1)
                             end
                         elseif mcontroller.groundMovement() and not wallGrabKeys then
                             releaseWall()
-                            tech.setParentState()
+                            setParentState()
                         end
                         if globals.parkour and not args.moves.down then
                             if self.wall ~= "background" then
@@ -309,21 +323,21 @@ function update(args)
                                     local wallWalkVel = globals.noLegs and 0 or 8
                                     xVel = args.moves.left and -wallWalkVel or wallWalkVel
                                     if not globals.sitting then
-                                        tech.setParentState(
+                                        setParentState(
                                             (self.wall == "background" and not globals.noLegs) and "Walk" or "Fly"
                                         )
                                     else
-                                        tech.setParentState("Sit")
+                                        setParentState("Sit")
                                     end
                                 else
                                     if not globals.sitting then
                                         if mcontroller.zeroG() and self.canCling then
-                                            tech.setParentState("Stand")
+                                            setParentState("Stand")
                                         else
-                                            tech.setParentState("Fly")
+                                            setParentState("Fly")
                                         end
                                     else
-                                        tech.setParentState("Sit")
+                                        setParentState("Sit")
                                     end
                                 end
                                 if globals.noLegs and (args.moves.left or args.moves.right) and not args.moves.jump then
@@ -341,9 +355,9 @@ function update(args)
                                     end
                                 end
                                 if not globals.sitting then
-                                    tech.setParentState("Fly")
+                                    setParentState("Fly")
                                 else
-                                    tech.setParentState("Sit")
+                                    setParentState("Sit")
                                 end
                             end
                             if
@@ -661,7 +675,7 @@ function grabWall(wall, moves)
         self.wallReleaseTimer = 0
         mcontroller.setVelocity({ 0, 0 })
         if not globals.parkour then tech.setToolUsageSuppressed(true) end
-        tech.setParentState(globals.sitting and "sit" or "fly")
+        setParentState(globals.sitting and "sit" or "fly")
         animator.playSound("wallGrab")
     end
 end
@@ -670,7 +684,7 @@ function releaseWall()
     self.shiftLocked = false
     self.wall = nil
     tech.setToolUsageSuppressed(false)
-    tech.setParentState()
+    setParentState()
     animator.setParticleEmitterActive("wallSlide.left", false)
     animator.setParticleEmitterActive("wallSlide.right", false)
     animator.stopAllSounds("wallSlideLoop")
