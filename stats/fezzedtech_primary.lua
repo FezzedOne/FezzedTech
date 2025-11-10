@@ -71,9 +71,7 @@ local function setParentDirectives(directives) world.sendEntityMessage(entity.id
 
 local function setParentState(state) world.sendEntityMessage(entity.id(), "setParentState", state) end
 
-local function setOverrideState(state)
-    player.setOverrideState(world.getGlobal("FezzedTech::stateOverride") or state)
-end
+local function setOverrideState(state) player.setOverrideState(world.getGlobal("FezzedTech::stateOverride") or state) end
 
 local function setParentOffset(offset) world.sendEntityMessage(entity.id(), "setParentOffset", offset) end
 
@@ -84,11 +82,7 @@ end
 function renoInit()
     require("/scripts/util/globals.lua")
     -- Communicate the presence of FezzedTech to other mods and allow a way to disable it in scripts.
-    if status.statusProperty("ignoreFezzedTech") then
-        globals.fezzedTechLoaded = true
-    else
-        globals.fezzedTechLoaded = false
-    end
+    globals.fezzedTechLoaded = not status.statusProperty("ignoreFezzedTech")
 
     self.jumpDt = 0
     -- if ((entity.uniqueId() == "13dba99d1cf28c429b4330058d6cbe5e") or (entity.uniqueId() == "13dba99d1cf28c429b4330058d6cbe5f")) then
@@ -272,9 +266,9 @@ function renoUpdate(dt)
         self.firstTick = false
     end
 
-    if (xsb and not player) or status.statusProperty("ignoreFezzedTech") then -- An FU status script sets `player` to `nil` for no good reason.
-        globals.fezzedTechLoaded = false
+    globals.fezzedTechLoaded = not status.statusProperty("ignoreFezzedTech")
 
+    if (xsb and not player) or status.statusProperty("ignoreFezzedTech") then -- An FU status script sets `player` to `nil` for no good reason.
         if not status.statusProperty("ignoreFezzedTechAppearance") then
             -- Check only the appearance-affecting stats.
             local opTailStat = status.statPositive("opTail") or status.statusProperty("opTail")
@@ -307,8 +301,6 @@ function renoUpdate(dt)
         if xsb and player.setOverrideState then setOverrideState() end
 
         local mPos = mcontroller.position()
-
-        globals.fezzedTechLoaded = true
 
         local tech = nil
         if not tech then tech = globals.tech end
@@ -1843,7 +1835,11 @@ function renoUpdate(dt)
                 end
             end
             local flipping = globals.holdingGlider and not globals.gliderActive
-            if (not (angle == 0 and self.currentAngle == 0)) and (not flipping) and not world.getGlobal("FezzedTech::stateOverride") then
+            if
+                not (angle == 0 and self.currentAngle == 0)
+                and not flipping
+                and not world.getGlobal("FezzedTech::stateOverride")
+            then
                 mcontroller.setRotation(angle)
             end
             self.currentAngle = angle
@@ -3408,12 +3404,13 @@ function renoUninit()
         world.setLightMultiplier()
         world.resetShaderParameters()
     end
-    if status.statusProperty("ignoreFezzedTech") then
-        globals.fezzedTechLoaded = true
-    else
-        globals.fezzedTechLoaded = false
-    end
+    globals.fezzedTechLoaded = not status.statusProperty("ignoreFezzedTech")
     status.clearPersistentEffects("rpTech")
+    do -- Clears globals for unloaded players on xClient so they don't linger around unnecessarily after swaps or player unloads.
+        local xSBglobals = world.getGlobal("fezzedTech") or jobject({})
+        xSBglobals[player.uniqueId()] = nil
+        world.setGlobal("fezzedTech", xSBglobals)
+    end
 end
 
 attachHook("init", renoInit)
