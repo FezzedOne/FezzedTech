@@ -3,6 +3,14 @@ require("/scripts/vec2.lua")
 require("/scripts/poly.lua")
 require("/tech/doubletap.lua")
 
+local function getGlobal(key)
+    if world.getGlobal then
+        return world.getGlobal(key)
+    else
+        return nil
+    end
+end
+
 -- function checkMovement() return world.sendEntityMessage(entity.id(), "checkJumping"):result() end
 
 local function shortAngleDist(a0, a1)
@@ -71,7 +79,7 @@ local function setParentDirectives(directives) world.sendEntityMessage(entity.id
 
 local function setParentState(state) world.sendEntityMessage(entity.id(), "setParentState", state) end
 
-local function setOverrideState(state) player.setOverrideState(world.getGlobal("FezzedTech::stateOverride") or state) end
+local function setOverrideState(state) player.setOverrideState(getGlobal("FezzedTech::stateOverride") or state) end
 
 local function setParentOffset(offset) world.sendEntityMessage(entity.id(), "setParentOffset", offset) end
 
@@ -1838,7 +1846,7 @@ function renoUpdate(dt)
             if
                 not (angle == 0 and self.currentAngle == 0)
                 and not flipping
-                and not world.getGlobal("FezzedTech::stateOverride")
+                and not getGlobal("FezzedTech::stateOverride")
             then
                 mcontroller.setRotation(angle)
             end
@@ -3406,7 +3414,7 @@ function renoUninit()
     end
     globals.fezzedTechLoaded = not status.statusProperty("ignoreFezzedTech")
     status.clearPersistentEffects("rpTech")
-    do -- Clears globals for unloaded players on xClient so they don't linger around unnecessarily after swaps or player unloads.
+    if xsb then -- Clears globals for unloaded players on xClient so they don't linger around unnecessarily after swaps or player unloads.
         local xSBglobals = world.getGlobal("fezzedTech") or jobject({})
         xSBglobals[player.uniqueId()] = nil
         world.setGlobal("fezzedTech", xSBglobals)
