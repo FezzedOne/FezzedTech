@@ -247,7 +247,7 @@ function renoInit()
     globals.bouncy = false
     globals.avosiWings = false
 
-    if status.statusProperty("roleplayMode") and (not status.statusProperty("ignoreFezzedTech")) then
+    if status.statusProperty("roleplayMode") then
         local rpStatusEffects = {
             { effectiveMultiplier = 0, stat = "fallDamageMultiplier" },
             { stat = "breathProtection", amount = 1 },
@@ -256,6 +256,7 @@ function renoInit()
             { stat = "biomeheatImmunity", amount = 1 },
         }
         status.setPersistentEffects("rpTech", rpStatusEffects)
+        status.clearPersistentEffects("environment")
     else
         status.clearPersistentEffects("rpTech")
     end
@@ -272,6 +273,20 @@ function renoUpdate(dt)
             world.resetShaderParameters()
         end
         self.firstTick = false
+    end
+
+    if status.statusProperty("roleplayMode") then
+        local rpStatusEffects = {
+            { effectiveMultiplier = 0, stat = "fallDamageMultiplier" },
+            { stat = "breathProtection", amount = 1 },
+            { stat = "biomeradiationImmunity", amount = 1 },
+            { stat = "biomecoldImmunity", amount = 1 },
+            { stat = "biomeheatImmunity", amount = 1 },
+        }
+        status.setPersistentEffects("rpTech", rpStatusEffects)
+        status.clearPersistentEffects("environment")
+    else
+        status.clearPersistentEffects("rpTech")
     end
 
     globals.fezzedTechLoaded = not status.statusProperty("ignoreFezzedTech")
@@ -554,19 +569,6 @@ function renoUpdate(dt)
                 interface.queueMessage(statusMessage, 5, 1)
             end
             ::skipBinds::
-        end
-
-        if status.statusProperty("roleplayMode") then
-            local rpStatusEffects = {
-                { effectiveMultiplier = 0, stat = "fallDamageMultiplier" },
-                { stat = "breathProtection", amount = 1 },
-                { stat = "biomeradiationImmunity", amount = 1 },
-                { stat = "biomecoldImmunity", amount = 1 },
-                { stat = "biomeheatImmunity", amount = 1 },
-            }
-            status.setPersistentEffects("rpTech", rpStatusEffects)
-        else
-            status.clearPersistentEffects("rpTech")
         end
 
         if interface and fezzedTechVars.rulerEnabled and (starExtensions or xsb) then
@@ -2640,7 +2642,11 @@ function renoUpdate(dt)
                     -- sb.logInfo("Projectile kill status: %s", world.sendEntityMessage(self.flyboardProjectileId, "kill"):succeeded())
                 end
                 self.flyboardProjectileId = nil
-                if not (xsb and player.setOverrideState) then setParentState() end
+                if not (xsb and player.setOverrideState) then
+                    setParentState()
+                else
+                    setOverrideState()
+                end
             end
             globals.flyboardActive = false
         end
