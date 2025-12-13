@@ -1,6 +1,6 @@
 # FezzedTech
 
-This mod includes scripts and tech that allow the use of my custom items as intended. For downloads, see the [releases](https://github.com/FezzedOne/FezzedTech/releases), and for `/spawnitem` commands, see the [Discord server](https://discord.gg/S46Gk2t).
+This mod includes scripts and tech that allow the use of my custom items as intended. For downloads, see the [releases](https://github.com/FezzedOne/FezzedTech/releases), and for `/spawnitem` commands, see the [Discord server](https://discord.gg/S46Gk2t). Some custom items are spawnable via [xSIP](https://github.com/FezzedOne/xSIP) on xClient. There is now a patch that removes the anime eyes in the repo; it's also available on the [Workshop](https://steamcommunity.com/sharedfiles/filedetails/?edit=true&id=3622935373).
 
 ## Requirements
 
@@ -18,7 +18,7 @@ If you're not on Windows, use xClient (Linux/Windows only) or OpenStarbound (has
 FezzedTech comes with the following keybinds:
 
 - **Sitting:** Press `G` (by default) to sit. Should be obvious what this one does.
-- **Roleplay mode:** Press `Z` (by default) to activate roleplay mode. In this mode, your character has a more "realistic" jump height, but can still climb onto platforms, blocks and objects just above him if next to them.
+- **Roleplay mode:** Press `Z` (by default) to activate roleplay mode. In this mode, your character has a more "realistic" jump height, but can still climb onto platforms, blocks and objects just above him if next to them. Roleplay mode also gives you immunity to environmental status effects.
 - **Roleplay ruler:** Press `X` by default to activate the roleplay ruler. This ruler gives distances from your character in metres and feet, and also gives a GURPS range modifier. Not supported on `starlight`.
 
 These keybinds require xClient or StarExtensions. If using xStarbound, you can rebind them in the **Mod Binds** dialogue. StarExtensions users must type in `/binds` while in game to access the dialogue.
