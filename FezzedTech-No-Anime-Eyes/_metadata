@@ -1,0 +1,11 @@
+{
+  "author" : "FezzedOne",
+  "description" : "Removes the anime eyes from FezzedTech.",
+  "friendlyName" : "FezzedTech - No Anime Eyes",
+  "includes" : ["FezzedTech"],
+  "link" : "steam://url/CommunityFilePage/3622935373",
+  "name" : "FezzedTech-No-Anime-Eyes",
+  "priority" : 999999,
+  "steamContentId" : "3622935373",
+  "version" : "1.0"
+}
